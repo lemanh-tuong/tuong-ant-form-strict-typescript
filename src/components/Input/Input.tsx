@@ -4,6 +4,7 @@ import { equals } from 'ramda';
 import { useEffect, useState } from 'react';
 import { InputProps } from './@types/Props';
 import { getValueOnChange } from './utils/getValueOnChange';
+import { setStateViaProps } from './utils/setStateViaProps';
 
 export const Input = ({
   onChange,
@@ -21,7 +22,7 @@ export const Input = ({
   status,
   suffixIcon,
 }: InputProps) => {
-  const [valueState, setValueState] = useState(value);
+  const [valueState, setValueState] = useState(() => setStateViaProps(value));
 
   const handleChange: AntInputProps['onChange'] = event => {
     const nextState = getValueOnChange(event);
@@ -31,7 +32,7 @@ export const Input = ({
 
   useEffect(() => {
     if (!equals(value, valueState)) {
-      setValueState(value);
+      setValueState(() => setStateViaProps(value));
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [value]);
@@ -39,6 +40,7 @@ export const Input = ({
   return (
     <Tooltip title={description}>
       <AntInput
+        allowClear
         value={valueState ?? ''}
         onChange={handleChange}
         addonAfter={after}
