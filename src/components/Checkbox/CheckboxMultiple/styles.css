@@ -1,0 +1,7 @@
+.CheckboxMultiple__container.CheckboxMultiple__container--error .CheckboxMultiple__option {
+  color: var(--color-error) !important;
+}
+
+.CheckboxMultiple__container.CheckboxMultiple__container--warning .CheckboxMultiple__option {
+  color: var(--color-warning) !important;
+}

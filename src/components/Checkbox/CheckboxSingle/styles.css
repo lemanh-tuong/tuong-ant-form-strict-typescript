@@ -1,0 +1,7 @@
+.CheckboxSingle__container.CheckboxSingle__container--error .CheckboxSingle__option {
+  color: var(--color-error) !important;
+}
+
+.CheckboxSingle__container.CheckboxSingle__container--warning .CheckboxSingle__option {
+  color: var(--color-warning) !important;
+}
