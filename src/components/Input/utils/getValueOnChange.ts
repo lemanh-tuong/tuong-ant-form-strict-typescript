@@ -1,6 +1,6 @@
 import { InputProps } from 'antd';
 
-type AntDatePickerResult = Parameters<Required<InputProps>['onChange']>[0];
-export const getValueOnChange = (event: AntDatePickerResult) => {
+type AntInputResult = Parameters<Required<InputProps>['onChange']>[0];
+export const getValueOnChange = (event: AntInputResult) => {
   return event.target.value;
 };
