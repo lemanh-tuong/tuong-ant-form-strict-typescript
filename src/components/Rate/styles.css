@@ -1,0 +1,7 @@
+.Rate__container.Rate__container--error {
+  color: var(--color-error) !important;
+}
+
+.Rate__container.Rate__container--warning {
+  color: var(--color-warning) !important;
+}
