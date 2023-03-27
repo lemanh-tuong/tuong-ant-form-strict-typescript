@@ -1,3 +1,4 @@
+import { HeartOutlined } from '@ant-design/icons';
 import { ComponentStory, Meta } from '@storybook/react';
 import { withDesign } from 'storybook-addon-designs';
 import { Rate } from './Rate';
@@ -22,6 +23,10 @@ export const Disabled: ComponentStory<typeof Rate> = args => {
   return <Rate {...args} disabled value={null} onChange={console.log} />;
 };
 
+export const AllowHalf: ComponentStory<typeof Rate> = args => {
+  return <Rate {...args} allowHalf value={null} onChange={console.log} />;
+};
+
 export const WithDescription: ComponentStory<typeof Rate> = args => {
   return (
     <Rate
@@ -32,6 +37,10 @@ export const WithDescription: ComponentStory<typeof Rate> = args => {
       onChange={console.log}
     />
   );
+};
+
+export const WithCustomCharacter: ComponentStory<typeof Rate> = args => {
+  return <Rate {...args} allowHalf character={<HeartOutlined />} value={null} onChange={console.log} />;
 };
 
 export const StatusError: ComponentStory<typeof Rate> = args => {
