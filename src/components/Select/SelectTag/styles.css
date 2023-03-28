@@ -1,0 +1,7 @@
+.SelectTag__container {
+  width: 100%;
+}
+
+.SelectTag__option .SelectTag__option-label {
+  height: 100% !important;
+}
