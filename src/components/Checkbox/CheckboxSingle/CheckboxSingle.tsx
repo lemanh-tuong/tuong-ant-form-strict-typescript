@@ -2,10 +2,10 @@ import { Checkbox as AntCheckbox, CheckboxProps as AntCheckboxProps, Space, them
 import classNames from 'classnames';
 import { equals } from 'ramda';
 import { CSSProperties, useEffect, useState } from 'react';
+import { Loading } from '../components/Loading';
 import { Option } from './@types/Option';
 import { CheckboxSingleProps } from './@types/Props';
 import { Result } from './@types/Result';
-import { Loading } from './components/Loading';
 import './styles.css';
 import { defaultIsChecked } from './utils/defaultIsChecked';
 import { getValueOnChange } from './utils/getValueOnChange';

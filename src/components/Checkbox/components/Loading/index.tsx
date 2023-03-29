@@ -5,7 +5,7 @@ import './styles.css';
 
 const LoadingComponent = () => {
   return (
-    <Row className={classNames('CheckboxSingle__loading')}>
+    <Row className={classNames('Checkbox__loading')}>
       <Col className="col-12 col-offset-6">
         <Spin />
       </Col>
