@@ -1,0 +1,18 @@
+.SliderRange__container .ant-input-number {
+  width: 100%;
+}
+
+.SliderRange__container.SliderRange__container--error .ant-slider-track {
+  background-color: var(--color-error) !important;
+}
+
+.SliderRange__container.SliderRange__container--error .ant-slider-handle::after {
+  box-shadow: 0 0 0 2px var(--color-error) !important;
+}
+
+.SliderRange__container.SliderRange__container--warning .ant-slider-track {
+  background-color: var(--color-warning) !important;
+}
+.SliderRange__container.SliderRange__container--warning .ant-slider-handle::after {
+  box-shadow: 0 0 0 2px var(--color-warning) !important;
+}
