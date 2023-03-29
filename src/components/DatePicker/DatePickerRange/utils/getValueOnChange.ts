@@ -3,9 +3,9 @@ import { Dayjs } from 'dayjs';
 import { Result } from '../@types/Result';
 
 type AntRangePickerResult = Parameters<Required<RangePickerDateProps<Dayjs>>['onChange']>[0];
-export const getValueOnChange = (value: AntRangePickerResult): Result => {
-  if (value) {
-    const [from, to] = value;
+export const getValueOnChange = (antPickerResult: AntRangePickerResult): Result => {
+  if (antPickerResult) {
+    const [from, to] = antPickerResult;
     if (from && to) {
       return [from, to];
     } else {

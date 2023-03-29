@@ -2,7 +2,9 @@ import { DatePicker as AntDatePicker, DatePickerProps as AntDatePickerProps, Too
 import classNames from 'classnames';
 import { equals } from 'ramda';
 import { useEffect, useState } from 'react';
+import { Loading } from '../components/Loading';
 import { DatePickerSingleProps } from './@types/Props';
+import './styles.css';
 import { getValueOnChange } from './utils/getValueOnChange';
 import { setStateViaProps } from './utils/setStateViaProps';
 
@@ -19,6 +21,8 @@ export const DatePickerSingle = ({
   dropdownClassName = '',
   format,
   hideDisabledOptions = false,
+  id = '',
+  loading = false,
   placeholder,
   presets = [],
   renderExtraFooter,
@@ -30,10 +34,10 @@ export const DatePickerSingle = ({
     return setStateViaProps(value);
   });
 
-  const handleChange: AntDatePickerProps['onChange'] = value => {
-    const nextState = getValueOnChange(value);
+  const handleChange: AntDatePickerProps['onChange'] = datePickerResult => {
+    const nextState = getValueOnChange(datePickerResult);
     setValueState(nextState);
-    onChange(nextState);
+    onChange?.(nextState);
   };
 
   useEffect(() => {
@@ -47,33 +51,41 @@ export const DatePickerSingle = ({
 
   return (
     <Tooltip title={description}>
-      <AntDatePicker
-        allowClear
-        inputReadOnly
-        value={valueState}
-        onChange={handleChange}
-        dateRender={dateRender}
-        defaultOpen={defaultOpen}
-        disabled={disabled}
-        disabledDate={disabledDate}
-        disabledTime={disabledTime}
-        format={format}
-        hideDisabledOptions={hideDisabledOptions}
-        placeholder={placeholder}
-        presets={presets}
-        renderExtraFooter={renderExtraFooter}
-        showTime={showTime}
-        size={size}
-        status={status}
+      <div
+        id={classNames({
+          [id]: true,
+          DatePickerSingle: true,
+        })}
         className={classNames({
           [className]: true,
           DatePickerSingle__container: true,
         })}
-        popupClassName={classNames({
-          [dropdownClassName]: true,
-          DatePickerSingle__dropdown: true,
-        })}
-      />
+      >
+        <AntDatePicker
+          allowClear
+          inputReadOnly
+          value={valueState}
+          onChange={handleChange}
+          dateRender={dateRender}
+          defaultOpen={defaultOpen}
+          disabled={disabled || loading}
+          disabledDate={disabledDate}
+          disabledTime={disabledTime}
+          format={format}
+          hideDisabledOptions={hideDisabledOptions}
+          placeholder={placeholder}
+          presets={presets}
+          renderExtraFooter={renderExtraFooter}
+          showTime={showTime}
+          size={size}
+          status={status}
+          popupClassName={classNames({
+            [dropdownClassName]: true,
+            DatePickerSingle__dropdown: true,
+          })}
+        />
+        {loading && <Loading />}
+      </div>
     </Tooltip>
   );
 };

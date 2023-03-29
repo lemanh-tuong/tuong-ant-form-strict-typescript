@@ -11,10 +11,10 @@ type ShowTimeAvailable = Pick<
 >;
 
 export interface DatePickerSingleProps {
-  /** Giá trị được chọn mặc định */
+  /** Giá trị đầu vào */
   value: Result;
   /** Callback được gọi khi hoàn thành việc chọn datetime */
-  onChange: (value: Result) => void;
+  onChange?: (value: Result) => void;
   /** Custom class của container */
   className?: PickerDateProps<Dayjs>['className'];
   /** Custom render ô ngày */
@@ -38,6 +38,10 @@ export interface DatePickerSingleProps {
   format?: PickerDateProps<Dayjs>['format'];
   /** Ẩn các option thời gian đã bị disable bởi "disabledTime" */
   hideDisabledOptions?: PickerTimeProps<Dayjs>['hideDisabledOptions'];
+  /** Custom id của container */
+  id?: PickerDateProps<Dayjs>['id'];
+  /** Set trạng thái loading */
+  loading?: boolean;
   /** Placeholder của input */
   placeholder?: PickerDateProps<Dayjs>['placeholder'];
   /** Các mẫu để chọn nhanh. Ví dụ: Chủ nhật tuần sau, ... */
