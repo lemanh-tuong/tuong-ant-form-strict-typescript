@@ -1,0 +1,7 @@
+.SelectMultiple__container {
+  width: 100%;
+}
+
+.SelectMultiple__option .SelectMultiple__option-label {
+  height: 100% !important;
+}
