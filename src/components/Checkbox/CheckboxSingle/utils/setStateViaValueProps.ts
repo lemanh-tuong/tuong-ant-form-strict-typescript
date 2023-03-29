@@ -5,25 +5,26 @@ import { Result } from '../@types/Result';
 
 interface SetStateViaValueProps<Value extends unknown> {
   options: Option<Value>[];
-  value: Result<Value>;
+  valueProps: Result<Value>;
   atLeastOne: boolean;
   isChecked: IsCheckedFunction<Value>;
 }
 
 export const setStateViaValueProps = <Value>({
   options,
-  value,
+  valueProps,
   atLeastOne,
   isChecked,
 }: SetStateViaValueProps<Value>): Result<Value> => {
-  const isWarningValueNonCompatible = atLeastOne && options.findIndex(option => isChecked({ option, value })) === -1;
-  const isWarningValueShouldNotBeNull = isNil(value) && atLeastOne;
+  const isWarningValueNonCompatible =
+    atLeastOne && options.findIndex(option => isChecked({ option, value: valueProps })) === -1;
+  const isWarningValueShouldNotBeNull = isNil(valueProps) && atLeastOne;
   if (isWarningValueNonCompatible) {
-    console.warn('Value is not compatible with options', { options, value });
+    console.warn('Value is not compatible with options', { options, valueProps });
     return null;
   }
   if (isWarningValueShouldNotBeNull) {
-    console.warn("Value shouldn't be nil", { options, value });
+    console.warn("Value shouldn't be nil", { options, valueProps });
   }
-  return value;
+  return valueProps;
 };

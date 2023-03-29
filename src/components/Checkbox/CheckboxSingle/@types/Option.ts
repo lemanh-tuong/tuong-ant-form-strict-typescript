@@ -6,12 +6,14 @@ export interface Option<Value extends unknown> {
   id: Key;
   /** Label của option */
   label: ReactNode;
-  /** Description của option */
-  description?: ReactNode;
   /** Value của option */
   value: Value;
-  /** Disable option */
-  disabled?: boolean;
-  /** Custom class của option */
+  /** Custom class của option container */
   className?: CheckboxProps['className'];
+  /** Description của option - Nội dung mô tả của tooltip */
+  description?: ReactNode;
+  /** Vô hiệu hoá option */
+  disabled?: boolean;
+  /** Set trạng thái loading */
+  loading?: boolean;
 }

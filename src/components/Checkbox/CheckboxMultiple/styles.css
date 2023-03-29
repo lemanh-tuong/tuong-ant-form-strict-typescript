@@ -1,3 +1,7 @@
+.CheckboxMultiple__container, .CheckboxMultiple__option {
+  position: relative;
+}
+
 .CheckboxMultiple__container.CheckboxMultiple__container--error .CheckboxMultiple__option {
   color: var(--color-error) !important;
 }

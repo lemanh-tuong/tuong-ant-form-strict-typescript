@@ -14,7 +14,7 @@ export const setStateViaValuePropsWhenPropsIsCheckedAll = <Value extends unknown
       return [];
     } else {
       /** Nếu giá trị truyền vào khác với giá trị của option cho "checked all" => Reset về giá trị rỗng */
-      const isWarningValueNonCompatible = isChecked({ option: checkedAllOption, value: valueProps });
+      const isWarningValueNonCompatible = !isChecked({ option: checkedAllOption, value: valueProps });
       if (isWarningValueNonCompatible) {
         console.warn('Value is not compatible with options', {
           expect: checkedAllOption.value,

@@ -5,6 +5,7 @@ import { CSSProperties, useEffect, useState } from 'react';
 import { Option } from './@types/Option';
 import { CheckboxSingleProps } from './@types/Props';
 import { Result } from './@types/Result';
+import { Loading } from './components/Loading';
 import './styles.css';
 import { defaultIsChecked } from './utils/defaultIsChecked';
 import { getValueOnChange } from './utils/getValueOnChange';
@@ -12,20 +13,23 @@ import { setStateViaValueProps } from './utils/setStateViaValueProps';
 
 export const CheckboxSingle = <Value extends unknown>({
   onChange,
-  isChecked = defaultIsChecked,
   options,
   value,
   atLeastOne = false,
   className = '',
+  description,
   direction = 'horizontal',
-  space = 'small',
   disabled = false,
+  isChecked = defaultIsChecked,
+  id = '',
+  loading = false,
+  space = 'small',
   status,
 }: CheckboxSingleProps<Value>) => {
   const { token } = theme.useToken();
 
   const [valueState, setValueState] = useState<Result<Value>>(() => {
-    return setStateViaValueProps({ options, value, atLeastOne, isChecked });
+    return setStateViaValueProps({ options, valueProps: value, atLeastOne, isChecked });
   });
 
   const handleChange =
@@ -33,56 +37,71 @@ export const CheckboxSingle = <Value extends unknown>({
     event => {
       const { checked } = event.target;
       const newValue = getValueOnChange({ atLeastOne, checked, option });
-      onChange(newValue);
       setValueState(newValue);
+      onChange?.(newValue, option, checked ? 'checked' : 'unchecked');
     };
 
   useEffect(() => {
     if (!equals(value, valueState)) {
-      setValueState(() => setStateViaValueProps({ options, value, atLeastOne, isChecked }));
+      setValueState(() => setStateViaValueProps({ options, valueProps: value, atLeastOne, isChecked }));
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [value]);
 
   const renderOption = (option: Option<Value>) => {
-    const { id, label, value, disabled: optionDisabled = false, className = '', description } = option;
+    const {
+      id,
+      label,
+      value,
+      className = '',
+      description,
+      disabled: optionDisabled = false,
+      loading: optionLoading = false,
+    } = option;
+    const checked = isChecked({ option, value: valueState });
+    const isDisabled = loading || optionLoading || disabled || optionDisabled;
     return (
-      <Tooltip title={description}>
-        <AntCheckbox
-          key={id}
-          disabled={optionDisabled || disabled}
-          checked={isChecked({ option, value: valueState })}
-          value={value}
-          onChange={handleChange(option)}
+      <Tooltip title={description} key={id}>
+        <Space
           className={classNames({
             CheckboxSingle__option: true,
             [className]: true,
           })}
         >
-          {label}
-        </AntCheckbox>
+          <AntCheckbox value={value} checked={checked} disabled={isDisabled} onChange={handleChange(option)}>
+            {label}
+          </AntCheckbox>
+          {optionLoading && <Loading />}
+        </Space>
       </Tooltip>
     );
   };
 
   return (
-    <Space
-      direction={direction}
-      size={space}
-      style={
-        {
-          '--color-error': token.colorError,
-          '--color-warning': token.colorWarning,
-        } as CSSProperties
-      }
-      className={classNames({
-        CheckboxSingle__container: true,
-        'CheckboxSingle__container--error': status === 'error',
-        'CheckboxSingle__container--warning': status === 'warning',
-        [className]: true,
-      })}
-    >
-      {options.map(renderOption)}
-    </Space>
+    <Tooltip title={description}>
+      <Space
+        direction={direction}
+        size={space}
+        style={
+          {
+            '--color-error': token.colorError,
+            '--color-warning': token.colorWarning,
+          } as CSSProperties
+        }
+        className={classNames({
+          CheckboxSingle__container: true,
+          'CheckboxSingle__container--error': status === 'error',
+          'CheckboxSingle__container--warning': status === 'warning',
+          [className]: true,
+        })}
+        id={classNames({
+          CheckboxSingle: true,
+          [id]: true,
+        })}
+      >
+        {options.map(renderOption)}
+        {loading && <Loading />}
+      </Space>
+    </Tooltip>
   );
 };

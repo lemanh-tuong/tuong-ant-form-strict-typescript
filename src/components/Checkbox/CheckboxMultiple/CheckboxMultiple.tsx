@@ -6,20 +6,24 @@ import { CSSProperties, useEffect, useState } from 'react';
 import { Option } from './@types/Option';
 import { CheckboxMultipleProps } from './@types/Props';
 import { Result } from './@types/Result';
+import { Loading } from './components/Loading';
+import './styles.css';
 import { defaultIsChecked } from './utils/defaultIsChecked';
 import { getListOptions } from './utils/getListOptions';
 import { getValueOnChange } from './utils/getValueOnChange';
 import { setStateViaValueProps } from './utils/setStateViaValueProps';
-import './styles.css';
 
 export const CheckboxMultiple = <Value extends unknown>({
   onChange,
   options,
   value,
   className = '',
+  description,
   direction = 'horizontal',
   disabled = false,
   isChecked = defaultIsChecked,
+  id = '',
+  loading = false,
   space = 'small',
   status,
 }: CheckboxMultipleProps<Value>) => {
@@ -37,7 +41,7 @@ export const CheckboxMultiple = <Value extends unknown>({
       const checked = event.target.checked;
       const nextState = getValueOnChange({ option, listOptions, checked, valueState, isChecked });
       setValueState(nextState);
-      onChange(nextState);
+      onChange?.(nextState, option, checked ? 'checked' : 'unchecked');
     };
 
   useEffect(() => {
@@ -54,51 +58,63 @@ export const CheckboxMultiple = <Value extends unknown>({
       id,
       label,
       value,
-      disabled: optionDisabled = false,
       className = '',
-      isOptionForCheckedAll = false,
       description,
+      disabled: optionDisabled = false,
+      isOptionForCheckedAll = false,
+      loading: optionLoading = false,
     } = option;
     const checked = isChecked({ option, value: valueState });
     const indeterminate = isOptionForCheckedAll && Array.isArray(valueState) && !!valueState.length;
+    const isDisabled = loading || optionLoading || disabled || optionDisabled;
     return (
-      <Tooltip title={description}>
-        <AntCheckbox
-          checked={checked}
-          disabled={disabled || optionDisabled}
-          indeterminate={indeterminate}
-          key={id}
-          onChange={handleChange(option)}
-          value={value}
+      <Tooltip title={description} key={id}>
+        <Space
           className={classNames({
             CheckboxMultiple__option: true,
             [className]: true,
           })}
         >
-          {label}
-        </AntCheckbox>
+          <AntCheckbox
+            value={value}
+            checked={checked}
+            disabled={isDisabled}
+            indeterminate={indeterminate}
+            onChange={handleChange(option)}
+          >
+            {label}
+          </AntCheckbox>
+          {optionLoading && <Loading />}
+        </Space>
       </Tooltip>
     );
   };
 
   return (
-    <Space
-      direction={direction}
-      size={space}
-      style={
-        {
-          '--color-error': token.colorError,
-          '--color-warning': token.colorWarning,
-        } as CSSProperties
-      }
-      className={classNames({
-        CheckboxMultiple__container: true,
-        'CheckboxMultiple__container--error': status === 'error',
-        'CheckboxMultiple__container--warning': status === 'warning',
-        [className]: true,
-      })}
-    >
-      {options.map(renderOption)}
-    </Space>
+    <Tooltip title={description}>
+      <Space
+        direction={direction}
+        size={space}
+        style={
+          {
+            '--color-error': token.colorError,
+            '--color-warning': token.colorWarning,
+          } as CSSProperties
+        }
+        className={classNames({
+          CheckboxMultiple__container: true,
+          'CheckboxMultiple__container--error': status === 'error',
+          'CheckboxMultiple__container--warning': status === 'warning',
+          [className]: true,
+        })}
+        id={classNames({
+          CheckboxMultiple: true,
+          [id]: true,
+        })}
+      >
+        {options.map(renderOption)}
+        {loading && <Loading />}
+      </Space>
+    </Tooltip>
   );
 };

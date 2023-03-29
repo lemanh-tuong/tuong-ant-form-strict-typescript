@@ -1,3 +1,7 @@
+.CheckboxSingle__container, .CheckboxSingle__option {
+  position: relative;
+}
+
 .CheckboxSingle__container.CheckboxSingle__container--error .CheckboxSingle__option {
   color: var(--color-error) !important;
 }
