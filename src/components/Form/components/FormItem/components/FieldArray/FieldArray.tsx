@@ -1,5 +1,5 @@
 import { DeleteOutlined } from '@ant-design/icons';
-import { Button, Col, Collapse, Empty, Form, Row, Space, Typography } from 'antd';
+import { Button, Col, Collapse, Form, Row, Space } from 'antd';
 import { getRulesViaProps } from '../../../utils/getRulesViaProps';
 import { FieldSingle } from '../FieldSingle/FieldSingle';
 import { AnyObject } from './@types/BuildIn';
@@ -13,21 +13,22 @@ export const FieldArray = <Model extends AnyObject, Key extends keyof Model>({
 }: FieldArrayProps<Model, Key>) => {
   const {
     label,
+    collapseTitle,
     containerCol = { span: 24, offset: 0 },
     controlCol,
     labelCol,
-    colon,
+    colon = true,
     extra,
     help,
-    hidden,
-    labelAlign,
-    requiredMark,
+    hidden = false,
+    labelAlign = 'left',
+    requiredMark = false,
     tooltip,
     validateTrigger,
   } = layout;
 
   return (
-    <Col {...containerCol} key={fieldName.toString()}>
+    <Col {...containerCol}>
       <Form.Item
         label={label}
         colon={colon}
@@ -41,59 +42,54 @@ export const FieldArray = <Model extends AnyObject, Key extends keyof Model>({
         tooltip={tooltip}
         validateTrigger={validateTrigger}
       >
-        <Form.List name={fieldName.toString()} rules={getRulesViaProps({ rules })}>
+        <Form.List name={fieldName} rules={getRulesViaProps({ rules })}>
           {(fields, { add, remove }, { errors, warnings }) => {
             return (
               <>
-                {!fields.length ? (
-                  <Empty />
-                ) : (
-                  <Collapse>
-                    {fields.map((field, index) => {
-                      return (
-                        <Collapse.Panel
-                          header={
-                            <Row justify="space-between">
-                              <Col>
-                                <Space align="center">
-                                  {label}
-                                  <Typography.Text>{index + 1}</Typography.Text>
-                                </Space>
-                              </Col>
-                              <Col>
-                                <DeleteOutlined onClick={() => remove(index)} />
-                              </Col>
-                            </Row>
-                          }
-                          key={field.key}
-                        >
-                          <Row>
-                            {Object.keys(controls).map(fieldName => {
-                              const fieldName_ = fieldName as keyof typeof controls;
-                              const field = controls[fieldName_];
-                              if (field?.type === 'Single') {
-                                return (
-                                  <FieldSingle
-                                    key={fieldName.toString()}
-                                    fieldName={fieldName_.toString()}
-                                    {...field}
-                                  />
-                                );
-                              }
-                              if (field?.type === 'Array') {
-                                return (
-                                  <FieldArray key={fieldName.toString()} fieldName={fieldName_.toString()} {...field} />
-                                );
-                              }
-                              return null;
-                            })}
+                <Collapse>
+                  {fields.map((field, index) => {
+                    return (
+                      <Collapse.Panel
+                        header={
+                          <Row justify="space-between">
+                            <Col>
+                              <Space align="center">{collapseTitle(index)}</Space>
+                            </Col>
+                            <Col>
+                              <DeleteOutlined onClick={() => remove(index)} />
+                            </Col>
                           </Row>
-                        </Collapse.Panel>
-                      );
-                    })}
-                  </Collapse>
-                )}
-
+                        }
+                        key={field.key}
+                      >
+                        <Row>
+                          {Object.keys(controls).map(fieldNameOfControl => {
+                            const control = controls[fieldNameOfControl as keyof typeof controls];
+                            if (control?.type === 'Single') {
+                              return (
+                                <FieldSingle
+                                  key={fieldNameOfControl}
+                                  fieldName={[field.name, fieldNameOfControl]}
+                                  {...control}
+                                />
+                              );
+                            }
+                            if (control?.type === 'Array') {
+                              return (
+                                <FieldArray
+                                  key={fieldNameOfControl}
+                                  fieldName={[field.name, fieldNameOfControl]}
+                                  {...control}
+                                />
+                              );
+                            }
+                            return null;
+                          })}
+                        </Row>
+                      </Collapse.Panel>
+                    );
+                  })}
+                </Collapse>
                 <Button size="large" style={{ marginTop: 8 }} block type="primary" onClick={() => add()}>
                   Add
                 </Button>

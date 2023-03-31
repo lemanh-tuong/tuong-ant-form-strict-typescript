@@ -20,7 +20,7 @@ export const FieldSingle = <Value extends unknown>({ control, fieldName, layout,
   } = layout;
 
   return (
-    <Col {...containerCol} key={fieldName.toString()}>
+    <Col {...containerCol}>
       <Form.Item
         required={requiredMark}
         colon={colon}
@@ -34,7 +34,7 @@ export const FieldSingle = <Value extends unknown>({ control, fieldName, layout,
         tooltip={tooltip}
         validateTrigger={validateTrigger}
         wrapperCol={controlCol}
-        name={fieldName.toString()}
+        name={fieldName}
       >
         <Control {...control} />
       </Form.Item>

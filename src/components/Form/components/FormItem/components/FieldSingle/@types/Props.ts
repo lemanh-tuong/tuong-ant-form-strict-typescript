@@ -36,6 +36,7 @@ export interface FieldSingleBaseProps<Value extends unknown> {
   rules: FieldSingleRule<Value>[];
 }
 
+type NamePath = string | number;
 export interface FieldSingleProps<Value extends unknown> extends FieldSingleBaseProps<Value> {
-  fieldName: string;
+  fieldName: NamePath | NamePath[];
 }

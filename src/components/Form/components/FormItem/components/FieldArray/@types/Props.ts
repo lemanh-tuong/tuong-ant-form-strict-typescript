@@ -1,17 +1,22 @@
-import { ColProps, FormItemProps as AntFormItemProps } from 'antd';
+import { ColProps as AntColProps, FormItemProps as AntFormItemProps } from 'antd';
+import { ReactNode } from 'react';
 import { FieldSingleBaseProps } from '../../FieldSingle';
 import { AnyObject } from './BuildIn';
 import { FieldArrayRule } from './Rule';
 
+type ColProps = Pick<AntColProps, 'span' | 'offset'>;
+
 interface LayoutProps {
   /** Label của field */
   label: AntFormItemProps['label'];
+  /** Tên hiển thị của collapse đại diện cho phần tử của mảng */
+  collapseTitle: (index: number) => ReactNode;
   /** Layout của field */
   containerCol?: ColProps;
   /** Bật/Tắt kí tự ":" sau label */
   colon?: AntFormItemProps['colon'];
   /** Layout cho field control */
-  controlCol?: AntFormItemProps['wrapperCol'];
+  controlCol?: ColProps;
   /** Message thông báo. Ví dụ sử dụng khi hiển thị thông báo lỗi kèm theo mô tả */
   extra?: AntFormItemProps['extra'];
   /** Tương tự "extra" Message thông báo. Ví dụ sử dụng khi hiển thị thông báo lỗi kèm theo mô tả */
@@ -21,7 +26,7 @@ interface LayoutProps {
   /** Text align của "label" */
   labelAlign?: AntFormItemProps['labelAlign'];
   /** Layout cho label */
-  labelCol?: AntFormItemProps['labelCol'];
+  labelCol?: ColProps;
   /** Hiển thị required mark */
   requiredMark?: boolean;
   /** Hiển thị icon "?" với tooltip khi hover */
@@ -37,13 +42,24 @@ type RecursiveFieldArray<Model extends AnyObject, Key extends keyof Model> = {
 };
 
 export interface FieldArrayBaseProps<Model extends AnyObject, Key extends keyof Model> {
+  /** Used to check condition rendering */
   type: 'Array';
+  /** Fields of item in array */
   controls: Partial<RecursiveFieldArray<Model, Key>>;
-  layout: Omit<LayoutProps, 'rules'>;
+  /** Layout for field array */
+  layout: LayoutProps;
+  /** Validators for field array */
   rules: FieldArrayRule<Model[Key]>[];
+  /** Max items field array can be reach */
+  maxItems?: number;
+  /** FIXME: Modal for warning before delete item */
+  modalConfirmDelete?: any;
+  /** FIXME: Button for add items */
+  addButton?: any;
 }
 
+type NamePath = string | number;
 export interface FieldArrayProps<Model extends AnyObject, Key extends keyof Model>
   extends FieldArrayBaseProps<Model, Key> {
-  fieldName: string;
+  fieldName: NamePath | NamePath[];
 }
