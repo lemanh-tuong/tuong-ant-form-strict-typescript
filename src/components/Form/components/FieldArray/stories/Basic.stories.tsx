@@ -21,6 +21,10 @@ export const Basic: ComponentStory<typeof FieldArray> = () => {
       <FieldArray<Passenger, keyof Passenger>
         type="Array"
         rules={[]}
+        itemSkeleton={{
+          firstName: 'Hello',
+          lastName: 'World',
+        }}
         controls={{
           firstName: {
             type: 'Single',
@@ -38,6 +42,9 @@ export const Basic: ComponentStory<typeof FieldArray> = () => {
         fieldName="passengers"
         layout={{
           label: 'Passengers',
+          collapseTitle(index) {
+            return `Passenger ${index + 1}`;
+          },
         }}
       />
     </Form>

@@ -1,7 +1,7 @@
 import { DeleteOutlined } from '@ant-design/icons';
 import { Button, Col, Collapse, Form, Row, Space } from 'antd';
-import { getRulesViaProps } from '../../../utils/getRulesViaProps';
-import { FieldSingle } from '../FieldSingle/FieldSingle';
+import { FieldSingle } from '../FieldSingle';
+import { getRulesViaProps } from '../utils/getRulesViaProps';
 import { AnyObject } from './@types/BuildIn';
 import { FieldArrayProps } from './@types/Props';
 

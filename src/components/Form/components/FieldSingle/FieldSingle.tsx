@@ -1,6 +1,6 @@
 import { Col, Form } from 'antd';
-import { Control } from '../../../Control/Control';
-import { getRulesViaProps } from '../../../utils/getRulesViaProps';
+import { Control } from '../Control';
+import { getRulesViaProps } from '../utils/getRulesViaProps';
 import { FieldSingleProps } from './@types/Props';
 
 export const FieldSingle = <Value extends unknown>({ control, fieldName, layout, rules }: FieldSingleProps<Value>) => {
