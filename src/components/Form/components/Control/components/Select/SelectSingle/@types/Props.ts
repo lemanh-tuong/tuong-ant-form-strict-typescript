@@ -44,5 +44,5 @@ export interface SelectSingleProps<Value extends unknown> {
   /** Status */
   status?: 'error' | 'warning';
   /** Biểu tượng hậu tố của ô input */
-  suffixIcon: SelectProps['suffixIcon'];
+  suffixIcon?: SelectProps['suffixIcon'];
 }

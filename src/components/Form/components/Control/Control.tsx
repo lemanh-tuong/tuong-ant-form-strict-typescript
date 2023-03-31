@@ -33,6 +33,6 @@ const Mapping: Record<ControlProps['type'], (...args: any) => JSX.Element> = {
   TimePickerSingle: TimePickerSingle,
 };
 
-export const ControlSingle = ({ type, ...props }: ControlProps) => {
+export const Control = ({ type, ...props }: ControlProps) => {
   return Mapping[type](props);
 };

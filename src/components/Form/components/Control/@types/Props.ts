@@ -11,69 +11,71 @@ import { SwitchProps } from '../components/Switch';
 import { TextareaProps } from '../components/Textarea';
 import { TimePickerRangeProps, TimePickerSingleProps } from '../components/TimePicker';
 
-interface CheckboxMultiple extends CheckboxMultipleProps<any> {
+type OmitKeyForControlOfField<T extends any> = Omit<T, 'value' | 'onChange'>;
+
+interface CheckboxMultiple extends OmitKeyForControlOfField<CheckboxMultipleProps<any>> {
   type: 'CheckboxMultiple';
 }
-interface CheckboxSingle extends CheckboxSingleProps<any> {
+interface CheckboxSingle extends OmitKeyForControlOfField<CheckboxSingleProps<any>> {
   type: 'CheckboxSingle';
 }
 
-interface DatePickerRange extends DatePickerRangeProps {
+interface DatePickerRange extends OmitKeyForControlOfField<DatePickerRangeProps> {
   type: 'DatePickerRange';
 }
-interface DatePickerSingle extends DatePickerSingleProps {
+interface DatePickerSingle extends OmitKeyForControlOfField<DatePickerSingleProps> {
   type: 'DatePickerSingle';
 }
 
-interface Input extends InputProps {
+interface Input extends OmitKeyForControlOfField<InputProps> {
   type: 'Input';
 }
 
-interface Mentions extends MentionsProps {
+interface Mentions extends OmitKeyForControlOfField<MentionsProps> {
   type: 'Mentions';
 }
 
-interface Number extends NumberProps {
+interface Number extends OmitKeyForControlOfField<NumberProps> {
   type: 'Number';
 }
 
-interface Radio extends RadioProps<any> {
+interface Radio extends OmitKeyForControlOfField<RadioProps<any>> {
   type: 'Radio';
 }
 
-interface Rate extends RateProps {
+interface Rate extends OmitKeyForControlOfField<RateProps> {
   type: 'Rate';
 }
 
-interface SelectMultiple extends SelectMultipleProps<any> {
+interface SelectMultiple extends OmitKeyForControlOfField<SelectMultipleProps<any>> {
   type: 'SelectMultiple';
 }
-interface SelectSingle extends SelectSingleProps<any> {
+interface SelectSingle extends OmitKeyForControlOfField<SelectSingleProps<any>> {
   type: 'SelectSingle';
 }
-interface SelectTag extends SelectTagProps {
+interface SelectTag extends OmitKeyForControlOfField<SelectTagProps> {
   type: 'SelectTag';
 }
 
-interface SliderRange extends SliderRangeProps {
+interface SliderRange extends OmitKeyForControlOfField<SliderRangeProps> {
   type: 'SliderRange';
 }
-interface SliderSingle extends SliderSingleProps {
+interface SliderSingle extends OmitKeyForControlOfField<SliderSingleProps> {
   type: 'SliderSingle';
 }
 
-interface Switch extends SwitchProps {
+interface Switch extends OmitKeyForControlOfField<SwitchProps> {
   type: 'Switch';
 }
 
-interface Textarea extends TextareaProps {
+interface Textarea extends OmitKeyForControlOfField<TextareaProps> {
   type: 'Textarea';
 }
 
-interface TimePickerRange extends TimePickerRangeProps {
+interface TimePickerRange extends OmitKeyForControlOfField<TimePickerRangeProps> {
   type: 'TimePickerRange';
 }
-interface TimePickerSingle extends TimePickerSingleProps {
+interface TimePickerSingle extends OmitKeyForControlOfField<TimePickerSingleProps> {
   type: 'TimePickerSingle';
 }
 

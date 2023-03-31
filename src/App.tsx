@@ -1,6 +1,29 @@
 import { Form } from 'components/Form/Form';
 import { DeepNullable } from 'utils';
 
+interface ImageResource {
+  publicUrl: string;
+  thumbnail: string;
+  thumbnail2x: string;
+  size: number;
+  mimetype: `image/${string}`;
+  uploader: string;
+  encoding: string;
+  bucketName: 'images';
+  state: string;
+  _id: string;
+  createdAt: string;
+  updatedAt: string;
+  __v: 0;
+}
+
+interface Merchandise {
+  _id: number;
+  title: string;
+  description: string;
+  attachments: ImageResource[];
+}
+
 interface Trip {
   _id: number;
   title: string;
@@ -12,6 +35,7 @@ interface Trip {
     class: string;
   }>;
   payment: string;
+  merchandises: Merchandise[];
 }
 
 const initialValues: DeepNullable<Trip> = {
@@ -20,6 +44,7 @@ const initialValues: DeepNullable<Trip> = {
   title: 'Title default',
   passengers: [{ class: 'ADULT', type: 'VIP', firstName: 'Lê', lastName: 'TUuowngr' }],
   payment: null,
+  merchandises: [],
 };
 
 export default function App() {
@@ -30,6 +55,7 @@ export default function App() {
       items={{
         _id: {
           type: 'single',
+          rules: [],
           control: {
             type: 'Input',
             value: null,
@@ -41,6 +67,15 @@ export default function App() {
         },
         description: {
           type: 'single',
+          rules: [
+            {
+              message: 'Description is required',
+              warningOnly: false,
+              isError(value) {
+                return !value;
+              },
+            },
+          ],
           control: {
             type: 'Input',
             value: null,
@@ -49,12 +84,12 @@ export default function App() {
             label: 'Description',
             labelCol: { span: 2 },
             labelAlign: 'left',
-            rules: [{ required: true, message: 'Required' }],
             requiredMark: true,
           },
         },
         title: {
           type: 'single',
+          rules: [],
           control: {
             type: 'Input',
             value: null,
@@ -67,8 +102,20 @@ export default function App() {
         },
         passengers: {
           type: 'array',
+          rules: [
+            {
+              warningOnly: false,
+              message: 'At least 2 passengers',
+              isError(value) {
+                console.log(111, value);
+                return true;
+              },
+            },
+          ],
           controls: {
             firstName: {
+              type: 'single',
+              rules: [],
               control: {
                 type: 'Input',
                 value: null,
@@ -80,6 +127,8 @@ export default function App() {
               },
             },
             lastName: {
+              type: 'single',
+              rules: [],
               control: {
                 type: 'Input',
                 value: null,
@@ -100,6 +149,7 @@ export default function App() {
         },
         payment: {
           type: 'single',
+          rules: [],
           control: {
             type: 'CheckboxSingle',
             atLeastOne: true,
