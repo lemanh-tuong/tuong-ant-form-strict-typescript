@@ -1,10 +1,12 @@
 import { FormListProps } from 'antd/es/form';
-import { FieldArray } from '../../@types/FieldArray';
-import { FieldSingle } from '../FormItem/components/FieldSingle/FieldSingle';
+import { FieldArrayBaseProps } from '../FieldArray';
+import { FieldSingleBaseProps } from '../FieldSingle';
 
 type ValidatorRule = Exclude<FormListProps['rules'], undefined>[number];
 
-export const getRulesViaProps = ({ rules }: Pick<FieldSingle<unknown> | FieldArray<any, any>, 'rules'>) => {
+export const getRulesViaProps = ({
+  rules,
+}: Pick<FieldSingleBaseProps<any> | FieldArrayBaseProps<any, any>, 'rules'>) => {
   return rules.map<ValidatorRule>(rule => {
     const { isError, message, warningOnly } = rule;
     return {

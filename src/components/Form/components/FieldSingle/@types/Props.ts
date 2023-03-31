@@ -1,6 +1,8 @@
-import { ColProps, FormItemProps as AntFormItemProps } from 'antd';
-import { ControlProps } from '../../../../Control';
+import { ColProps as AntColProps, FormItemProps as AntFormItemProps } from 'antd';
+import { ControlProps } from '../../Control';
 import { FieldSingleRule } from './Rule';
+
+type ColProps = Pick<AntColProps, 'span' | 'offset'>;
 
 interface LayoutProps {
   /** Label của field */
@@ -30,9 +32,13 @@ interface LayoutProps {
 }
 
 export interface FieldSingleBaseProps<Value extends unknown> {
+  /** Used to check condition rendering */
   type: 'Single';
+  /** Field control */
   control: ControlProps;
+  /** Layout of field */
   layout: LayoutProps;
+  /** Validators of field */
   rules: FieldSingleRule<Value>[];
 }
 

@@ -46,9 +46,9 @@ export interface FieldArrayBaseProps<Model extends AnyObject, Key extends keyof 
   type: 'Array';
   /** Fields of item in array */
   controls: Partial<RecursiveFieldArray<Model, Key>>;
-  /** Layout for field array */
+  /** Layout of field */
   layout: LayoutProps;
-  /** Validators for field array */
+  /** Validators of field */
   rules: FieldArrayRule<Model[]>[];
   /** Skeleton item for add item */
   itemSkeleton: Model;
@@ -58,6 +58,9 @@ export interface FieldArrayBaseProps<Model extends AnyObject, Key extends keyof 
   modalConfirmDelete?: any;
   /** FIXME: Button for add items */
   addButton?: any;
+  /** FIXME: Button for delete item */
+  deleteButton?: any;
+  // ...
 }
 
 type NamePath = string | number;

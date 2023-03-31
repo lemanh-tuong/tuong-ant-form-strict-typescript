@@ -70,14 +70,8 @@ export const Basic: ComponentStory<typeof Form> = () => {
         _id: {
           type: 'Single',
           rules: [],
-          control: {
-            type: 'Input',
-            value: null,
-          },
-          layout: {
-            label: 'ID',
-            hidden: true,
-          },
+          control: { type: 'Input' },
+          layout: { label: 'ID', hidden: true },
         },
         description: {
           type: 'Single',
@@ -90,10 +84,7 @@ export const Basic: ComponentStory<typeof Form> = () => {
               },
             },
           ],
-          control: {
-            type: 'Input',
-            value: null,
-          },
+          control: { type: 'Input' },
           layout: {
             label: 'Description',
             labelCol: { span: 2 },
@@ -104,10 +95,7 @@ export const Basic: ComponentStory<typeof Form> = () => {
         title: {
           type: 'Single',
           rules: [],
-          control: {
-            type: 'Input',
-            value: null,
-          },
+          control: { type: 'Input' },
           layout: {
             label: 'Title',
             labelCol: { span: 2 },
@@ -133,10 +121,7 @@ export const Basic: ComponentStory<typeof Form> = () => {
             firstName: {
               type: 'Single',
               rules: [],
-              control: {
-                type: 'Input',
-                value: null,
-              },
+              control: { type: 'Input' },
               layout: {
                 label: 'First Name',
                 labelCol: { span: 2 },
@@ -146,10 +131,7 @@ export const Basic: ComponentStory<typeof Form> = () => {
             lastName: {
               type: 'Single',
               rules: [],
-              control: {
-                type: 'Input',
-                value: null,
-              },
+              control: { type: 'Input' },
               layout: {
                 label: 'Last Name',
                 labelCol: { span: 2 },
@@ -173,7 +155,6 @@ export const Basic: ComponentStory<typeof Form> = () => {
           control: {
             type: 'CheckboxSingle',
             atLeastOne: true,
-            value: null,
             options: [
               { id: '1', label: 'Paypal', value: 'PAYPAL' },
               { id: '2', label: 'Stripe', value: 'STRIPE' },
