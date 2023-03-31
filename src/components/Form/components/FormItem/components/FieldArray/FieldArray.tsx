@@ -10,6 +10,7 @@ export const FieldArray = <Model extends AnyObject, Key extends keyof Model>({
   fieldName,
   layout,
   rules,
+  itemSkeleton,
 }: FieldArrayProps<Model, Key>) => {
   const {
     label,
@@ -50,6 +51,8 @@ export const FieldArray = <Model extends AnyObject, Key extends keyof Model>({
                   {fields.map((field, index) => {
                     return (
                       <Collapse.Panel
+                        // Nếu không "forceRerender" form antd sẽ không validate những field con chưa ở trạng thái collapsed
+                        forceRender
                         header={
                           <Row justify="space-between">
                             <Col>
@@ -90,7 +93,7 @@ export const FieldArray = <Model extends AnyObject, Key extends keyof Model>({
                     );
                   })}
                 </Collapse>
-                <Button size="large" style={{ marginTop: 8 }} block type="primary" onClick={() => add()}>
+                <Button size="large" style={{ marginTop: 8 }} block type="primary" onClick={() => add(itemSkeleton)}>
                   Add
                 </Button>
                 <Form.ErrorList errors={errors} warnings={warnings} />

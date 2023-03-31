@@ -20,6 +20,8 @@ export const CaseStudy1: ComponentStory<typeof FieldArray> = () => {
   return (
     <Form
       onFinish={console.log}
+      onFinishFailed={console.log}
+      scrollToFirstError
       initialValues={{
         passengers: [
           {
@@ -36,7 +38,23 @@ export const CaseStudy1: ComponentStory<typeof FieldArray> = () => {
     >
       <FieldArray<Passenger, keyof Passenger>
         type="Array"
-        rules={[]}
+        itemSkeleton={{
+          firstName: 'Hello',
+          lastName: 'World',
+          attachments: [],
+        }}
+        rules={[
+          {
+            warningOnly: false,
+            message: 'At least 2 passengers',
+            isError(value) {
+              if (value.length < 2) {
+                return true;
+              }
+              return false;
+            },
+          },
+        ]}
         controls={{
           firstName: {
             type: 'Single',
@@ -52,7 +70,18 @@ export const CaseStudy1: ComponentStory<typeof FieldArray> = () => {
           },
           attachments: {
             type: 'Array',
-            rules: [],
+            rules: [
+              {
+                message: 'At least 2 attachment',
+                warningOnly: false,
+                isError(value) {
+                  if (value.length < 2) {
+                    return true;
+                  }
+                  return false;
+                },
+              },
+            ],
             layout: {
               label: 'Attachments',
               collapseTitle(index) {
@@ -67,6 +96,7 @@ export const CaseStudy1: ComponentStory<typeof FieldArray> = () => {
                 control: { type: 'Input' },
               },
             },
+            itemSkeleton: { src: '' },
           },
         }}
         fieldName="passengers"

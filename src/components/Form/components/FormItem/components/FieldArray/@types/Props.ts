@@ -49,7 +49,9 @@ export interface FieldArrayBaseProps<Model extends AnyObject, Key extends keyof 
   /** Layout for field array */
   layout: LayoutProps;
   /** Validators for field array */
-  rules: FieldArrayRule<Model[Key]>[];
+  rules: FieldArrayRule<Model[]>[];
+  /** Skeleton item for add item */
+  itemSkeleton: Model;
   /** Max items field array can be reach */
   maxItems?: number;
   /** FIXME: Modal for warning before delete item */
