@@ -3,24 +3,28 @@ import classNames from 'classnames';
 import { equals } from 'ramda';
 import { CSSProperties, useEffect, useState } from 'react';
 import { Option } from './@types/Option';
-import { RadioProps } from './@types/Props';
+import { Props } from './@types/Props';
 import { Result } from './@types/Result';
+import { Loading } from './components/Loading';
+import './styles/main.css';
 import { defaultIsChecked } from './utils/defaultIsChecked';
 import { getValueOnChange } from './utils/getValueOnChange';
 import { setStateViaValueProps } from './utils/setStateViaProps';
-import './styles.css';
 
 export const Radio = <Value extends unknown>({
   onChange,
   options,
   value,
   className = '',
+  description,
   direction = 'horizontal',
   disabled = false,
+  id,
   isChecked = defaultIsChecked,
+  loading,
   space = 'small',
   status,
-}: RadioProps<Value>) => {
+}: Props<Value>) => {
   const { token } = theme.useToken();
 
   const [valueState, setValueState] = useState<Result<Value>>(() => {
@@ -42,44 +46,56 @@ export const Radio = <Value extends unknown>({
   }, [value]);
 
   const renderOption = (option: Option<Value>) => {
-    const { id, label, value, disabled: optionDisabled = false, className = '', description } = option;
+    const {
+      className = '',
+      description,
+      disabled: optionDisabled = false,
+      label,
+      loading: optionLoading = false,
+      value,
+      id,
+    } = option;
+    const checked = isChecked({ option, value: valueState });
+    const isDisabled = loading || optionLoading || disabled || optionDisabled;
     return (
-      <Tooltip title={description}>
-        <AntRadio
-          key={id}
-          disabled={optionDisabled || disabled}
-          checked={isChecked({ option, value: valueState })}
-          value={value}
-          onChange={handleChange(option)}
+      <Tooltip title={description} key={id}>
+        <Space
           className={classNames({
             Radio__option: true,
             [className]: true,
           })}
         >
-          {label}
-        </AntRadio>
+          <AntRadio disabled={isDisabled} checked={checked} value={value} onChange={handleChange(option)}>
+            {label}
+          </AntRadio>
+          {optionLoading && <Loading />}
+        </Space>
       </Tooltip>
     );
   };
 
   return (
-    <Space
-      direction={direction}
-      size={space}
-      style={
-        {
-          '--color-error': token.colorError,
-          '--color-warning': token.colorWarning,
-        } as CSSProperties
-      }
-      className={classNames({
-        Radio__container: true,
-        'Radio__container--error': status === 'error',
-        'Radio__container--warning': status === 'warning',
-        [className]: true,
-      })}
-    >
-      {options.map(renderOption)}
-    </Space>
+    <Tooltip title={description}>
+      <Space
+        direction={direction}
+        size={space}
+        style={
+          {
+            '--color-error': token.colorError,
+            '--color-warning': token.colorWarning,
+          } as CSSProperties
+        }
+        className={classNames({
+          Radio__container: true,
+          'Radio__container--error': status === 'error',
+          'Radio__container--warning': status === 'warning',
+          [className]: true,
+        })}
+        id={id}
+      >
+        {options.map(renderOption)}
+        {loading && <Loading />}
+      </Space>
+    </Tooltip>
   );
 };

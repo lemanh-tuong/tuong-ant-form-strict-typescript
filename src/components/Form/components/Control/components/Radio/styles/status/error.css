@@ -1,0 +1,41 @@
+.ant-form-item-has-error
+  .Radio__container
+  .Radio__option
+  .ant-radio-wrapper,
+.Radio__container.Radio__container--error
+  .Radio__option
+  .ant-radio-wrapper {
+  color: var(--color-error) !important;
+}
+.ant-form-item-has-error
+  .Radio__container
+  .Radio__option
+  .ant-radio::after,
+.Radio__container.Radio__container--error
+  .Radio__option
+  .ant-radio::after {
+  border-color: var(--color-error) !important;
+  color: var(--color-error) !important;
+}
+.ant-form-item-has-error
+  .Radio__container
+  .Radio__option
+  .ant-radio
+  .ant-radio-inner,
+.Radio__container.Radio__container--error
+  .Radio__option
+  .ant-radio
+  .ant-radio-inner {
+  border-color: var(--color-error) !important;
+}
+.ant-form-item-has-error
+  .Radio__container
+  .Radio__option
+  .ant-radio.ant-radio-checked
+  .ant-radio-inner,
+.Radio__container.Radio__container--error
+  .Radio__option
+  .ant-radio.ant-radio-checked
+  .ant-radio-inner {
+  background-color: var(--color-error) !important;
+}
