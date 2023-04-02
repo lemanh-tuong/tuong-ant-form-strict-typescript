@@ -19,7 +19,6 @@ export const Basic: ComponentStory<typeof SelectTag> = args => {
     <SelectTag
       {...args}
       value={null}
-      onChange={console.log}
       options={[
         { id: '1', label: 'Paypal', value: 'Paypal' },
         { id: '2', label: 'Stripe', value: 'Stripe' },
@@ -39,7 +38,6 @@ export const Disabled: ComponentStory<typeof SelectTag> = args => {
       {...args}
       disabled
       value={null}
-      onChange={console.log}
       options={[
         { id: '1', label: 'Paypal', value: 'Paypal' },
         { id: '2', label: 'Stripe', value: 'Stripe' },
@@ -81,7 +79,6 @@ export const WithRenderExtraFooter: ComponentStory<typeof SelectTag> = args => {
     <SelectTag
       {...args}
       value={null}
-      onChange={console.log}
       renderExtraFooter={() => {
         return (
           <Space style={{ padding: '0 8px 4px' }}>
@@ -104,7 +101,6 @@ export const WithCustomMaxTagCount: ComponentStory<typeof SelectTag> = args => {
       maxTagCount={2}
       maxTagPlaceholder={omiitedValue => <Typography>+{omiitedValue.length} tags</Typography>}
       value={null}
-      onChange={console.log}
       options={[
         { id: '1', label: 'Paypal', value: 'Paypal' },
         { id: '2', label: 'Stripe', value: 'Stripe' },
@@ -120,7 +116,6 @@ export const WithCustomMaxTagTextLength: ComponentStory<typeof SelectTag> = args
       {...args}
       maxTagTextLength={2}
       value={null}
-      onChange={console.log}
       options={[
         { id: '1', label: 'Paypal', value: 'Paypal' },
         { id: '2', label: 'Stripe', value: 'Stripe' },
@@ -142,7 +137,6 @@ export const WithTagRender: ComponentStory<typeof SelectTag> = args => {
         );
       }}
       value={null}
-      onChange={console.log}
       options={[
         { id: '1', label: 'Paypal', value: 'Paypal' },
         { id: '2', label: 'Stripe', value: 'Stripe' },
@@ -158,7 +152,6 @@ export const WithTokenSeparators: ComponentStory<typeof SelectTag> = args => {
       {...args}
       tokenSeparators={[',', ';', ' ']}
       value={null}
-      onChange={console.log}
       options={[
         { id: '1', label: 'Paypal', value: 'Paypal' },
         { id: '2', label: 'Stripe', value: 'Stripe' },
@@ -173,7 +166,6 @@ export const WithDescription: ComponentStory<typeof SelectTag> = args => {
     <SelectTag
       {...args}
       value={null}
-      onChange={console.log}
       options={[
         {
           id: '1',
@@ -199,7 +191,6 @@ export const StatusError: ComponentStory<typeof SelectTag> = args => {
       {...args}
       status="error"
       value={null}
-      onChange={console.log}
       options={[
         { id: '1', label: 'Paypal', value: 'Paypal' },
         { id: '2', label: 'Stripe', value: 'Stripe' },
@@ -215,7 +206,6 @@ export const StatusWarning: ComponentStory<typeof SelectTag> = args => {
       {...args}
       status="warning"
       value={null}
-      onChange={console.log}
       options={[
         { id: '1', label: 'Paypal', value: 'Paypal' },
         { id: '2', label: 'Stripe', value: 'Stripe' },

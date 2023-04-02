@@ -1,23 +1,23 @@
 import { ComponentStory, Meta } from '@storybook/react';
 import { withDesign } from 'storybook-addon-designs';
-import { Input } from '../Input';
+import { Number } from '../Number';
 
 export default {
-  title: 'Input/WithBefore',
-  component: Input,
+  title: 'Number/WithAfter',
+  component: Number,
   argTypes: {},
   args: {},
   decorators: [withDesign],
-} as Meta<typeof Input>;
+} as Meta<typeof Number>;
 
-export const WithBefore: ComponentStory<typeof Input> = args => {
+export const WithAfter: ComponentStory<typeof Number> = args => {
   return (
-    <Input
+    <Number
       {...args}
-      before={
+      after={
         <select>
-          <option label="http://" />
-          <option label="https://" />
+          <option label="$" />
+          <option label="£" />
         </select>
       }
       value={null}

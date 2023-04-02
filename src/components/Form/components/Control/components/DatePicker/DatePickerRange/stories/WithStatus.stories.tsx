@@ -3,7 +3,7 @@ import { withDesign } from 'storybook-addon-designs';
 import { DatePickerRange } from '../DatePickerRange';
 
 export default {
-  title: 'DatePicker/DatePickerRange/WithStatus',
+  title: 'DatePicker/DatePickerRange/With Status',
   component: DatePickerRange,
   argTypes: {},
   args: {},

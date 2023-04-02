@@ -6,7 +6,7 @@ import { DatePickerRange } from '../../DatePickerRange';
 import { delay } from './utils/delay';
 
 export default {
-  title: 'DatePicker/DatePickerRange/CasesStudy',
+  title: 'DatePicker/DatePickerRange/Cases Study',
   component: DatePickerRange,
   argTypes: {},
   args: {},

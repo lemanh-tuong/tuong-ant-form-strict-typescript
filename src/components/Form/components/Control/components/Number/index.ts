@@ -1,2 +1,2 @@
 export { Number } from './Number';
-export type { NumberProps } from './@types/Props';
+export type { Props as NumberProps } from './@types/Props';

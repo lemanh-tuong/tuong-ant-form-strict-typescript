@@ -3,7 +3,7 @@ import { withDesign } from 'storybook-addon-designs';
 import { Mentions } from '../Mentions';
 
 export default {
-  title: 'Mentions/WithStatus',
+  title: 'Mentions/With Status',
   component: Mentions,
   argTypes: {},
   args: {},

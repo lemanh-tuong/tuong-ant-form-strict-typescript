@@ -7,7 +7,7 @@ import { CheckboxMultiple } from '../../CheckboxMultiple';
 import { delay } from './utils/delay';
 
 export default {
-  title: 'Checkbox/CheckboxMultiple/CasesStudy',
+  title: 'Checkbox/CheckboxMultiple/Cases Study',
   component: CheckboxMultiple,
   argTypes: {},
   args: {},

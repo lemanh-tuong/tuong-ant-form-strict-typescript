@@ -3,7 +3,7 @@ import { withDesign } from 'storybook-addon-designs';
 import { Input } from '../Input';
 
 export default {
-  title: 'Input/WithStatus',
+  title: 'Input/With Status',
   component: Input,
   argTypes: {},
   args: {},

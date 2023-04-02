@@ -22,7 +22,6 @@ export const Default: ComponentStory<typeof Radio> = args => {
         { id: '3', label: 'Credit card', value: '_3' },
       ]}
       value={null}
-      onChange={console.log}
     />
   );
 };
@@ -41,7 +40,6 @@ export const StatusError: ComponentStory<typeof Radio> = args => {
         { id: '3', label: 'Credit card', value: '_3' },
       ]}
       value={null}
-      onChange={console.log}
       status="error"
     />
   );
@@ -57,7 +55,6 @@ export const StatusWarning: ComponentStory<typeof Radio> = args => {
         { id: '3', label: 'Credit card', value: '_3' },
       ]}
       value={null}
-      onChange={console.log}
       status="warning"
     />
   );
@@ -83,7 +80,6 @@ export const OpionsWithDescription: ComponentStory<typeof Radio> = args => {
         { id: '3', label: 'Credit card', value: '_3' },
       ]}
       value={null}
-      onChange={console.log}
     />
   );
 };

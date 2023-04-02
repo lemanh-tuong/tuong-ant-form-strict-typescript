@@ -1,7 +1,7 @@
-import { MentionProps as AntMentionProps, Mentions as AntMentions, Tooltip } from 'antd';
+import { MentionProps as AntMentionProps, Mentions as AntMentions, theme, Tooltip } from 'antd';
 import classNames from 'classnames';
 import { equals } from 'ramda';
-import { useEffect, useState } from 'react';
+import { CSSProperties, useEffect, useState } from 'react';
 import { Props } from './@types/Props';
 import './styles/main.css';
 import { getValueOnChange } from './utils/getValueOnChange';
@@ -26,6 +26,8 @@ export const Mentions = ({
   split,
   status,
 }: Props) => {
+  const { token } = theme.useToken();
+
   const [valueState, setValueState] = useState(() => setStateViaProps(value));
 
   const handleChange: AntMentionProps['onChange'] = event => {
@@ -63,6 +65,12 @@ export const Mentions = ({
           Mentions__container: true,
           [className]: true,
         })}
+        style={
+          {
+            '--color-error': token.colorError,
+            '--color-warning': token.colorWarning,
+          } as CSSProperties
+        }
       />
     </Tooltip>
   );

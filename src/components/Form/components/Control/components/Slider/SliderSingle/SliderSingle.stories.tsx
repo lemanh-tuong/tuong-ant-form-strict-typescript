@@ -11,7 +11,7 @@ export default {
 } as Meta<typeof SliderSingle>;
 
 export const Basic: ComponentStory<typeof SliderSingle> = args => {
-  return <SliderSingle {...args} value={null} onChange={console.log} />;
+  return <SliderSingle {...args} value={null} />;
 };
 Basic.parameters = {
   type: 'figma',
@@ -19,7 +19,7 @@ Basic.parameters = {
 };
 
 export const Disabled: ComponentStory<typeof SliderSingle> = args => {
-  return <SliderSingle {...args} disabled value={null} onChange={console.log} />;
+  return <SliderSingle {...args} disabled value={null} />;
 };
 
 export const WithMarks: ComponentStory<typeof SliderSingle> = args => {
@@ -36,19 +36,18 @@ export const WithMarks: ComponentStory<typeof SliderSingle> = args => {
         },
       }}
       value={null}
-      onChange={console.log}
     />
   );
 };
 
 export const WithDescription: ComponentStory<typeof SliderSingle> = args => {
-  return <SliderSingle {...args} description={<div>Warning</div>} value={null} onChange={console.log} />;
+  return <SliderSingle {...args} description={<div>Warning</div>} value={null} />;
 };
 
 export const StatusError: ComponentStory<typeof SliderSingle> = args => {
-  return <SliderSingle {...args} status="error" value={null} onChange={console.log} />;
+  return <SliderSingle {...args} status="error" value={null} />;
 };
 
 export const StatusWarning: ComponentStory<typeof SliderSingle> = args => {
-  return <SliderSingle {...args} status="warning" value={null} onChange={console.log} />;
+  return <SliderSingle {...args} status="warning" value={null} />;
 };

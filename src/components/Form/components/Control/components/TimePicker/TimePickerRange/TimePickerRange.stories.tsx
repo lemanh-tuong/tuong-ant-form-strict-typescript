@@ -12,7 +12,7 @@ export default {
 } as Meta<typeof TimePickerRange>;
 
 export const Basic: ComponentStory<typeof TimePickerRange> = args => {
-  return <TimePickerRange {...args} defaultOpen value={null} onChange={console.log} />;
+  return <TimePickerRange {...args} defaultOpen value={null} />;
 };
 Basic.parameters = {
   type: 'figma',
@@ -20,7 +20,7 @@ Basic.parameters = {
 };
 
 export const Disabled: ComponentStory<typeof TimePickerRange> = args => {
-  return <TimePickerRange {...args} disabled defaultOpen value={null} onChange={console.log} />;
+  return <TimePickerRange {...args} disabled defaultOpen value={null} />;
 };
 
 export const DisabledTimeInSunday: ComponentStory<typeof TimePickerRange> = args => {
@@ -35,7 +35,6 @@ export const DisabledTimeInSunday: ComponentStory<typeof TimePickerRange> = args
         };
       }}
       value={null}
-      onChange={console.log}
     />
   );
 };
@@ -53,41 +52,28 @@ export const DisabledAndHideTimeInSunday: ComponentStory<typeof TimePickerRange>
         };
       }}
       value={null}
-      onChange={console.log}
     />
   );
 };
 
 export const WithFormat: ComponentStory<typeof TimePickerRange> = args => {
-  return (
-    <TimePickerRange {...args} format="HH:mm" defaultOpen value={null} onChange={console.log} showSecond={false} />
-  );
+  return <TimePickerRange {...args} format="HH:mm" defaultOpen value={null} showSecond={false} />;
 };
 
 export const WithIntervalOption: ComponentStory<typeof TimePickerRange> = args => {
-  return (
-    <TimePickerRange
-      {...args}
-      minuteStep={15}
-      secondStep={10}
-      hourStep={1}
-      defaultOpen
-      value={null}
-      onChange={console.log}
-    />
-  );
+  return <TimePickerRange {...args} minuteStep={15} secondStep={10} hourStep={1} defaultOpen value={null} />;
 };
 
 export const WithExtraFooter: ComponentStory<typeof TimePickerRange> = args => {
-  return <TimePickerRange {...args} value={null} onChange={console.log} renderExtraFooter={() => <h1>Hello</h1>} />;
+  return <TimePickerRange {...args} value={null} renderExtraFooter={() => <h1>Hello</h1>} />;
 };
 
 export const StatusError: ComponentStory<typeof TimePickerRange> = args => {
-  return <TimePickerRange {...args} status="error" defaultOpen value={null} onChange={console.log} />;
+  return <TimePickerRange {...args} status="error" defaultOpen value={null} />;
 };
 
 export const StatusWarning: ComponentStory<typeof TimePickerRange> = args => {
-  return <TimePickerRange {...args} status="warning" defaultOpen value={null} onChange={console.log} />;
+  return <TimePickerRange {...args} status="warning" defaultOpen value={null} />;
 };
 
 export const WithDescription: ComponentStory<typeof TimePickerRange> = args => {
@@ -102,7 +88,6 @@ export const WithDescription: ComponentStory<typeof TimePickerRange> = args => {
       }
       defaultOpen
       value={null}
-      onChange={console.log}
     />
   );
 };

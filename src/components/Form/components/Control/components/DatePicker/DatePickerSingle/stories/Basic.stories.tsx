@@ -11,7 +11,7 @@ export default {
 } as Meta<typeof DatePickerSingle>;
 
 export const Basic: ComponentStory<typeof DatePickerSingle> = args => {
-  return <DatePickerSingle {...args} disabled loading value={null} onChange={console.log} />;
+  return <DatePickerSingle {...args} value={null} />;
 };
 Basic.parameters = {
   type: 'figma',

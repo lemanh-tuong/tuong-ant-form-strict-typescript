@@ -6,7 +6,7 @@ import { DatePickerSingle } from '../../DatePickerSingle';
 import { delay } from './utils/delay';
 
 export default {
-  title: 'DatePicker/DatePickerSingle/CasesStudy',
+  title: 'DatePicker/DatePickerSingle/Cases Study',
   component: DatePickerSingle,
   argTypes: {},
   args: {},

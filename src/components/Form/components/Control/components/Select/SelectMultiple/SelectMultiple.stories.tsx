@@ -19,7 +19,6 @@ export const Basic: ComponentStory<typeof SelectMultiple> = args => {
     <SelectMultiple
       {...args}
       value={null}
-      onChange={console.log}
       options={[
         { id: '1', label: 'Paypal', value: '_1' },
         { id: '2', label: 'Stripe', value: '_2' },
@@ -39,7 +38,6 @@ export const Disabled: ComponentStory<typeof SelectMultiple> = args => {
       {...args}
       disabled
       value={null}
-      onChange={console.log}
       options={[
         { id: '1', label: 'Paypal', value: '_1' },
         { id: '2', label: 'Stripe', value: '_2' },
@@ -81,7 +79,6 @@ export const WithRenderExtraFooter: ComponentStory<typeof SelectMultiple> = args
     <SelectMultiple
       {...args}
       value={null}
-      onChange={console.log}
       renderExtraFooter={() => {
         return (
           <Space style={{ padding: '0 8px 4px' }}>
@@ -104,7 +101,6 @@ export const WithCustomMaxTagCount: ComponentStory<typeof SelectMultiple> = args
       maxTagCount={2}
       maxTagPlaceholder={omiitedValue => <Typography>+{omiitedValue.length} tags</Typography>}
       value={null}
-      onChange={console.log}
       options={[
         { id: '1', label: 'Paypal', value: '_1' },
         { id: '2', label: 'Stripe', value: '_2' },
@@ -126,7 +122,6 @@ export const WithTagRender: ComponentStory<typeof SelectMultiple> = args => {
         );
       }}
       value={null}
-      onChange={console.log}
       options={[
         { id: '1', label: 'Paypal', value: '_1' },
         { id: '2', label: 'Stripe', value: '_2' },
@@ -141,7 +136,6 @@ export const WithDescription: ComponentStory<typeof SelectMultiple> = args => {
     <SelectMultiple
       {...args}
       value={null}
-      onChange={console.log}
       options={[
         {
           id: '1',
@@ -167,7 +161,6 @@ export const StatusError: ComponentStory<typeof SelectMultiple> = args => {
       {...args}
       status="error"
       value={null}
-      onChange={console.log}
       options={[
         { id: '1', label: 'Paypal', value: '_1' },
         { id: '2', label: 'Stripe', value: '_2' },
@@ -183,7 +176,6 @@ export const StatusWarning: ComponentStory<typeof SelectMultiple> = args => {
       {...args}
       status="warning"
       value={null}
-      onChange={console.log}
       options={[
         { id: '1', label: 'Paypal', value: '_1' },
         { id: '2', label: 'Stripe', value: '_2' },

@@ -12,7 +12,7 @@ export default {
 } as Meta<typeof Textarea>;
 
 export const Basic: ComponentStory<typeof Textarea> = args => {
-  return <Textarea {...args} value={null} onChange={console.log} />;
+  return <Textarea {...args} value={null} />;
 };
 Basic.parameters = {
   type: 'figma',
@@ -20,7 +20,7 @@ Basic.parameters = {
 };
 
 export const Disabled: ComponentStory<typeof Textarea> = args => {
-  return <Textarea {...args} disabled value={null} onChange={console.log} />;
+  return <Textarea {...args} disabled value={null} />;
 };
 
 export const WithDescription: ComponentStory<typeof Textarea> = args => {
@@ -35,15 +35,14 @@ export const WithDescription: ComponentStory<typeof Textarea> = args => {
       }
       status="warning"
       value={null}
-      onChange={console.log}
     />
   );
 };
 
 export const StatusError: ComponentStory<typeof Textarea> = args => {
-  return <Textarea {...args} status="error" value={null} onChange={console.log} />;
+  return <Textarea {...args} status="error" value={null} />;
 };
 
 export const StatusWarning: ComponentStory<typeof Textarea> = args => {
-  return <Textarea {...args} status="warning" value={null} onChange={console.log} />;
+  return <Textarea {...args} status="warning" value={null} />;
 };

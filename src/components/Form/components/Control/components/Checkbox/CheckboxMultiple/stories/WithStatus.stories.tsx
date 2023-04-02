@@ -3,7 +3,7 @@ import { withDesign } from 'storybook-addon-designs';
 import { CheckboxMultiple } from '../CheckboxMultiple';
 
 export default {
-  title: 'Checkbox/CheckboxMultiple/WithStatus',
+  title: 'Checkbox/CheckboxMultiple/With Status',
   component: CheckboxMultiple,
   argTypes: {},
   args: {},

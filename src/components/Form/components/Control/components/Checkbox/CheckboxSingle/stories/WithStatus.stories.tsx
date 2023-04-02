@@ -3,7 +3,7 @@ import { withDesign } from 'storybook-addon-designs';
 import { CheckboxSingle } from '../CheckboxSingle';
 
 export default {
-  title: 'Checkbox/CheckboxSingle/WithStatus',
+  title: 'Checkbox/CheckboxSingle/With Status',
   component: CheckboxSingle,
   argTypes: {},
   args: {},

@@ -1,6 +1,6 @@
 .DatePickerSingle__container {
   position: relative;
 }
-.DatePickerSingle__container .ant-space-item, .DatePickerSingle__container .ant-picker {
+.DatePickerSingle__container .ant-picker {
   width: 100%;
 }

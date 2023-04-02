@@ -7,7 +7,7 @@ import { CheckboxSingle } from '../../CheckboxSingle';
 import { delay } from './utils/delay';
 
 export default {
-  title: 'Checkbox/CheckboxSingle/CasesStudy',
+  title: 'Checkbox/CheckboxSingle/Cases Study',
   component: CheckboxSingle,
   argTypes: {},
   args: {},

@@ -12,7 +12,7 @@ export default {
 } as Meta<typeof Switch>;
 
 export const Basic: ComponentStory<typeof Switch> = args => {
-  return <Switch {...args} value={null} onChange={console.log} />;
+  return <Switch {...args} value={null} />;
 };
 Basic.parameters = {
   type: 'figma',
@@ -20,7 +20,7 @@ Basic.parameters = {
 };
 
 export const Disabled: ComponentStory<typeof Switch> = args => {
-  return <Switch {...args} disabled value={null} onChange={console.log} />;
+  return <Switch {...args} disabled value={null} />;
 };
 
 export const WithDescription: ComponentStory<typeof Switch> = args => {
@@ -37,19 +37,18 @@ export const WithDescription: ComponentStory<typeof Switch> = args => {
       unChecked="Light"
       status="warning"
       value={null}
-      onChange={console.log}
     />
   );
 };
 
 export const WithCustomCheckedAndUnChecked: ComponentStory<typeof Switch> = args => {
-  return <Switch {...args} checked="Dark" unChecked="Light" value={null} onChange={console.log} />;
+  return <Switch {...args} checked="Dark" unChecked="Light" value={null} />;
 };
 
 export const StatusError: ComponentStory<typeof Switch> = args => {
-  return <Switch {...args} status="error" value={null} onChange={console.log} />;
+  return <Switch {...args} status="error" value={null} />;
 };
 
 export const StatusWarning: ComponentStory<typeof Switch> = args => {
-  return <Switch {...args} status="warning" value={null} onChange={console.log} />;
+  return <Switch {...args} status="warning" value={null} />;
 };

@@ -24,7 +24,6 @@ export const Default: ComponentStory<typeof SelectSingle> = args => {
       ]}
       defaultOpen={true}
       value={null}
-      onChange={console.log}
       description={<h1>Hello world</h1>}
     />
   );

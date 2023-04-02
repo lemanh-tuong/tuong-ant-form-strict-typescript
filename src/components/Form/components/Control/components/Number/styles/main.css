@@ -1,0 +1,6 @@
+.Number__container {
+  position: relative;
+}
+.Number__container > [class*="ant-input-number"] {
+  width: 100%;
+}

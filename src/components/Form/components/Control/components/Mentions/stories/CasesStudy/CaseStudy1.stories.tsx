@@ -6,7 +6,7 @@ import { Mentions } from '../../Mentions';
 import { debounce } from './utils/debounce';
 
 export default {
-  title: 'Mentions/CasesStudy',
+  title: 'Mentions/Cases Study',
   component: Mentions,
   argTypes: {},
   args: {},

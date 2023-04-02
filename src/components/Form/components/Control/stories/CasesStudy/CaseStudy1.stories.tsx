@@ -5,7 +5,7 @@ import { ControlProps } from '../../@types/Props';
 import { Control } from '../../Control';
 
 export default {
-  title: 'Control/CasesStudy',
+  title: 'Control/Cases Study',
   component: Control,
   argTypes: {},
   args: {},

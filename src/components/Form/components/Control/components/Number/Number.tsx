@@ -1,8 +1,11 @@
-import { InputNumber, InputNumberProps, Tooltip } from 'antd';
+import { InputNumber, InputNumberProps, theme, Tooltip } from 'antd';
 import classNames from 'classnames';
-import { useState } from 'react';
-import { NumberProps } from './@types/Props';
+import { equals } from 'ramda';
+import { CSSProperties, useEffect, useState } from 'react';
+import { Props } from './@types/Props';
 import { Result } from './@types/Result';
+import { Loading } from './components/Loading';
+import './styles/main.css';
 import { getValueOnChange } from './utils/getValueOnChange';
 import { setStateViaProps } from './utils/setStateViaProps';
 
@@ -13,16 +16,22 @@ export const Number = ({
   before,
   className = '',
   controls,
+  defaultFocus = false,
   description,
-  disabled,
+  disabled = false,
   formatter,
+  id,
+  loading = false,
   max,
   min,
   parser,
+  prefix,
   size = 'large',
   status,
   step,
-}: NumberProps) => {
+}: Props) => {
+  const { token } = theme.useToken();
+
   const [valueState, setValueState] = useState<Result>(() => setStateViaProps(value));
 
   const handleChange: InputNumberProps<number>['onChange'] = event => {
@@ -31,28 +40,48 @@ export const Number = ({
     onChange?.(nextState);
   };
 
+  useEffect(() => {
+    if (!equals(valueState, value)) {
+      setValueState(() => setStateViaProps(value));
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [value]);
+
   return (
     <Tooltip title={description}>
-      <InputNumber
-        keyboard
-        value={valueState}
-        onChange={handleChange}
-        addonAfter={after}
-        addonBefore={before}
-        controls={controls}
-        disabled={disabled}
-        formatter={formatter}
-        max={max}
-        min={min}
-        parser={parser}
-        size={size}
-        status={status}
-        step={step}
+      <div
+        id={id}
         className={classNames({
           Number__container: true,
           [className]: true,
         })}
-      />
+        style={
+          {
+            '--color-error': token.colorError,
+            '--color-warning': token.colorWarning,
+          } as CSSProperties
+        }
+      >
+        <InputNumber
+          keyboard
+          value={valueState}
+          onChange={handleChange}
+          autoFocus={defaultFocus}
+          addonAfter={after}
+          addonBefore={before}
+          controls={controls}
+          disabled={disabled || loading}
+          formatter={formatter}
+          max={max}
+          min={min}
+          parser={parser}
+          prefix={prefix}
+          size={size}
+          status={status}
+          step={step}
+        />
+        {loading && <Loading />}
+      </div>
     </Tooltip>
   );
 };

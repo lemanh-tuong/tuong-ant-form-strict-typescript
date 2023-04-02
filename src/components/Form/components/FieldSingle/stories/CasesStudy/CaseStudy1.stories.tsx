@@ -5,7 +5,7 @@ import { withDesign } from 'storybook-addon-designs';
 import { FieldSingle } from '../../FieldSingle';
 
 export default {
-  title: 'FieldSingle/CasesStudy',
+  title: 'FieldSingle/Cases Study',
   component: FieldSingle,
   argTypes: {},
   args: {},

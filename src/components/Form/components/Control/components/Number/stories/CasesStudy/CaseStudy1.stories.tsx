@@ -2,18 +2,18 @@ import { ComponentStory, Meta } from '@storybook/react';
 import { useEffect, useState } from 'react';
 import { withDesign } from 'storybook-addon-designs';
 import { Result } from '../../@types/Result';
-import { Input } from '../../Input';
+import { Number } from '../../Number';
 import { delay } from './utils/delay';
 
 export default {
-  title: 'Input/Cases Study',
-  component: Input,
+  title: 'Number/Cases Study',
+  component: Number,
   argTypes: {},
   args: {},
   decorators: [withDesign],
-} as Meta<typeof Input>;
+} as Meta<typeof Number>;
 
-export const CaseStudy1: ComponentStory<typeof Input> = args => {
+export const CaseStudy1: ComponentStory<typeof Number> = args => {
   const [isLoading, setIsLoading] = useState(false);
   const [value, setValue] = useState<Result>(null);
 
@@ -21,7 +21,7 @@ export const CaseStudy1: ComponentStory<typeof Input> = args => {
     setIsLoading(true);
     try {
       await delay(1000);
-      setValue('Lorem ipsum dolor sit amet consectetur adipisicing elit. Vitae, illo?');
+      setValue(100);
     } finally {
       setIsLoading(false);
     }
@@ -31,5 +31,5 @@ export const CaseStudy1: ComponentStory<typeof Input> = args => {
     handleGetData();
   }, []);
 
-  return <Input {...args} value={value} onChange={setValue} loading={isLoading} />;
+  return <Number {...args} value={value} defaultFocus loading={isLoading} />;
 };
