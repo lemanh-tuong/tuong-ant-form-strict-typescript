@@ -10,7 +10,7 @@ export interface Option<Value extends unknown> {
   description?: ReactNode;
   /** Value của option */
   value: Value;
-  /** Disable option */
+  /** Vô hiệu hóa option */
   disabled?: boolean;
   /** Custom class của option */
   className?: RadioProps['className'];

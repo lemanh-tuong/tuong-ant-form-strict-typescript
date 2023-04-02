@@ -8,7 +8,7 @@ export type IsCheckedFunction<Value extends unknown> = (params: {
   value: Result<Value>;
 }) => boolean;
 
-export interface SelectSingleProps<Value extends unknown> {
+export interface Props<Value extends unknown> {
   /** Callback được gọi khi người tìm kiếm mention */
   onSearch?: SelectProps['onSearch'];
   /** Callback được gọi khi click chọn option */
@@ -22,6 +22,8 @@ export interface SelectSingleProps<Value extends unknown> {
   /** Custom class của container */
   className?: SelectProps['className'];
   /** Trạng thái mặc định khi component mount */
+  defaultFocus?: SelectProps['autoFocus'];
+  /** Trạng thái mặc định khi component mount */
   defaultOpen?: SelectProps['defaultOpen'];
   /** Nội dung mô tả của tooltip */
   description?: ReactNode;
@@ -31,8 +33,12 @@ export interface SelectSingleProps<Value extends unknown> {
   dropdownClassName?: SelectProps['popupClassName'];
   /** Function để check trạng thái checked */
   isChecked?: IsCheckedFunction<Value>;
+  /** Custom id của container */
+  id?: SelectProps['id'];
   /** Chiều cao của dropdown */
   listHeight?: SelectProps['listHeight'];
+  /** Set trạng thái loading */
+  loading?: SelectProps['loading'];
   /** Empty component */
   notFoundContent?: SelectProps['notFoundContent'];
   /** Placeholder của input */

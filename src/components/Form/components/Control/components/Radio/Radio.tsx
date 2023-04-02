@@ -28,7 +28,7 @@ export const Radio = <Value extends unknown>({
   const { token } = theme.useToken();
 
   const [valueState, setValueState] = useState<Result<Value>>(() => {
-    return setStateViaValueProps({ options, value, isChecked });
+    return setStateViaValueProps({ options, valueProps: value, isChecked });
   });
   const handleChange =
     (option: Option<Value>): AntRadioProps['onChange'] =>
@@ -40,7 +40,7 @@ export const Radio = <Value extends unknown>({
 
   useEffect(() => {
     if (!equals(value, valueState)) {
-      setValueState(() => setStateViaValueProps({ options, value, isChecked }));
+      setValueState(() => setStateViaValueProps({ options, valueProps: value, isChecked }));
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [value]);

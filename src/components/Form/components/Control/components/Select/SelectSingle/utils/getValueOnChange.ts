@@ -1,19 +1,14 @@
 import { SelectProps } from 'antd';
-import { Option } from '../@types/Option';
 import { OptionForAntSelect } from '../@types/OptionForAntSelect';
 import { Result } from '../@types/Result';
 
-type OptionsInAntSelectResult<Value> = Parameters<
-  Required<SelectProps<Option<Value>['id'], OptionForAntSelect<Value>>>['onChange']
->[1];
-
-interface GetValueOnChange<Value> {
-  options: OptionsInAntSelectResult<Value>;
-}
-
-export const getValueOnChange = <Value extends unknown>({ options }: GetValueOnChange<Value>): Result<Value> => {
-  if (!Array.isArray(options)) {
-    return options.rawValue;
+type AntSelectSingleResult<Value extends unknown> = Parameters<
+  Required<SelectProps<OptionForAntSelect<Value>['value'], OptionForAntSelect<Value>>>['onChange']
+>;
+export const getValueOnChange = <Value extends unknown>(...args: AntSelectSingleResult<Value>): Result<Value> => {
+  const [_, option] = args;
+  if (!Array.isArray(option)) {
+    return option.rawValue;
   }
   return null;
 };
