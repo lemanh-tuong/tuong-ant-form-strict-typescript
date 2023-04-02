@@ -10,7 +10,7 @@ type ShowTimeAvailable = Pick<
   'format' | 'hourStep' | 'minuteStep' | 'secondStep' | 'showHour' | 'showMinute' | 'showSecond' | 'use12Hours'
 >;
 
-export interface DatePickerRangeProps {
+export interface Props {
   /** Giá trị đầu vào */
   value: Result;
   /** Callback được gọi khi hoàn thành việc chọn datetime */

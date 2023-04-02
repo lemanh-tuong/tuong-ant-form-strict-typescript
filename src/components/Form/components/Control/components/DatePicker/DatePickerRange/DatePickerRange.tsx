@@ -5,8 +5,8 @@ import { Dayjs } from 'dayjs';
 import { equals } from 'ramda';
 import { useEffect, useState } from 'react';
 import { Loading } from '../components/Loading';
-import { DatePickerRangeProps } from './@types/Props';
-import './styles.css';
+import { Props } from './@types/Props';
+import './styles/main.css';
 import { getValueOnChange } from './utils/getValueOnChange';
 import { setStateViaProps } from './utils/setStateViaProps';
 
@@ -31,7 +31,7 @@ export const DatePickerRange = ({
   showTime,
   size = 'middle',
   status,
-}: DatePickerRangeProps) => {
+}: Props) => {
   const [valueState, setValueState] = useState(() => {
     return setStateViaProps(value);
   });
@@ -54,10 +54,7 @@ export const DatePickerRange = ({
   return (
     <Tooltip title={description}>
       <div
-        id={classNames({
-          [id]: true,
-          DatePickerRange: true,
-        })}
+        id={id}
         className={classNames({
           DatePickerRange__container: true,
           [className]: true,

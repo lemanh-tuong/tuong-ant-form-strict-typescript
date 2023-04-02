@@ -3,7 +3,7 @@ import { notification } from 'antd';
 import { Dayjs } from 'dayjs';
 import { useState } from 'react';
 import { withDesign } from 'storybook-addon-designs';
-import { DatePickerRangeProps } from '../../@types/Props';
+import { Props } from '../../@types/Props';
 import { DatePickerRange } from '../../DatePickerRange';
 import { delay } from './utils/delay';
 
@@ -19,7 +19,7 @@ export const CaseStudy1: ComponentStory<typeof DatePickerRange> = args => {
   const [state, setState] = useState<[Dayjs, Dayjs] | null>(null);
   const [isLoading, setIsLoading] = useState(false);
 
-  const handleChange: DatePickerRangeProps['onChange'] = async value => {
+  const handleChange: Props['onChange'] = async value => {
     setIsLoading(true);
     if (value) {
       try {

@@ -3,7 +3,7 @@ import { notification } from 'antd';
 import { Dayjs } from 'dayjs';
 import { useState } from 'react';
 import { withDesign } from 'storybook-addon-designs';
-import { DatePickerSingleProps } from '../../@types/Props';
+import { Props } from '../../@types/Props';
 import { DatePickerSingle } from '../../DatePickerSingle';
 import { delay } from './utils/delay';
 
@@ -19,7 +19,7 @@ export const CaseStudy1: ComponentStory<typeof DatePickerSingle> = args => {
   const [state, setState] = useState<Dayjs | null>(null);
   const [isLoading, setIsLoading] = useState(false);
 
-  const handleChange: DatePickerSingleProps['onChange'] = async value => {
+  const handleChange: Props['onChange'] = async value => {
     setIsLoading(true);
     if (value) {
       try {

@@ -3,8 +3,8 @@ import classNames from 'classnames';
 import { equals } from 'ramda';
 import { useEffect, useState } from 'react';
 import { Loading } from '../components/Loading';
-import { DatePickerSingleProps } from './@types/Props';
-import './styles.css';
+import { Props } from './@types/Props';
+import './styles/main.css';
 import { getValueOnChange } from './utils/getValueOnChange';
 import { setStateViaProps } from './utils/setStateViaProps';
 
@@ -29,7 +29,7 @@ export const DatePickerSingle = ({
   showTime,
   size = 'middle',
   status,
-}: DatePickerSingleProps) => {
+}: Props) => {
   const [valueState, setValueState] = useState(() => {
     return setStateViaProps(value);
   });
@@ -52,10 +52,7 @@ export const DatePickerSingle = ({
   return (
     <Tooltip title={description}>
       <div
-        id={classNames({
-          [id]: true,
-          DatePickerSingle: true,
-        })}
+        id={id}
         className={classNames({
           [className]: true,
           DatePickerSingle__container: true,
