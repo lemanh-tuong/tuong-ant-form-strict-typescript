@@ -3,7 +3,7 @@ import { ReactNode } from 'react';
 import { Option } from './Option';
 import { Result } from './Result';
 
-export interface MentionsProps {
+export interface Props {
   /** Giá trị mặc định */
   value: Result;
   /** Chỉ định các option */
@@ -16,10 +16,16 @@ export interface MentionsProps {
   autoSize?: AntMentionProps['autoSize'];
   /** Custom class của container */
   className?: AntMentionProps['className'];
+  /** Trạng thái focus mặc định khi component được mount */
+  defaultFocus?: AntMentionProps['autoFocus'];
   /** Nội dung mô tả của tooltip */
   description?: ReactNode;
   /** Vô hiệu hoá input */
   disabled?: AntMentionProps['disabled'];
+  /** Custom id của container */
+  id?: AntMentionProps['id'];
+  /** Set trạng thái loading */
+  loading?: AntMentionProps['loading'];
   /** Độ dài tối đa */
   maxLength?: AntMentionProps['maxLength'];
   /** Empty component */

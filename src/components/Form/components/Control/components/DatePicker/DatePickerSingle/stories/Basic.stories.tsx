@@ -3,7 +3,7 @@ import { withDesign } from 'storybook-addon-designs';
 import { DatePickerSingle } from '../DatePickerSingle';
 
 export default {
-  title: 'DatePickerSingle',
+  title: 'DatePicker/DatePickerSingle',
   component: DatePickerSingle,
   argTypes: {},
   args: {},

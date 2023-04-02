@@ -1,8 +1,9 @@
-import { Mentions as AntMentions, MentionProps as AntMentionProps, Tooltip } from 'antd';
+import { MentionProps as AntMentionProps, Mentions as AntMentions, Tooltip } from 'antd';
 import classNames from 'classnames';
 import { equals } from 'ramda';
 import { useEffect, useState } from 'react';
-import { MentionsProps } from './@types/Props';
+import { Props } from './@types/Props';
+import './styles/main.css';
 import { getValueOnChange } from './utils/getValueOnChange';
 import { setStateViaProps } from './utils/setStateViaProps';
 
@@ -13,15 +14,18 @@ export const Mentions = ({
   value,
   autoSize,
   className = '',
+  defaultFocus = false,
   description,
   disabled,
+  id,
+  loading,
   maxLength,
   notFoundContent,
   placeholder,
   prefix,
   split,
   status,
-}: MentionsProps) => {
+}: Props) => {
   const [valueState, setValueState] = useState(() => setStateViaProps(value));
 
   const handleChange: AntMentionProps['onChange'] = event => {
@@ -42,8 +46,11 @@ export const Mentions = ({
       <AntMentions
         value={valueState ?? ''}
         onChange={handleChange}
+        autoFocus={defaultFocus}
         autoSize={autoSize}
         disabled={disabled}
+        id={id}
+        loading={loading}
         maxLength={maxLength}
         notFoundContent={notFoundContent}
         onSearch={onSearch}
