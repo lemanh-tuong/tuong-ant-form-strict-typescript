@@ -2,7 +2,7 @@ import { ComponentStory, Meta } from '@storybook/react';
 import { Card, notification } from 'antd';
 import { useState } from 'react';
 import { withDesign } from 'storybook-addon-designs';
-import { CheckboxMultipleProps } from '../../@types/Props';
+import { Props } from '../../@types/Props';
 import { CheckboxMultiple } from '../../CheckboxMultiple';
 import { delay } from './utils/delay';
 
@@ -43,7 +43,7 @@ export const CaseStudy1: ComponentStory<typeof CheckboxMultiple> = args => {
     }
   };
 
-  const handleChange: CheckboxMultipleProps<string>['onChange'] = async (value, target, action) => {
+  const handleChange: Props<string>['onChange'] = async (value, target, action) => {
     const value_ = value as string[];
     if (action === 'checked') {
       handleCreateConnection(target.value, value_, paymentMethods as string[]);

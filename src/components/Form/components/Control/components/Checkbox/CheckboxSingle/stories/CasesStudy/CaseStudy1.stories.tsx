@@ -2,7 +2,7 @@ import { ComponentStory, Meta } from '@storybook/react';
 import { Button, Card, Divider, notification, Typography } from 'antd';
 import { useState } from 'react';
 import { withDesign } from 'storybook-addon-designs';
-import { CheckboxSingleProps } from '../../@types/Props';
+import { Props } from '../../@types/Props';
 import { CheckboxSingle } from '../../CheckboxSingle';
 import { delay } from './utils/delay';
 
@@ -17,7 +17,7 @@ export const CaseStudy1: ComponentStory<typeof CheckboxSingle> = args => {
   const [ok, setOk] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
 
-  const handleChange: CheckboxSingleProps<boolean>['onChange'] = async (_value, _target, action) => {
+  const handleChange: Props<boolean>['onChange'] = async (_value, _target, action) => {
     if (action === 'checked') {
       setOk(action === 'checked');
       setIsLoading(true);

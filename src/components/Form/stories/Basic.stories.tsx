@@ -151,7 +151,15 @@ export const Basic: ComponentStory<typeof Form> = () => {
         },
         payment: {
           type: 'Single',
-          rules: [],
+          rules: [
+            {
+              warningOnly: false,
+              message: 'Payment is required',
+              isError(value) {
+                return !value;
+              },
+            },
+          ],
           control: {
             type: 'CheckboxSingle',
             atLeastOne: true,

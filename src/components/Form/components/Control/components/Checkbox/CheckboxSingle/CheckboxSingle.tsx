@@ -4,9 +4,9 @@ import { equals } from 'ramda';
 import { CSSProperties, useEffect, useState } from 'react';
 import { Loading } from '../components/Loading';
 import { Option } from './@types/Option';
-import { CheckboxSingleProps } from './@types/Props';
+import { Props } from './@types/Props';
 import { Result } from './@types/Result';
-import './styles.css';
+import './styles/main.css';
 import { defaultIsChecked } from './utils/defaultIsChecked';
 import { getValueOnChange } from './utils/getValueOnChange';
 import { setStateViaValueProps } from './utils/setStateViaValueProps';
@@ -25,7 +25,7 @@ export const CheckboxSingle = <Value extends unknown>({
   loading = false,
   space = 'small',
   status,
-}: CheckboxSingleProps<Value>) => {
+}: Props<Value>) => {
   const { token } = theme.useToken();
 
   const [valueState, setValueState] = useState<Result<Value>>(() => {
@@ -94,10 +94,7 @@ export const CheckboxSingle = <Value extends unknown>({
           'CheckboxSingle__container--warning': status === 'warning',
           [className]: true,
         })}
-        id={classNames({
-          CheckboxSingle: true,
-          [id]: true,
-        })}
+        id={id}
       >
         {options.map(renderOption)}
         {loading && <Loading />}

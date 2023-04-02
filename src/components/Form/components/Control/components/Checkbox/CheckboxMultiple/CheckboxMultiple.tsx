@@ -5,9 +5,9 @@ import { equals } from 'ramda';
 import { CSSProperties, useEffect, useState } from 'react';
 import { Loading } from '../components/Loading';
 import { Option } from './@types/Option';
-import { CheckboxMultipleProps } from './@types/Props';
+import { Props } from './@types/Props';
 import { Result } from './@types/Result';
-import './styles.css';
+import './styles/main.css';
 import { defaultIsChecked } from './utils/defaultIsChecked';
 import { getListOptions } from './utils/getListOptions';
 import { getValueOnChange } from './utils/getValueOnChange';
@@ -26,7 +26,7 @@ export const CheckboxMultiple = <Value extends unknown>({
   loading = false,
   space = 'small',
   status,
-}: CheckboxMultipleProps<Value>) => {
+}: Props<Value>) => {
   const { token } = theme.useToken();
 
   const listOptions = useDeepCompareMemo(() => getListOptions(options), [options]);
@@ -107,10 +107,7 @@ export const CheckboxMultiple = <Value extends unknown>({
           'CheckboxMultiple__container--warning': status === 'warning',
           [className]: true,
         })}
-        id={classNames({
-          CheckboxMultiple: true,
-          [id]: true,
-        })}
+        id={id}
       >
         {options.map(renderOption)}
         {loading && <Loading />}

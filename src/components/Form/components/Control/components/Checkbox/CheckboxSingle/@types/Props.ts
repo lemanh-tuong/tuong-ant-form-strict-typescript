@@ -8,7 +8,7 @@ export type IsCheckedFunction<Value extends unknown> = (params: {
   value: Result<Value>;
 }) => boolean;
 
-export interface CheckboxSingleProps<Value extends unknown> {
+export interface Props<Value extends unknown> {
   /** Callback được gọi khi click chọn option */
   onChange?: (value: Result<Value>, target: Option<Value>, action: 'checked' | 'unchecked') => void;
   /** Các option */

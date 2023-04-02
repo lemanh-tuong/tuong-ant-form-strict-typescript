@@ -1,0 +1,41 @@
+.ant-form-item-has-error
+  .CheckboxSingle__container
+  .CheckboxSingle__option
+  .ant-checkbox-wrapper,
+.CheckboxSingle__container.CheckboxSingle__container--error
+  .CheckboxSingle__option
+  .ant-checkbox-wrapper {
+  color: var(--color-error) !important;
+}
+.ant-form-item-has-error
+  .CheckboxSingle__container
+  .CheckboxSingle__option
+  .ant-checkbox::after,
+.CheckboxSingle__container.CheckboxSingle__container--error
+  .CheckboxSingle__option
+  .ant-checkbox::after {
+  border-color: var(--color-error) !important;
+  color: var(--color-error) !important;
+}
+.ant-form-item-has-error
+  .CheckboxSingle__container
+  .CheckboxSingle__option
+  .ant-checkbox
+  .ant-checkbox-inner,
+.CheckboxSingle__container.CheckboxSingle__container--error
+  .CheckboxSingle__option
+  .ant-checkbox
+  .ant-checkbox-inner {
+  border-color: var(--color-error) !important;
+}
+.ant-form-item-has-error
+  .CheckboxSingle__container
+  .CheckboxSingle__option
+  .ant-checkbox.ant-checkbox-checked
+  .ant-checkbox-inner,
+.CheckboxSingle__container.CheckboxSingle__container--error
+  .CheckboxSingle__option
+  .ant-checkbox.ant-checkbox-checked
+  .ant-checkbox-inner {
+  background-color: var(--color-error) !important;
+}

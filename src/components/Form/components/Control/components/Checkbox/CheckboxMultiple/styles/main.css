@@ -1,0 +1,8 @@
+@import './status/error.css';
+@import './status/warning.css';
+
+.CheckboxMultiple__container,
+.CheckboxMultiple__option {
+  position: relative;
+}
+
