@@ -1,3 +1,11 @@
+.Rate__container {
+  position: relative;
+}
+
+.Rate__container .ant-rate {
+  width: 100%;
+}
+
 .Rate__container.Rate__container--error {
   color: var(--color-error) !important;
 }

@@ -2,7 +2,7 @@ import { RateProps as AntRateProps } from 'antd';
 import { ReactNode } from 'react';
 import { Result } from './Result';
 
-export interface RateProps {
+export interface Props {
   /** Giá trị mặc định */
   value: Result;
   /** Callback được gọi khi người dùng chọn số lượng sao */
@@ -19,6 +19,10 @@ export interface RateProps {
   description?: ReactNode;
   /** Vô hiệu hoá rate */
   disabled?: AntRateProps['disabled'];
+  /** Custom id của container */
+  id?: string;
+  /** Set trạng thái loading */
+  loading?: boolean;
   /** Nội dung tooltip của từng phần tử */
   tooltips?: AntRateProps['tooltips'];
   /** Status */
