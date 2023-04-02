@@ -2,7 +2,7 @@ import { SliderSingleProps as AntSliderSingleProps } from 'antd';
 import { ReactNode } from 'react';
 import { Result } from './Result';
 
-export interface SliderSingleProps {
+export interface Props {
   /** Giá trị mặc định */
   value: Result;
   /** Callback được gọi khi thả chuột */
@@ -15,8 +15,12 @@ export interface SliderSingleProps {
   description?: ReactNode;
   /** Vô hiệu hoá slider */
   disabled?: AntSliderSingleProps['disabled'];
+  /** Custom id của container */
+  id?: string;
   /** Tô màu khoảng [min, current] */
   included?: AntSliderSingleProps['included'];
+  /** Set trạng thái loading */
+  loading?: boolean;
   /** Các mốc trên slider */
   marks?: AntSliderSingleProps['marks'];
   /** Giá trị lớn nhất có thể đạt được */
@@ -29,4 +33,6 @@ export interface SliderSingleProps {
   step?: AntSliderSingleProps['step'];
   /** Hiển thị slider dạng dọc */
   vertical?: AntSliderSingleProps['vertical'];
+  /** Hiển thị input number hay không */
+  withInputNumber?: boolean;
 }

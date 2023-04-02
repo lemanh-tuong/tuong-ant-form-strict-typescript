@@ -1,7 +1,7 @@
-import { SliderRangeProps } from '../@types/Props';
+import { Props } from '../@types/Props';
 import { Result } from '../@types/Result';
 
-export const setStateViaProps = (valueProps: SliderRangeProps['value']): Result => {
+export const setStateViaProps = (valueProps: Props['value']): Result => {
   const isInvalid =
     !!valueProps &&
     valueProps?.findIndex(item => {

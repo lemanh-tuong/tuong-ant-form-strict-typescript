@@ -11,8 +11,9 @@ import {
 import classNames from 'classnames';
 import { equals } from 'ramda';
 import { CSSProperties, useEffect, useState } from 'react';
-import { SliderSingleProps } from './@types/Props';
-import './styles.css';
+import { Props } from './@types/Props';
+import { Loading } from './components/Loading';
+import './styles/main.css';
 import { getValueOnInputChange } from './utils/getValueOnInputChange';
 import { getValueOnSliderChange } from './utils/getValueOnSliderChange';
 import { setStateViaProps } from './utils/setStateViaProps';
@@ -23,15 +24,18 @@ export const SliderSingle = ({
   onEnd,
   className = '',
   description,
-  disabled,
-  included,
+  disabled = false,
+  id = '',
+  included = true,
+  loading = false,
   marks,
   max,
   min,
   status,
-  step,
-  vertical,
-}: SliderSingleProps) => {
+  step = 1,
+  vertical = false,
+  withInputNumber = true,
+}: Props) => {
   const { token } = theme.useToken();
 
   const [valueState, setValueState] = useState(() => setStateViaProps(value));
@@ -62,39 +66,63 @@ export const SliderSingle = ({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [value]);
 
-  return (
-    <Tooltip title={description}>
-      <Row gutter={16}>
-        <Col flex="auto">
-          <Slider
-            keyboard
-            value={valueState || undefined}
-            onChange={handleSliderChange}
-            onAfterChange={handleSliderAfterChange}
-            disabled={disabled}
-            included={included}
-            marks={marks}
-            max={max}
-            min={min}
-            step={step}
-            vertical={vertical}
-            style={
-              {
-                '--color-error': token.colorError,
-                '--color-warning': token.colorWarning,
-              } as CSSProperties
-            }
-            className={classNames({
-              SliderSingle__container: true,
-              'SliderSingle__container--error': status === 'error',
-              'SliderSingle__container--warning': status === 'warning',
-              [className]: true,
-            })}
+  const renderInputNumber = () => {
+    if (withInputNumber) {
+      return (
+        <Col>
+          <InputNumber
+            disabled={disabled || loading}
+            value={valueState}
+            step={step ?? undefined}
+            onChange={handleInputChange}
           />
         </Col>
-        <Col>
-          <InputNumber value={valueState} step={step || undefined} onChange={handleInputChange} />
-        </Col>
+      );
+    }
+    return null;
+  };
+
+  const renderSlider = () => {
+    return (
+      <Col flex={vertical ? undefined : 'auto'}>
+        <Slider
+          keyboard
+          value={valueState ?? undefined}
+          onChange={handleSliderChange}
+          onAfterChange={handleSliderAfterChange}
+          disabled={disabled || loading}
+          included={included}
+          marks={marks}
+          max={max}
+          min={min}
+          step={step}
+          vertical={vertical}
+        />
+      </Col>
+    );
+  };
+
+  return (
+    <Tooltip title={description}>
+      <Row
+        gutter={16}
+        id={id}
+        style={
+          {
+            '--color-error': token.colorError,
+            '--color-warning': token.colorWarning,
+          } as CSSProperties
+        }
+        className={classNames({
+          SliderRange__container: true,
+          'SliderRange__container--error': status === 'error',
+          'SliderRange__container--warning': status === 'warning',
+          [className]: true,
+        })}
+      >
+        {renderSlider()}
+        {renderInputNumber()}
+        {loading && <Loading />}
       </Row>
     </Tooltip>
   );

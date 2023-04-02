@@ -141,8 +141,8 @@ export const SliderRange = ({
   return (
     <Tooltip title={description}>
       <Row
-        id={id}
         gutter={16}
+        id={id}
         style={
           {
             '--color-error': token.colorError,
