@@ -2,7 +2,7 @@ import { SliderRangeProps as AntSliderRangeProps } from 'antd/es/slider';
 import { ReactNode } from 'react';
 import { Result } from './Result';
 
-export interface SliderRangeProps {
+export interface Props {
   /** Giá trị mặc định */
   value: Result;
   /** Callback được gọi khi thả chuột */
@@ -15,8 +15,12 @@ export interface SliderRangeProps {
   description?: ReactNode;
   /** Vô hiệu hoá slider */
   disabled?: AntSliderRangeProps['disabled'];
+  /** Custom id của container */
+  id?: string;
   /** Tô màu khoảng [current min, current max] */
   included?: AntSliderRangeProps['included'];
+  /** Set trạng thái loading */
+  loading?: boolean;
   /** Các mốc trên slider */
   marks?: AntSliderRangeProps['marks'];
   /** Giá trị lớn nhất có thể đạt được */
@@ -29,4 +33,6 @@ export interface SliderRangeProps {
   step?: AntSliderRangeProps['step'];
   /** Hiển thị slider dạng dọc */
   vertical?: AntSliderRangeProps['vertical'];
+  /** Hiển thị input number hay không */
+  withInputNumber?: boolean;
 }

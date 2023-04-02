@@ -1,0 +1,19 @@
+import { ComponentStory, Meta } from '@storybook/react';
+import { withDesign } from 'storybook-addon-designs';
+import { SliderRange } from '../SliderRange';
+
+export default {
+  title: 'Slider/SliderRange',
+  component: SliderRange,
+  argTypes: {},
+  args: {},
+  decorators: [withDesign],
+} as Meta<typeof SliderRange>;
+
+export const WithVertical: ComponentStory<typeof SliderRange> = args => {
+  return (
+    <div style={{ height: 200 }}>
+      <SliderRange {...args} value={null} vertical />
+    </div>
+  );
+};

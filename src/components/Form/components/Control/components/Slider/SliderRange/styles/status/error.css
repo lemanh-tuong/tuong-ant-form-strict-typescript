@@ -1,0 +1,10 @@
+.ant-form-item-has-error .SliderRange__container .ant-slider-track,
+.SliderRange__container.SliderRange__container--error .ant-slider-track {
+  background-color: var(--color-error) !important;
+}
+
+.ant-form-item-has-error .SliderRange__container .ant-slider-handle::after,
+.SliderRange__container.SliderRange__container--error
+  .ant-slider-handle::after {
+  box-shadow: 0 0 0 2px var(--color-error) !important;
+}

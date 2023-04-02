@@ -3,8 +3,9 @@ import { SliderRangeProps as AntSliderRangeProps } from 'antd/es/slider';
 import classNames from 'classnames';
 import { equals } from 'ramda';
 import { CSSProperties, useEffect, useState } from 'react';
-import { SliderRangeProps } from './@types/Props';
-import './styles.css';
+import { Props } from './@types/Props';
+import { Loading } from './components/Loading';
+import './styles/main.css';
 import { getValueOnInputChange } from './utils/getValueOnInputChange';
 import { getValueOnSliderChange } from './utils/getValueOnSliderChange';
 import { setStateViaProps } from './utils/setStateViaProps';
@@ -15,15 +16,18 @@ export const SliderRange = ({
   onEnd,
   className = '',
   description,
-  disabled,
-  included,
+  disabled = false,
+  id,
+  included = true,
+  loading,
   marks,
   max,
   min,
   status,
-  step,
-  vertical,
-}: SliderRangeProps) => {
+  step = 1,
+  vertical = false,
+  withInputNumber = true,
+}: Props) => {
   const { token } = theme.useToken();
 
   const [valueState, setValueState] = useState(() => setStateViaProps(value));
@@ -56,9 +60,88 @@ export const SliderRange = ({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [value]);
 
+  const renderInputNumberForStart = () => {
+    if (withInputNumber) {
+      return (
+        <Col span={vertical ? 24 : 12}>
+          <InputNumber
+            value={valueState?.[0] ?? undefined}
+            onChange={handleInputChange(0)}
+            max={valueState?.[1] ?? undefined}
+            min={min}
+            step={step ?? undefined}
+            disabled={disabled || loading}
+            status={status}
+          />
+        </Col>
+      );
+    }
+    return null;
+  };
+
+  const renderInputNumberForEnd = () => {
+    if (withInputNumber) {
+      return (
+        <Col span={vertical ? 24 : 12}>
+          <InputNumber
+            value={valueState?.[1] ?? undefined}
+            onChange={handleInputChange(1)}
+            max={max}
+            min={valueState?.[0] ?? undefined}
+            step={step ?? undefined}
+            disabled={disabled || loading}
+            status={status}
+          />
+        </Col>
+      );
+    }
+    return null;
+  };
+
+  const renderInputNumber = () => {
+    if (vertical) {
+      return (
+        <Col flex="auto">
+          <Row gutter={[0, 16]}>
+            {renderInputNumberForStart()}
+            {renderInputNumberForEnd()}
+          </Row>
+        </Col>
+      );
+    }
+    return (
+      <>
+        {renderInputNumberForStart()}
+        {renderInputNumberForEnd()}
+      </>
+    );
+  };
+
+  const renderSlider = () => {
+    return (
+      <Col span={vertical ? undefined : 24}>
+        <Slider
+          range
+          keyboard
+          value={valueState ?? undefined}
+          onChange={handleSliderChange}
+          onAfterChange={handleSliderAfterChange}
+          disabled={disabled || loading}
+          included={included}
+          marks={marks}
+          max={max}
+          min={min}
+          step={step}
+          vertical={vertical}
+        />
+      </Col>
+    );
+  };
+
   return (
     <Tooltip title={description}>
       <Row
+        id={id}
         gutter={16}
         style={
           {
@@ -73,44 +156,9 @@ export const SliderRange = ({
           [className]: true,
         })}
       >
-        <Col span={24}>
-          <Slider
-            range
-            keyboard
-            value={valueState || undefined}
-            onChange={handleSliderChange}
-            onAfterChange={handleSliderAfterChange}
-            disabled={disabled}
-            included={included}
-            marks={marks}
-            max={max}
-            min={min}
-            step={step}
-            vertical={vertical}
-          />
-        </Col>
-        <Col span={12}>
-          <InputNumber
-            value={valueState?.[0] ?? undefined}
-            onChange={handleInputChange(0)}
-            max={valueState?.[1] ?? undefined}
-            min={min}
-            step={step ?? undefined}
-            disabled={disabled}
-            status={status}
-          />
-        </Col>
-        <Col span={12}>
-          <InputNumber
-            value={valueState?.[1] ?? undefined}
-            onChange={handleInputChange(1)}
-            max={max}
-            min={valueState?.[0] ?? undefined}
-            step={step ?? undefined}
-            disabled={disabled}
-            status={status}
-          />
-        </Col>
+        {renderSlider()}
+        {renderInputNumber()}
+        {loading && <Loading />}
       </Row>
     </Tooltip>
   );
