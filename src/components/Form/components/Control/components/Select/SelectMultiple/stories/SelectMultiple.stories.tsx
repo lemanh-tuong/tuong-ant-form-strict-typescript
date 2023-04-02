@@ -4,7 +4,7 @@ import { Button, Input, InputRef, Space, Typography } from 'antd';
 import { useRef, useState } from 'react';
 import { withDesign } from 'storybook-addon-designs';
 import { v4 } from 'uuid';
-import { SelectMultiple } from './SelectMultiple';
+import { SelectMultiple } from '../SelectMultiple';
 
 export default {
   title: 'SelectMultiple',

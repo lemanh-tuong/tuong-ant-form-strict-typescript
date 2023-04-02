@@ -6,7 +6,7 @@ import { useEffect, useState } from 'react';
 import { OptionForAntSelect } from './@types/OptionForAntSelect';
 import { SelectMultipleProps } from './@types/Props';
 import { Result } from './@types/Result';
-import './styles.css';
+import './styles/main.css';
 import { defaultIsChecked } from './utils/defaultIsChecked';
 import { getValueOnChange } from './utils/getValueOnChange';
 import { setStateViaValueProps } from './utils/setStateViaProps';
