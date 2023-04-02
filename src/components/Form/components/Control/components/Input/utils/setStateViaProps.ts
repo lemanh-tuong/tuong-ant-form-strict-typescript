@@ -1,7 +1,7 @@
-import { InputProps } from '../@types/Props';
+import { Props } from '../@types/Props';
 import { Result } from '../@types/Result';
 
-export const setStateViaProps = (valueProps: InputProps['value']): Result => {
+export const setStateViaProps = (valueProps: Props['value']): Result => {
   const isInvalid = valueProps !== null && typeof valueProps !== 'string';
   if (isInvalid) {
     console.warn('Invalid input', { value: valueProps });

@@ -1,8 +1,10 @@
-import { Input as AntInput, InputProps as AntInputProps, Tooltip } from 'antd';
+import { Input as AntInput, InputProps as AntInputProps, theme, Tooltip } from 'antd';
 import classNames from 'classnames';
 import { equals } from 'ramda';
-import { useEffect, useState } from 'react';
-import { InputProps } from './@types/Props';
+import { CSSProperties, useEffect, useState } from 'react';
+import { Props } from './@types/Props';
+import { Loading } from './components/Loading';
+import './styles/main.css';
 import { getValueOnChange } from './utils/getValueOnChange';
 import { setStateViaProps } from './utils/setStateViaProps';
 
@@ -12,8 +14,11 @@ export const Input = ({
   after,
   before,
   className = '',
+  defaultFocus = false,
   description,
   disabled = false,
+  id,
+  loading,
   maxLength,
   placeholder,
   prefixIcon,
@@ -21,7 +26,9 @@ export const Input = ({
   size,
   status,
   suffixIcon,
-}: InputProps) => {
+}: Props) => {
+  const { token } = theme.useToken();
+
   const [valueState, setValueState] = useState(() => setStateViaProps(value));
 
   const handleChange: AntInputProps['onChange'] = event => {
@@ -39,25 +46,37 @@ export const Input = ({
 
   return (
     <Tooltip title={description}>
-      <AntInput
-        allowClear
-        value={valueState ?? ''}
-        onChange={handleChange}
-        addonAfter={after}
-        addonBefore={before}
-        disabled={disabled}
-        maxLength={maxLength}
-        placeholder={placeholder}
-        prefix={prefixIcon}
-        showCount={showCount}
-        size={size}
-        status={status}
-        suffix={suffixIcon}
+      <div
+        id={id}
         className={classNames({
           Input__container: true,
           [className]: true,
         })}
-      />
+        style={
+          {
+            '--color-error': token.colorError,
+            '--color-warning': token.colorWarning,
+          } as CSSProperties
+        }
+      >
+        <AntInput
+          allowClear
+          value={valueState ?? ''}
+          onChange={handleChange}
+          addonAfter={after}
+          addonBefore={before}
+          autoFocus={defaultFocus}
+          disabled={disabled || loading}
+          maxLength={maxLength}
+          placeholder={placeholder}
+          prefix={prefixIcon}
+          showCount={showCount}
+          size={size}
+          status={status}
+          suffix={suffixIcon}
+        />
+        {loading && <Loading />}
+      </div>
     </Tooltip>
   );
 };

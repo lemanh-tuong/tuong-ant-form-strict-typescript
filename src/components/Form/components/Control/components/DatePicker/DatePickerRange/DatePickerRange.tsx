@@ -1,9 +1,9 @@
-import { DatePicker as AntDatePicker, Tooltip } from 'antd';
+import { DatePicker as AntDatePicker, theme, Tooltip } from 'antd';
 import { RangePickerDateProps } from 'antd/es/date-picker/generatePicker';
 import classNames from 'classnames';
 import { Dayjs } from 'dayjs';
 import { equals } from 'ramda';
-import { useEffect, useState } from 'react';
+import { CSSProperties, useEffect, useState } from 'react';
 import { Loading } from '../components/Loading';
 import { Props } from './@types/Props';
 import './styles/main.css';
@@ -32,6 +32,8 @@ export const DatePickerRange = ({
   size = 'middle',
   status,
 }: Props) => {
+  const { token } = theme.useToken();
+
   const [valueState, setValueState] = useState(() => {
     return setStateViaProps(value);
   });
@@ -59,6 +61,12 @@ export const DatePickerRange = ({
           DatePickerRange__container: true,
           [className]: true,
         })}
+        style={
+          {
+            '--color-error': token.colorError,
+            '--color-warning': token.colorWarning,
+          } as CSSProperties
+        }
       >
         <AntDatePicker.RangePicker
           allowClear

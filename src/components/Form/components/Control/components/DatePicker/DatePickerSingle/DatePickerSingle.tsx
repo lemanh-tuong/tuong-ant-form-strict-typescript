@@ -1,7 +1,7 @@
-import { DatePicker as AntDatePicker, DatePickerProps as AntDatePickerProps, Tooltip } from 'antd';
+import { DatePicker as AntDatePicker, DatePickerProps as AntDatePickerProps, theme, Tooltip } from 'antd';
 import classNames from 'classnames';
 import { equals } from 'ramda';
-import { useEffect, useState } from 'react';
+import { CSSProperties, useEffect, useState } from 'react';
 import { Loading } from '../components/Loading';
 import { Props } from './@types/Props';
 import './styles/main.css';
@@ -30,6 +30,8 @@ export const DatePickerSingle = ({
   size = 'middle',
   status,
 }: Props) => {
+  const { token } = theme.useToken();
+
   const [valueState, setValueState] = useState(() => {
     return setStateViaProps(value);
   });
@@ -57,6 +59,12 @@ export const DatePickerSingle = ({
           [className]: true,
           DatePickerSingle__container: true,
         })}
+        style={
+          {
+            '--color-error': token.colorError,
+            '--color-warning': token.colorWarning,
+          } as CSSProperties
+        }
       >
         <AntDatePicker
           allowClear

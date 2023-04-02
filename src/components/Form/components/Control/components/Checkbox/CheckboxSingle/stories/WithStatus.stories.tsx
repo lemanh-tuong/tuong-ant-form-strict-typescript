@@ -1,42 +1,39 @@
 import { ComponentStory, Meta } from '@storybook/react';
 import { withDesign } from 'storybook-addon-designs';
-import { CheckboxMultiple } from '../CheckboxMultiple';
+import { CheckboxSingle } from '../CheckboxSingle';
 
 export default {
-  title: 'Checkbox/CheckboxMultiple',
-  component: CheckboxMultiple,
+  title: 'Checkbox/CheckboxSingle/WithStatus',
+  component: CheckboxSingle,
   argTypes: {},
   args: {},
   decorators: [withDesign],
-} as Meta<typeof CheckboxMultiple>;
+} as Meta<typeof CheckboxSingle>;
 
-export const StatusError: ComponentStory<typeof CheckboxMultiple> = args => {
+export const StatusError: ComponentStory<typeof CheckboxSingle> = args => {
   return (
-    <CheckboxMultiple
+    <CheckboxSingle
       {...args}
       options={[
-        { id: 'ALL', label: 'All', value: 'all', isOptionForCheckedAll: true },
         { id: '1', label: 'Paypal', value: 'PAYPAL' },
         { id: '2', label: 'Stripe', value: 'STRIPE' },
         { id: '3', label: 'Credit card', value: 'CREDIT' },
       ]}
-      value="all"
+      value="PAYPAL"
       status="error"
     />
   );
 };
-
-export const StatusWarning: ComponentStory<typeof CheckboxMultiple> = args => {
+export const StatusWarning: ComponentStory<typeof CheckboxSingle> = args => {
   return (
-    <CheckboxMultiple
+    <CheckboxSingle
       {...args}
       options={[
-        { id: 'ALL', label: 'All', value: 'all', isOptionForCheckedAll: true },
         { id: '1', label: 'Paypal', value: 'PAYPAL' },
         { id: '2', label: 'Stripe', value: 'STRIPE' },
         { id: '3', label: 'Credit card', value: 'CREDIT' },
       ]}
-      value="all"
+      value="PAYPAL"
       status="warning"
     />
   );

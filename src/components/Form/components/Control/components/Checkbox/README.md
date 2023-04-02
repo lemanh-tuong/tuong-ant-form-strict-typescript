@@ -1,5 +1,5 @@
 # `Checkbox` Component
-The Checkbox folder contains components related to various types of checkboxes
+The `Checkbox` folder contains components related to various types of checkboxes
 
 ### Supported Types
 - [CheckboxMultiple](./CheckboxMultiple/README.md)

@@ -2,7 +2,7 @@ import { InputProps as AntInputProps } from 'antd';
 import { ReactNode } from 'react';
 import { Result } from './Result';
 
-export interface InputProps {
+export interface Props {
   /** Giá trị mặc định */
   value: Result;
   /** Callback được gọi khi người dùng nhập */
@@ -13,10 +13,16 @@ export interface InputProps {
   before?: AntInputProps['addonBefore'];
   /** Custom class của container */
   className?: AntInputProps['className'];
+  /** Trạng thái focus mặc định khi component được mount */
+  defaultFocus?: AntInputProps['autoFocus'];
   /** Nội dung mô tả của tooltip */
   description?: ReactNode;
   /** Vô hiệu hoá input */
   disabled?: AntInputProps['disabled'];
+  /** Custom id của container */
+  id?: AntInputProps['id'];
+  /** Set trạng thái loading */
+  loading?: boolean;
   /** Độ dài tối đa */
   maxLength?: AntInputProps['maxLength'];
   /** Placeholder của input */

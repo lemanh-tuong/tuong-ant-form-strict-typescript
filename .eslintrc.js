@@ -67,7 +67,12 @@ module.exports = {
     '@typescript-eslint/no-use-before-define': 'error',
     '@typescript-eslint/no-unused-vars': [
       'error',
-      { varsIgnorePattern: '^_', argsIgnorePattern: '^_', vars: 'all', args: 'all' },
+      {
+        varsIgnorePattern: '^_',
+        argsIgnorePattern: '^_',
+        vars: 'all',
+        args: 'all',
+      },
     ],
     '@typescript-eslint/consistent-type-definitions': ['error', 'interface'],
 
@@ -139,6 +144,8 @@ module.exports = {
         bracketSameLine: false,
       },
     ],
+
+    'jsx-a11y/no-autofocus': 'off',
   },
   ignorePatterns: ['**/node_modules/**', '**/dist/**', '**/assets/**', './scripts/**'],
 };
