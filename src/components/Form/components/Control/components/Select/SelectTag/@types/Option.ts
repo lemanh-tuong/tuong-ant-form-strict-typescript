@@ -9,7 +9,7 @@ export interface Option {
   description?: ReactNode;
   /** Value của option */
   value: string;
-  /** Disable option */
+  /** Vô hiệu hóa option */
   disabled?: boolean;
   /** Custom class của option */
   className?: string;

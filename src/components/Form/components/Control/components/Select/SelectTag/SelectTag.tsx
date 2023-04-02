@@ -3,9 +3,9 @@ import classNames from 'classnames';
 import { equals } from 'ramda';
 import { useEffect, useState } from 'react';
 import { Option } from './@types/Option';
-import { SelectTagProps } from './@types/Props';
+import { Props } from './@types/Props';
 import { Result } from './@types/Result';
-import './styles.css';
+import './styles/main.css';
 import { getValueOnChange } from './utils/getValueOnChange';
 import { setStateViaValueProps } from './utils/setStateViaValueProps';
 
@@ -14,11 +14,14 @@ export const SelectTag = ({
   value,
   onChange,
   className = '',
+  defaultFocus = false,
   defaultOpen = false,
   description,
   disabled = false,
   dropdownClassName = '',
+  id,
   listHeight,
+  loading = false,
   maxTagCount,
   maxTagPlaceholder,
   maxTagTextLength,
@@ -30,10 +33,8 @@ export const SelectTag = ({
   suffixIcon,
   tagRender,
   tokenSeparators,
-}: SelectTagProps) => {
-  const [valueState, setValueState] = useState<Result>(() => {
-    return setStateViaValueProps({ value });
-  });
+}: Props) => {
+  const [valueState, setValueState] = useState<Result>(() => setStateViaValueProps(value));
 
   const handleChange: SelectProps<Array<Option['value']>, Option>['onChange'] = (value, options) => {
     const nextState = getValueOnChange(value, options);
@@ -43,7 +44,7 @@ export const SelectTag = ({
 
   useEffect(() => {
     if (!equals(value, valueState)) {
-      setValueState(() => setStateViaValueProps({ value }));
+      setValueState(() => setStateViaValueProps(value));
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [value]);
@@ -87,10 +88,13 @@ export const SelectTag = ({
         dropdownMatchSelectWidth
         value={valueState}
         onChange={handleChange}
+        autoFocus={defaultFocus}
         defaultOpen={defaultOpen}
         disabled={disabled}
         dropdownRender={renderExtraFooter ? dropdownRender : undefined}
+        id={id}
         listHeight={listHeight}
+        loading={loading}
         maxTagCount={maxTagCount}
         maxTagPlaceholder={maxTagPlaceholder}
         maxTagTextLength={maxTagTextLength}

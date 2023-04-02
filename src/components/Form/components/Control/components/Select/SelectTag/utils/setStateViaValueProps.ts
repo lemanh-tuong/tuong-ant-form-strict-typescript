@@ -1,9 +1,6 @@
+import { Props } from '../@types/Props';
 import { Result } from '../@types/Result';
 
-interface SetStateViaValueProps {
-  value: Result;
-}
-
-export const setStateViaValueProps = ({ value }: SetStateViaValueProps): Result => {
-  return value ?? [];
+export const setStateViaValueProps = (valueProps: Props['value']): Result => {
+  return valueProps ?? [];
 };
