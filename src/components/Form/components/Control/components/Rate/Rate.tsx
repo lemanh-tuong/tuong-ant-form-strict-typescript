@@ -68,7 +68,7 @@ export const Rate = ({
         <AntRate
           onHoverChange={description && isNil(valueState) ? handleToggleTooltip : undefined}
           allowClear
-          value={valueState || undefined}
+          value={valueState ?? undefined}
           onChange={handleChange}
           allowHalf={allowHalf}
           character={character}
