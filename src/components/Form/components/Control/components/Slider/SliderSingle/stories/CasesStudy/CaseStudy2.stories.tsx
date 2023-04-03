@@ -1,7 +1,9 @@
 import { ComponentStory, Meta } from '@storybook/react';
-import { Button, Card, Form, Input } from 'antd';
+import { Button, Card, Form, FormProps, Input, notification } from 'antd';
+import { useEffect, useState } from 'react';
 import { withDesign } from 'storybook-addon-designs';
 import { SliderSingle } from '../../SliderSingle';
+import { delay } from './utils/delay';
 
 export default {
   title: 'Slider/SliderSingle/Cases Study',
@@ -13,30 +15,57 @@ export default {
 
 export const CaseStudy2: ComponentStory<typeof SliderSingle> = args => {
   interface FormValues {
-    price: [number, number];
+    name: string;
+    price: number;
   }
 
   const [form] = Form.useForm<FormValues>();
+  const price = Form.useWatch('price', form);
 
+  const [isLoading, setIsLoading] = useState(false);
+
+  const [isFiltering, setIsFiltering] = useState(false);
+
+  const handleSubmit: FormProps<FormValues>['onFinish'] = async () => {
+    setIsFiltering(true);
+    try {
+      await delay(1000);
+      notification.success({
+        message: 'Fetched new data',
+      });
+    } finally {
+      setIsFiltering(false);
+    }
+  };
+
+  const handleGetData = async () => {
+    setIsLoading(true);
+    try {
+      await delay(1000);
+      form.setFieldsValue({
+        name: 'Jean',
+        price: 30,
+      });
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    handleGetData();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
   return (
-    <Form layout="vertical" form={form}>
+    <Form layout="vertical" form={form} onFinish={handleSubmit} scrollToFirstError>
       <Card title="Filter">
-        <Form.Item
-          rules={[{ required: true, warningOnly: true, message: 'Name should be provided' }]}
-          name="name"
-          label="Name"
-        >
+        <Form.Item rules={[{ required: true, message: 'Name is required' }]} name="name" label="Name">
           <Input />
         </Form.Item>
-        <Form.Item
-          rules={[{ required: true, warningOnly: true, message: 'Price should be provided' }]}
-          name="price"
-          label="Price"
-        >
-          <SliderSingle {...args} value={null} />
+        <Form.Item rules={[{ required: true, message: 'Price is required' }]} name="price" label="Price">
+          <SliderSingle {...args} value={price} loading={isLoading} />
         </Form.Item>
         <Form.Item>
-          <Button type="primary" htmlType="submit">
+          <Button type="primary" htmlType="submit" disabled={isLoading} loading={isFiltering}>
             Filter
           </Button>
         </Form.Item>

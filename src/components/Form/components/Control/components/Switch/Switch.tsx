@@ -2,10 +2,10 @@ import { Switch as AntSwitch, SwitchProps as AntSwitchProps, theme, Tooltip } fr
 import classNames from 'classnames';
 import { equals } from 'ramda';
 import { CSSProperties, useEffect, useState } from 'react';
-import { SwitchProps } from './@types/Props';
+import { Props } from './@types/Props';
 import { getValueOnChange } from './utils/getValueOnChange';
 import { setStateViaProps } from './utils/setStateViaProps';
-import './styles.css';
+import './styles/main.css';
 
 export const Switch = ({
   onChange,
@@ -14,10 +14,12 @@ export const Switch = ({
   className = '',
   description,
   disabled = false,
+  id = '',
+  loading = false,
   size,
   status,
   unChecked,
-}: SwitchProps) => {
+}: Props) => {
   const { token } = theme.useToken();
 
   const [valueState, setValueState] = useState(() => setStateViaProps(value));
@@ -42,20 +44,22 @@ export const Switch = ({
         onChange={handleChange}
         checkedChildren={checked}
         disabled={disabled}
+        loading={loading}
         size={size}
         unCheckedChildren={unChecked}
-        style={
-          {
-            '--color-error': token.colorError,
-            '--color-warning': token.colorWarning,
-          } as CSSProperties
-        }
+        id={id}
         className={classNames({
           Switch__container: true,
           'Switch__container--error': status === 'error',
           'Switch__container--warning': status === 'warning',
           [className]: true,
         })}
+        style={
+          {
+            '--color-error': token.colorError,
+            '--color-warning': token.colorWarning,
+          } as CSSProperties
+        }
       />
     </Tooltip>
   );

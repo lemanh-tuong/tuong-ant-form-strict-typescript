@@ -1,10 +1,12 @@
-import { TimePicker as AntTimePicker, Tooltip } from 'antd';
+import { theme, TimePicker as AntTimePicker, Tooltip } from 'antd';
 import { RangePickerTimeProps } from 'antd/es/date-picker/generatePicker';
 import classNames from 'classnames';
 import { Dayjs } from 'dayjs';
 import { equals } from 'ramda';
-import { useEffect, useState } from 'react';
-import { TimePickerRangeProps } from './@types/Props';
+import { CSSProperties, useEffect, useState } from 'react';
+import { Loading } from '../components/Loading';
+import { Props } from './@types/Props';
+import './styles/main.css';
 import { getValueOnChange } from './utils/getValueOnChange';
 import { setStateViaProps } from './utils/setStateViaProps';
 
@@ -20,6 +22,8 @@ export const TimePickerRange = ({
   format,
   hideDisabledOptions = false,
   hourStep,
+  id = '',
+  loading = false,
   minuteStep,
   placeholder,
   renderExtraFooter,
@@ -29,8 +33,10 @@ export const TimePickerRange = ({
   showSecond = true,
   size,
   status,
-  use12Hours,
-}: TimePickerRangeProps) => {
+  use12Hours = false,
+}: Props) => {
+  const { token } = theme.useToken();
+
   const [valueState, setValueState] = useState(() => {
     return setStateViaProps(value);
   });
@@ -49,39 +55,51 @@ export const TimePickerRange = ({
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [value]);
+
   return (
     <Tooltip title={description}>
-      <AntTimePicker.RangePicker
-        showNow
-        allowClear
-        inputReadOnly
-        value={valueState}
-        onChange={handleChange}
-        defaultOpen={defaultOpen}
-        disabled={disabled}
-        disabledTime={disabledTime}
-        format={format}
-        hideDisabledOptions={hideDisabledOptions}
-        hourStep={hourStep}
-        minuteStep={minuteStep}
-        placeholder={placeholder}
-        renderExtraFooter={renderExtraFooter}
-        secondStep={secondStep}
-        showHour={showHour}
-        showMinute={showMinute}
-        showSecond={showSecond}
-        size={size}
-        status={status}
-        use12Hours={use12Hours}
+      <div
+        id={id}
         className={classNames({
           [className]: true,
           TimePickerRange__container: true,
         })}
-        popupClassName={classNames({
-          [dropdownClassName]: true,
-          TimePickerRange__dropdown: true,
-        })}
-      />
+        style={
+          {
+            '--color-error': token.colorError,
+            '--color-warning': token.colorWarning,
+          } as CSSProperties
+        }
+      >
+        <AntTimePicker.RangePicker
+          showNow
+          allowClear
+          inputReadOnly
+          value={valueState}
+          onChange={handleChange}
+          defaultOpen={defaultOpen}
+          disabled={disabled}
+          disabledTime={disabledTime}
+          format={format}
+          hideDisabledOptions={hideDisabledOptions}
+          hourStep={hourStep}
+          minuteStep={minuteStep}
+          placeholder={placeholder}
+          renderExtraFooter={renderExtraFooter}
+          secondStep={secondStep}
+          showHour={showHour}
+          showMinute={showMinute}
+          showSecond={showSecond}
+          size={size}
+          status={status}
+          use12Hours={use12Hours}
+          popupClassName={classNames({
+            [dropdownClassName]: true,
+            TimePickerRange__dropdown: true,
+          })}
+        />
+        {loading && <Loading />}
+      </div>
     </Tooltip>
   );
 };

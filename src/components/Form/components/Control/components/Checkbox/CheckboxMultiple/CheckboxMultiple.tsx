@@ -51,7 +51,7 @@ export const CheckboxMultiple = <Value extends unknown>({
       });
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [value]);
+  }, [isChecked, listOptions, value]);
 
   const renderOption = (option: Option<Value>) => {
     const {
@@ -65,6 +65,7 @@ export const CheckboxMultiple = <Value extends unknown>({
       loading: optionLoading = false,
     } = option;
     const checked = isChecked({ option, value: valueState });
+
     const indeterminate = isOptionForCheckedAll && Array.isArray(valueState) && !!valueState.length;
     const isDisabled = loading || optionLoading || disabled || optionDisabled;
     return (

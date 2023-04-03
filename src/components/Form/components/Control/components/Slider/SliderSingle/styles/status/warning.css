@@ -1,0 +1,10 @@
+.ant-form-item-has-warning .SliderSingle__container .ant-slider-track,
+.SliderSingle__container.SliderSingle__container--warning .ant-slider-track {
+  background-color: var(--color-warning) !important;
+}
+
+.ant-form-item-has-warning .SliderSingle__container .ant-slider-handle::after,
+.SliderSingle__container.SliderSingle__container--warning
+  .ant-slider-handle::after {
+  box-shadow: 0 0 0 2px var(--color-warning) !important;
+}

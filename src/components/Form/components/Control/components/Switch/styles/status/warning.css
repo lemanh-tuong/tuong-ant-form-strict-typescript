@@ -1,0 +1,6 @@
+.ant-form-item-has-warning .Switch__container,
+.ant-form-item-has-warning .Switch__container,
+.Switch__container.Switch__container--warning,
+.Switch__container.Switch__container--warning {
+  background-color: var(--color-warning) !important;
+}

@@ -46,7 +46,7 @@ export const CheckboxSingle = <Value extends unknown>({
       setValueState(() => setStateViaValueProps({ options, valueProps: value, atLeastOne, isChecked }));
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [value]);
+  }, [atLeastOne, isChecked, options, value]);
 
   const renderOption = (option: Option<Value>) => {
     const {

@@ -2,7 +2,7 @@ import { TextAreaProps as AntTextAreaProps } from 'antd/es/input/TextArea';
 import { ReactNode } from 'react';
 import { Result } from './Result';
 
-export interface TextareaProps {
+export interface Props {
   /** Giá trị mặc định */
   value: Result;
   /** Callback được gọi khi người dùng nhập */
@@ -15,6 +15,10 @@ export interface TextareaProps {
   description?: ReactNode;
   /** Vô hiệu hoá input */
   disabled?: AntTextAreaProps['disabled'];
+  /** Custom id của container */
+  id?: string;
+  /** Set trạng thái loading */
+  loading?: boolean;
   /** Độ dài tối đa */
   maxLength?: AntTextAreaProps['maxLength'];
   /** Placeholder của input */

@@ -1,8 +1,7 @@
 import { ComponentStory, Meta } from '@storybook/react';
-import { Button, Card, Divider, notification } from 'antd';
+import { Button, Card, Divider, Form, FormProps, notification } from 'antd';
 import { useState } from 'react';
 import { withDesign } from 'storybook-addon-designs';
-import { Props } from '../../@types/Props';
 import { Radio } from '../../Radio';
 import { delay } from './utils/delay';
 
@@ -14,16 +13,22 @@ export default {
   decorators: [withDesign],
 } as Meta<typeof Radio>;
 export const CaseStudy1: ComponentStory<typeof Radio> = args => {
-  const [paymentMethod, setPaymentMethod] = useState<string | null>(null);
+  interface FormValues {
+    paymentMethod: string;
+  }
+  const [form] = Form.useForm<FormValues>();
+  const paymentMethod = Form.useWatch('paymentMethod', form);
+
   const [isLoading, setIsLoading] = useState(false);
 
-  const handleChange: Props<string | null>['onChange'] = async value => {
-    setPaymentMethod(value);
+  const handleSubmit: FormProps<FormValues>['onFinish'] = async values => {
     setIsLoading(true);
     try {
       await delay(1000);
-      setPaymentMethod(value);
-      notification.success({ message: 'OK' });
+      notification.success({
+        message: 'OK',
+        description: `Updated to ${values.paymentMethod}`,
+      });
     } finally {
       setIsLoading(false);
     }
@@ -31,22 +36,31 @@ export const CaseStudy1: ComponentStory<typeof Radio> = args => {
 
   return (
     <Card title="Choose checkout methods">
-      <Radio
-        {...args}
-        direction="vertical"
-        loading={isLoading}
-        value={paymentMethod}
-        onChange={handleChange}
-        options={[
-          { id: '1', label: 'Paypal', value: 'PAYPAL' },
-          { id: '2', label: 'Stripe', value: 'STRIPE' },
-          { id: '3', label: 'Credit card', value: 'CREDIT' },
-        ]}
-      />
-      <Divider />
-      <Button disabled={isLoading} loading={isLoading} type="primary" block key="next">
-        Save
-      </Button>
+      <Form form={form} onFinish={handleSubmit} scrollToFirstError layout="vertical">
+        <Form.Item
+          rules={[{ required: true, message: 'Payment method is required' }]}
+          label="Payment method"
+          name="paymentMethod"
+        >
+          <Radio
+            {...args}
+            direction="vertical"
+            loading={isLoading}
+            value={paymentMethod}
+            options={[
+              { id: '1', label: 'Paypal', value: 'PAYPAL' },
+              { id: '2', label: 'Stripe', value: 'STRIPE' },
+              { id: '3', label: 'Credit card', value: 'CREDIT' },
+            ]}
+          />
+        </Form.Item>
+        <Divider />
+        <Form.Item>
+          <Button loading={isLoading} type="primary" htmlType="submit" block>
+            Save
+          </Button>
+        </Form.Item>
+      </Form>
     </Card>
   );
 };

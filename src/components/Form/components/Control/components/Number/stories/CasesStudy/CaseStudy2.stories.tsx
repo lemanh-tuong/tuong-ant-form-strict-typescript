@@ -1,6 +1,5 @@
 import { ComponentStory, Meta } from '@storybook/react';
-import { Button, notification, Space } from 'antd';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { withDesign } from 'storybook-addon-designs';
 import { Result } from '../../@types/Result';
 import { Number } from '../../Number';
@@ -16,27 +15,21 @@ export default {
 
 export const CaseStudy2: ComponentStory<typeof Number> = args => {
   const [isLoading, setIsLoading] = useState(false);
-  const [value, setValue] = useState<Result>(100);
+  const [value, setValue] = useState<Result>(null);
 
-  const handleValidate = async () => {
+  const handleGetData = async () => {
     setIsLoading(true);
     try {
       await delay(1000);
-      notification.success({
-        message: 'OK',
-        description: 'Available',
-      });
+      setValue(100);
     } finally {
       setIsLoading(false);
     }
   };
 
-  return (
-    <Space direction="vertical" size={16}>
-      <Number {...args} value={value} onChange={setValue} defaultFocus loading={isLoading} />
-      <Button type="primary" onClick={handleValidate} loading={isLoading}>
-        Check available
-      </Button>
-    </Space>
-  );
+  useEffect(() => {
+    handleGetData();
+  }, []);
+
+  return <Number {...args} value={value} defaultFocus loading={isLoading} />;
 };

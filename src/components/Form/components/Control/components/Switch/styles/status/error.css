@@ -1,0 +1,6 @@
+.ant-form-item-has-error .Switch__container,
+.ant-form-item-has-error .Switch__container,
+.Switch__container.Switch__container--error,
+.Switch__container.Switch__container--error {
+  background-color: var(--color-error) !important;
+}

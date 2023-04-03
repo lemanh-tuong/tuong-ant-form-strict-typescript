@@ -1,14 +1,11 @@
-.SliderSingle__container.SliderSingle__container--error .ant-slider-track {
-  background-color: var(--color-error) !important;
+@import "./status/error.css";
+@import "./status/warning.css";
+
+.SliderSingle__container {
+  position: relative;
+  height: 100%;
 }
 
-.SliderSingle__container.SliderSingle__container--error .ant-slider-handle::after {
-  box-shadow: 0 0 0 2px var(--color-error) !important;
-}
-
-.SliderSingle__container.SliderSingle__container--warning .ant-slider-track {
-  background-color: var(--color-warning) !important;
-}
-.SliderSingle__container.SliderSingle__container--warning .ant-slider-handle::after {
-  box-shadow: 0 0 0 2px var(--color-warning) !important;
+.SliderSingle__container .ant-input-number {
+  width: 100%;
 }

@@ -1,0 +1,6 @@
+.TimePickerRange__container {
+  position: relative;
+}
+.TimePickerRange__container .ant-picker {
+  width: 100%;
+}

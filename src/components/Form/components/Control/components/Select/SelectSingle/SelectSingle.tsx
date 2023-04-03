@@ -1,8 +1,8 @@
-import { Divider, Select, SelectProps, Tooltip } from 'antd';
+import { Divider, Select, SelectProps, theme, Tooltip } from 'antd';
 import classNames from 'classnames';
 import { useDeepCompareMemo } from 'hooks/useDeepCompareMemo';
 import { equals } from 'ramda';
-import { useEffect, useState } from 'react';
+import { CSSProperties, useEffect, useState } from 'react';
 import { OptionForAntSelect } from './@types/OptionForAntSelect';
 import { Props } from './@types/Props';
 import { Result } from './@types/Result';
@@ -35,6 +35,8 @@ export const SelectSingle = <Value extends unknown>({
   status,
   suffixIcon,
 }: Props<Value>) => {
+  const { token } = theme.useToken();
+
   const [valueState, setValueState] = useState<Result<Value>>(() => {
     return setStateViaValueProps({ options, valueProps: value, isChecked });
   });
@@ -127,6 +129,12 @@ export const SelectSingle = <Value extends unknown>({
           SelectSingle__container: true,
           [className]: true,
         })}
+        style={
+          {
+            '--color-error': token.colorError,
+            '--color-warning': token.colorWarning,
+          } as CSSProperties
+        }
       >
         {options_.map(renderOption)}
       </Select>

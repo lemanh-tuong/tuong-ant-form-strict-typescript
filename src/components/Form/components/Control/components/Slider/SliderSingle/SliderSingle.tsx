@@ -107,18 +107,18 @@ export const SliderSingle = ({
       <Row
         gutter={16}
         id={id}
-        style={
-          {
-            '--color-error': token.colorError,
-            '--color-warning': token.colorWarning,
-          } as CSSProperties
-        }
         className={classNames({
           SliderRange__container: true,
           'SliderRange__container--error': status === 'error',
           'SliderRange__container--warning': status === 'warning',
           [className]: true,
         })}
+        style={
+          {
+            '--color-error': token.colorError,
+            '--color-warning': token.colorWarning,
+          } as CSSProperties
+        }
       >
         {renderSlider()}
         {renderInputNumber()}

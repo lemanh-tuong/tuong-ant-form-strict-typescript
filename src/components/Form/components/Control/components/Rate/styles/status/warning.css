@@ -1,0 +1,4 @@
+.ant-form-item-has-warning .Rate__container,
+.Rate__container.Rate__container--warning {
+  color: var(--color-warning) !important;
+}

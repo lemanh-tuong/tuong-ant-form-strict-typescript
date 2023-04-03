@@ -1,7 +1,7 @@
 import { ComponentStory, Meta } from '@storybook/react';
-import { useEffect, useState } from 'react';
+import { Button, Card, Form, FormProps, notification } from 'antd';
+import { useState } from 'react';
 import { withDesign } from 'storybook-addon-designs';
-import { Result } from '../../@types/Result';
 import { Number } from '../../Number';
 import { delay } from './utils/delay';
 
@@ -14,22 +14,40 @@ export default {
 } as Meta<typeof Number>;
 
 export const CaseStudy1: ComponentStory<typeof Number> = args => {
-  const [isLoading, setIsLoading] = useState(false);
-  const [value, setValue] = useState<Result>(null);
+  interface FormValues {
+    quantity: number;
+  }
+  const [form] = Form.useForm<FormValues>();
+  const quantity = Form.useWatch('quantity', form);
 
-  const handleGetData = async () => {
+  const [isLoading, setIsLoading] = useState(false);
+
+  const handleSubmit: FormProps<FormValues>['onFinish'] = async values => {
     setIsLoading(true);
     try {
       await delay(1000);
-      setValue(100);
+      notification.success({
+        message: 'Created',
+        description: `Order with ${values.quantity} products was created successfully!`,
+      });
+      form.resetFields();
     } finally {
       setIsLoading(false);
     }
   };
 
-  useEffect(() => {
-    handleGetData();
-  }, []);
-
-  return <Number {...args} value={value} defaultFocus loading={isLoading} />;
+  return (
+    <Card title="Create order">
+      <Form layout="vertical" form={form} onFinish={handleSubmit} scrollToFirstError>
+        <Form.Item rules={[{ required: true, message: 'Quantity is required' }]} label="Quantity" name="quantity">
+          <Number {...args} value={quantity} loading={isLoading} />
+        </Form.Item>
+        <Form.Item>
+          <Button type="primary" htmlType="submit" loading={isLoading}>
+            Create
+          </Button>
+        </Form.Item>
+      </Form>
+    </Card>
+  );
 };

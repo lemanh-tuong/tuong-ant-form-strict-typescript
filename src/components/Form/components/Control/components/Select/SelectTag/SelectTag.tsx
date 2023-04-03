@@ -1,7 +1,7 @@
-import { Divider, Select, SelectProps, Tooltip } from 'antd';
+import { Divider, Select, SelectProps, theme, Tooltip } from 'antd';
 import classNames from 'classnames';
 import { equals } from 'ramda';
-import { useEffect, useState } from 'react';
+import { CSSProperties, useEffect, useState } from 'react';
 import { Option } from './@types/Option';
 import { Props } from './@types/Props';
 import { Result } from './@types/Result';
@@ -34,6 +34,8 @@ export const SelectTag = ({
   tagRender,
   tokenSeparators,
 }: Props) => {
+  const { token } = theme.useToken();
+
   const [valueState, setValueState] = useState<Result>(() => setStateViaValueProps(value));
 
   const handleChange: SelectProps<Array<Option['value']>, Option>['onChange'] = (value, options) => {
@@ -113,6 +115,12 @@ export const SelectTag = ({
           SelectTag__container: true,
           [className]: true,
         })}
+        style={
+          {
+            '--color-error': token.colorError,
+            '--color-warning': token.colorWarning,
+          } as CSSProperties
+        }
       >
         {options.map(renderOption)}
       </Select>

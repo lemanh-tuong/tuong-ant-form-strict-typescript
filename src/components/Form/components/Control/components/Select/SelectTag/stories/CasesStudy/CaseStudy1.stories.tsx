@@ -22,8 +22,8 @@ export const CaseStudy1: ComponentStory<typeof SelectTag> = args => {
   }
 
   const [options, setOptions] = useState([
-    { id: '1', label: 'Clothes', value: 'Clothes' },
-    { id: '2', label: 'Electronic', value: 'Electronic' },
+    { id: v4(), label: 'Clothes', value: 'Clothes' },
+    { id: v4(), label: 'Electronic', value: 'Electronic' },
   ]);
   const [isLoading, setIsLoading] = useState(false);
   const [form] = Form.useForm();
@@ -55,7 +55,7 @@ export const CaseStudy1: ComponentStory<typeof SelectTag> = args => {
 
   return (
     <Card title="Create product">
-      <Form form={form} layout="vertical" onFinish={handleSubmit}>
+      <Form form={form} onFinish={handleSubmit} layout="vertical" scrollToFirstError>
         <Form.Item rules={[{ required: true, message: 'Name of product is required' }]} name="name" label="Name">
           <Input />
         </Form.Item>

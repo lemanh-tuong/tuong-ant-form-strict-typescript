@@ -6,7 +6,7 @@ export const setStateViaProps = (valueProps: Props['value']): Result => {
     !!valueProps &&
     valueProps?.findIndex(item => {
       return typeof item !== 'number';
-    });
+    }) !== -1;
   if (isInvalid) {
     console.warn('Invalid input', { value: valueProps });
     return null;

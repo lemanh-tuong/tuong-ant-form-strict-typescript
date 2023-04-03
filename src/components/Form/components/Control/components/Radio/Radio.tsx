@@ -79,19 +79,19 @@ export const Radio = <Value extends unknown>({
       <Space
         direction={direction}
         size={space}
-        style={
-          {
-            '--color-error': token.colorError,
-            '--color-warning': token.colorWarning,
-          } as CSSProperties
-        }
+        id={id}
         className={classNames({
           Radio__container: true,
           'Radio__container--error': status === 'error',
           'Radio__container--warning': status === 'warning',
           [className]: true,
         })}
-        id={id}
+        style={
+          {
+            '--color-error': token.colorError,
+            '--color-warning': token.colorWarning,
+          } as CSSProperties
+        }
       >
         {options.map(renderOption)}
         {loading && <Loading />}

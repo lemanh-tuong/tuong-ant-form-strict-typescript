@@ -25,6 +25,8 @@ export const CaseStudy1: ComponentStory<typeof SelectSingle> = args => {
   }
 
   const [formCreateProduct] = Form.useForm<FormCreateProductValues>();
+  const category = Form.useWatch('category', formCreateProduct);
+
   const [formCreateCategory] = Form.useForm<FormCreateCategoryValues>();
 
   const [isCreatingCategory, setIsCreatingCategory] = useState(false);
@@ -85,6 +87,7 @@ export const CaseStudy1: ComponentStory<typeof SelectSingle> = args => {
         <Form.Item rules={[{ required: true, message: 'Category is required' }]} label="Category" name="category">
           <SelectSingle
             {...args}
+            value={category}
             options={categories}
             renderExtraFooter={() => {
               return (

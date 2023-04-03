@@ -1,7 +1,7 @@
 import { ComponentStory, Meta } from '@storybook/react';
-import { useEffect, useState } from 'react';
+import { Button, Card, Form, notification } from 'antd';
+import { useState } from 'react';
 import { withDesign } from 'storybook-addon-designs';
-import { Result } from '../../@types/Result';
 import { Input } from '../../Input';
 import { delay } from './utils/delay';
 
@@ -14,22 +14,39 @@ export default {
 } as Meta<typeof Input>;
 
 export const CaseStudy1: ComponentStory<typeof Input> = args => {
-  const [isLoading, setIsLoading] = useState(false);
-  const [value, setValue] = useState<Result>(null);
+  const [form] = Form.useForm();
 
-  const handleGetData = async () => {
-    setIsLoading(true);
+  const [isCreating, setIsCreating] = useState(false);
+
+  const handleSubmit = async () => {
+    setIsCreating(true);
     try {
       await delay(1000);
-      setValue('Lorem ipsum dolor sit amet consectetur adipisicing elit. Vitae, illo?');
+      notification.success({
+        message: 'Created',
+        description: 'Create something successfully!',
+      });
+      form.resetFields();
     } finally {
-      setIsLoading(false);
+      setIsCreating(false);
     }
   };
 
-  useEffect(() => {
-    handleGetData();
-  }, []);
-
-  return <Input {...args} value={value} onChange={setValue} loading={isLoading} />;
+  return (
+    <Card title="Create something">
+      <Form layout="vertical" form={form} onFinish={handleSubmit} scrollToFirstError>
+        <Form.Item rules={[{ required: true, message: 'Label is required' }]} name="label" label="Label">
+          <Input {...args} />
+        </Form.Item>
+        <Form.Item rules={[{ required: true, message: 'Value is required' }]} name="value" label="Value">
+          <Input {...args} />
+        </Form.Item>
+        <Form.Item>
+          <Button type="primary" htmlType="submit" loading={isCreating}>
+            Create
+          </Button>
+        </Form.Item>
+      </Form>
+    </Card>
+  );
 };

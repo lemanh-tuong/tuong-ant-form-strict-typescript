@@ -1,9 +1,0 @@
-.Switch__container.Switch__container--error .ant-switch-inner-checked,
-.Switch__container.Switch__container--error .ant-switch-inner-unchecked {
-  color: var(--color-error) !important;
-}
-
-.Switch__container.Switch__container--warning .ant-switch-inner-checked,
-.Switch__container.Switch__container--warning .ant-switch-inner-unchecked {
-  color: var(--color-warning) !important;
-}

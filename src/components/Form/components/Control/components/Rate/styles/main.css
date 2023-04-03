@@ -1,3 +1,6 @@
+@import './status/error.css';
+@import './status/warning.css';
+
 .Rate__container {
   position: relative;
 }
@@ -6,10 +9,3 @@
   width: 100%;
 }
 
-.Rate__container.Rate__container--error {
-  color: var(--color-error) !important;
-}
-
-.Rate__container.Rate__container--warning {
-  color: var(--color-warning) !important;
-}

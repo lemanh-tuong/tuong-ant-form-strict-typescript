@@ -1,0 +1,4 @@
+.ant-form-item-has-error .Rate__container,
+.Rate__container.Rate__container--error {
+  color: var(--color-error) !important;
+}
