@@ -11,9 +11,9 @@ export default {
 } as Meta<typeof TimePickerRange>;
 
 export const StatusError: ComponentStory<typeof TimePickerRange> = args => {
-  return <TimePickerRange {...args} status="error" defaultOpen value={null} />;
+  return <TimePickerRange {...args} status="error" value={null} />;
 };
 
 export const StatusWarning: ComponentStory<typeof TimePickerRange> = args => {
-  return <TimePickerRange {...args} status="warning" defaultOpen value={null} />;
+  return <TimePickerRange {...args} status="warning" value={null} />;
 };

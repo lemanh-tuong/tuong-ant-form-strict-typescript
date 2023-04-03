@@ -4,7 +4,7 @@ import { Dayjs } from 'dayjs';
 import { ReactNode } from 'react';
 import { Result } from './Result';
 
-export interface TimePickerSingleProps {
+export interface Props {
   /** Giá trị được chọn mặc định */
   value: Result;
   /** Callback được gọi khi hoàn thành việc chọn time */
@@ -30,6 +30,10 @@ export interface TimePickerSingleProps {
   hideDisabledOptions?: PickerTimeProps<Dayjs>['hideDisabledOptions'];
   /** Bước nhảy giữa các "Giờ" trong picker */
   hourStep?: PickerTimeProps<Dayjs>['hourStep'];
+  /** Custom id của container */
+  id?: PickerTimeProps<Dayjs>['id'];
+  /** Set trạng thái loading */
+  loading?: boolean;
   /** Bước nhảy giữa các "Phút" trong picker */
   minuteStep?: PickerTimeProps<Dayjs>['minuteStep'];
   /** Placeholder của input */
