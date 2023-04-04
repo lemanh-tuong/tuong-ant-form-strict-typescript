@@ -19,14 +19,14 @@ export const Basic: ComponentStory<typeof FieldSingle> = () => {
     >
       <FieldSingle
         type="Single"
-        fieldName="firstName"
+        fieldPath="firstName"
         rules={[]}
         layout={{ label: 'First name' }}
         control={{ type: 'Input' }}
       />
       <FieldSingle
         type="Single"
-        fieldName="lastName"
+        fieldPath="lastName"
         rules={[]}
         layout={{ label: 'Last name' }}
         control={{ type: 'Input' }}

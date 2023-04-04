@@ -47,5 +47,6 @@ export interface FieldSingleBaseProps<Value extends unknown> {
 
 type NamePath = string | number;
 export interface FieldSingleProps<Value extends unknown> extends FieldSingleBaseProps<Value> {
-  fieldName: NamePath | NamePath[];
+  fieldPath: NamePath | NamePath[];
+  parentFieldPath?: NamePath[];
 }

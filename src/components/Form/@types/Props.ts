@@ -4,7 +4,7 @@ import { AnyObject } from './BuiltIn';
 
 export interface FormProps<Model extends AnyObject, Key extends keyof Model = keyof Model> {
   items: FieldArrayBaseProps<Model, Key>['controls'];
-  initialValues: Model;
+  initialValues?: Model;
   layout?: AntFormProps['layout'];
   onFieldsChange?: Required<AntFormProps<Model>>['onFieldsChange'];
   onFinish?: Required<AntFormProps<Model>>['onFinish'];

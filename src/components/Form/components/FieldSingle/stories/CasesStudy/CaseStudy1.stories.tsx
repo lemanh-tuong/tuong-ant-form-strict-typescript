@@ -19,7 +19,7 @@ export const CaseStudy1: ComponentStory<typeof FieldSingle> = () => {
     >
       <FieldSingle
         type="Single"
-        fieldName="firstName"
+        fieldPath="firstName"
         rules={[
           {
             message: "First name can't be empty",
@@ -34,7 +34,7 @@ export const CaseStudy1: ComponentStory<typeof FieldSingle> = () => {
       />
       <FieldSingle
         type="Single"
-        fieldName="lastName"
+        fieldPath="lastName"
         rules={[
           {
             message: "Last name can't be empty",

@@ -3,7 +3,12 @@ import { Control } from '../Control';
 import { getRulesViaProps } from '../utils/getRulesViaProps';
 import { FieldSingleProps } from './@types/Props';
 
-export const FieldSingle = <Value extends unknown>({ control, fieldName, layout, rules }: FieldSingleProps<Value>) => {
+export const FieldSingle = <Value extends unknown>({
+  control,
+  fieldPath: fieldName,
+  layout,
+  rules,
+}: FieldSingleProps<Value>) => {
   const {
     colon,
     containerCol = { span: 24, offset: 0 },

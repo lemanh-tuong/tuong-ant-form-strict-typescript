@@ -27,10 +27,10 @@ export const Form = <Model extends AnyObject>({
           const fieldName_ = fieldName as keyof typeof items;
           const field = items[fieldName_];
           if (field?.type === 'Single') {
-            return <FieldSingle key={fieldName_.toString()} fieldName={fieldName_.toString()} {...field} />;
+            return <FieldSingle key={fieldName_.toString()} fieldPath={fieldName_.toString()} {...field} />;
           }
           if (field?.type === 'Array') {
-            return <FieldArray key={fieldName_.toString()} fieldName={fieldName_.toString()} {...field} />;
+            return <FieldArray key={fieldName_.toString()} fieldPath={fieldName_.toString()} {...field} />;
           }
           return null;
         })}

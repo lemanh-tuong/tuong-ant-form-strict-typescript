@@ -59,5 +59,7 @@ export interface FieldArrayBaseProps<Model extends AnyObject, Key extends keyof 
 type NamePath = string | number;
 export interface FieldArrayProps<Model extends AnyObject, Key extends keyof Model>
   extends FieldArrayBaseProps<Model, Key> {
-  fieldName: NamePath | NamePath[];
+  fieldPath: NamePath | NamePath[];
+  /** @private */
+  parentFieldPath?: NamePath[];
 }

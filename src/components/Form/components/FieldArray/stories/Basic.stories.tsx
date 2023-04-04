@@ -39,7 +39,7 @@ export const Basic: ComponentStory<typeof FieldArray> = () => {
             rules: [],
           },
         }}
-        fieldName="passengers"
+        fieldPath="passengers"
         layout={{
           label: 'Passengers',
           collapseTitle(index) {

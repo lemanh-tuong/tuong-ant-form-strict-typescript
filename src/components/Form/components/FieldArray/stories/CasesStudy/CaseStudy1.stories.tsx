@@ -87,7 +87,7 @@ export const CaseStudy1: ComponentStory<typeof FieldArray> = () => {
             itemSkeleton: { src: '' },
           },
         }}
-        fieldName="passengers"
+        fieldPath="passengers"
         layout={{
           label: 'Passengers',
           collapseTitle(index) {
