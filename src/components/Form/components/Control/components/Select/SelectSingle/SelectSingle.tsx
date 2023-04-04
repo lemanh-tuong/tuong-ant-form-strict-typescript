@@ -1,23 +1,19 @@
 import { Divider, Select, SelectProps, theme, Tooltip } from 'antd';
 import classNames from 'classnames';
-import { useDeepCompareMemo } from 'hooks/useDeepCompareMemo';
 import { equals } from 'ramda';
 import { CSSProperties, useEffect, useState } from 'react';
+import { Option } from './@types/Option';
 import { OptionForAntSelect } from './@types/OptionForAntSelect';
 import { Props } from './@types/Props';
-import { Result } from './@types/Result';
 import './styles/main.css';
 import { defaultIsChecked } from './utils/defaultIsChecked';
 import { getValueOnChange } from './utils/getValueOnChange';
 import { setStateViaValueProps } from './utils/setStateViaProps';
 
-const { Option } = Select;
 export const SelectSingle = <Value extends unknown>({
   options,
   value,
   onChange,
-  onSearch,
-  onDropdownScroll,
   className = '',
   defaultFocus = false,
   defaultOpen = false,
@@ -37,46 +33,34 @@ export const SelectSingle = <Value extends unknown>({
 }: Props<Value>) => {
   const { token } = theme.useToken();
 
-  const [valueState, setValueState] = useState<Result<Value>>(() => {
+  const [state, setState] = useState<OptionForAntSelect<Value> | null>(() => {
     return setStateViaValueProps({ options, valueProps: value, isChecked });
   });
-
-  const options_: OptionForAntSelect<Value>[] = useDeepCompareMemo(() => {
-    return options.map(option => ({
-      ...option,
-      value: option.id,
-      rawValue: option.value,
-    }));
-  }, [options]);
-
-  const valueState_: OptionForAntSelect<Value>['value'] | undefined = useDeepCompareMemo(() => {
-    return options.find(option => isChecked({ option, value: valueState }))?.id ?? undefined;
-  }, [valueState]);
 
   const handleChange: SelectProps<OptionForAntSelect<Value>['value'], OptionForAntSelect<Value>>['onChange'] = (
     value,
     option,
   ) => {
     const nextState = getValueOnChange(value, option);
-    setValueState(nextState);
-    onChange?.(nextState);
+    setState(nextState);
+    onChange?.(nextState?.rawValue ?? null);
   };
 
   useEffect(() => {
-    if (!equals(value, valueState)) {
-      setValueState(() => setStateViaValueProps({ options, valueProps: value, isChecked }));
+    if (!equals(value, state?.rawValue)) {
+      setState(() => setStateViaValueProps({ isChecked, options, valueProps: value }));
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [value]);
+  }, [isChecked, options, value]);
 
-  const renderOption = (option: OptionForAntSelect<Value>) => {
-    const { id, label, value, className = '', description, disabled, rawValue } = option;
+  const renderOption = (option: Option<Value>) => {
+    const { id, label, value, className = '', description, disabled = false } = option;
     return (
-      <Option
+      <Select.Option
         key={id}
         disabled={disabled}
-        rawValue={rawValue}
-        value={value}
+        value={id}
+        rawValue={value}
         className={classNames({
           SelectSingle__option: true,
           [className]: true,
@@ -85,7 +69,7 @@ export const SelectSingle = <Value extends unknown>({
         <Tooltip title={description}>
           <div className={classNames({ 'SelectSingle__option-label': true })}>{label}</div>
         </Tooltip>
-      </Option>
+      </Select.Option>
     );
   };
 
@@ -105,10 +89,8 @@ export const SelectSingle = <Value extends unknown>({
         allowClear
         showSearch
         dropdownMatchSelectWidth
-        value={valueState_}
+        value={state?.value}
         onChange={handleChange}
-        onPopupScroll={onDropdownScroll}
-        onSearch={onSearch}
         autoFocus={defaultFocus}
         defaultOpen={defaultOpen}
         disabled={disabled}
@@ -136,7 +118,7 @@ export const SelectSingle = <Value extends unknown>({
           } as CSSProperties
         }
       >
-        {options_.map(renderOption)}
+        {options.map(renderOption)}
       </Select>
     </Tooltip>
   );

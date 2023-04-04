@@ -1,14 +1,16 @@
 import { SelectProps } from 'antd';
 import { OptionForAntSelect } from '../@types/OptionForAntSelect';
-import { Result } from '../@types/Result';
 
 type AntSelectSingleResult<Value extends unknown> = Parameters<
   Required<SelectProps<OptionForAntSelect<Value>['value'], OptionForAntSelect<Value>>>['onChange']
 >;
-export const getValueOnChange = <Value extends unknown>(...args: AntSelectSingleResult<Value>): Result<Value> => {
+
+export const getValueOnChange = <Value extends unknown>(
+  ...args: AntSelectSingleResult<Value>
+): OptionForAntSelect<Value> | null => {
   const [_, option] = args;
   if (!Array.isArray(option)) {
-    return option.rawValue;
+    return option;
   }
   return null;
 };

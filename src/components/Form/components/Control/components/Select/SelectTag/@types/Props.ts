@@ -12,9 +12,9 @@ export interface Props {
   value: Result;
   /** Custom class của container */
   className?: SelectProps['className'];
-  /** Trạng thái mặc định khi component mount */
+  /** Trạng thái focus input mặc định khi component mount */
   defaultFocus?: SelectProps['autoFocus'];
-  /** Trạng thái mặc định khi component mount */
+  /** Trạng thái open dropdown mặc định khi component mount */
   defaultOpen?: SelectProps['defaultOpen'];
   /** Nội dung mô tả của tooltip */
   description?: ReactNode;

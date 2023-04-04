@@ -1,3 +1,4 @@
+import { MehOutlined } from '@ant-design/icons';
 import { ComponentStory, Meta } from '@storybook/react';
 import { withDesign } from 'storybook-addon-designs';
 import { SelectSingle } from '../SelectSingle';
@@ -10,17 +11,26 @@ export default {
   decorators: [withDesign],
 } as Meta<typeof SelectSingle>;
 
-export const WithDescription: ComponentStory<typeof SelectSingle> = args => {
+export const OptionsWithDescription: ComponentStory<typeof SelectSingle> = args => {
   return (
     <SelectSingle
       {...args}
+      value={null}
       options={[
-        { id: '1', label: 'Paypal', value: 'Paypal' },
+        {
+          id: '1',
+          label: 'Paypal',
+          value: 'Paypal',
+          disabled: true,
+          description: (
+            <div>
+              Paypal payment is under maintenance <MehOutlined />
+            </div>
+          ),
+        },
         { id: '2', label: 'Stripe', value: 'Stripe' },
         { id: '3', label: 'Credit card', value: 'Credit card' },
       ]}
-      value={null}
-      description={<p>Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>}
     />
   );
 };

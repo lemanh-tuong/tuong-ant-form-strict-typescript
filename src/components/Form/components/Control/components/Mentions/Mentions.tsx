@@ -9,7 +9,6 @@ import { setStateViaProps } from './utils/setStateViaProps';
 
 export const Mentions = ({
   onChange,
-  onSearch,
   options,
   value,
   autoSize,
@@ -55,7 +54,6 @@ export const Mentions = ({
         loading={loading}
         maxLength={maxLength}
         notFoundContent={notFoundContent}
-        onSearch={onSearch}
         options={options}
         placeholder={placeholder}
         prefix={prefix}

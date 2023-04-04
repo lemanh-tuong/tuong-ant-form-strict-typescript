@@ -10,8 +10,6 @@ export interface Props {
   options: Option[];
   /** Callback được gọi khi người dùng nhập */
   onChange?: (value: Result) => void;
-  /** Callback được gọi khi người tìm kiếm mention */
-  onSearch?: AntMentionProps['onSearch'];
   /** Tự động điều chỉnh chiều cao hoặc Tự đông trong một giới hạn */
   autoSize?: AntMentionProps['autoSize'];
   /** Custom class của container */

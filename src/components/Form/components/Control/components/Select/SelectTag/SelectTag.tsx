@@ -94,7 +94,6 @@ export const SelectTag = ({
         defaultOpen={defaultOpen}
         disabled={disabled}
         dropdownRender={renderExtraFooter ? dropdownRender : undefined}
-        id={id}
         listHeight={listHeight}
         loading={loading}
         maxTagCount={maxTagCount}
@@ -111,6 +110,7 @@ export const SelectTag = ({
           SelectTag__dropdown: true,
           [dropdownClassName]: true,
         })}
+        id={id}
         className={classNames({
           SelectTag__container: true,
           [className]: true,

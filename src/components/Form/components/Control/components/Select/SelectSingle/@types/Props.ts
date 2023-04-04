@@ -9,21 +9,17 @@ export type IsCheckedFunction<Value extends unknown> = (params: {
 }) => boolean;
 
 export interface Props<Value extends unknown> {
-  /** Callback được gọi khi người tìm kiếm mention */
-  onSearch?: SelectProps['onSearch'];
   /** Callback được gọi khi click chọn option */
   onChange?: (value: Result<Value>) => void;
-  /** Callback được gọi khi scroll dropdown */
-  onDropdownScroll?: SelectProps['onPopupScroll'];
   /** Chỉ định các option */
   options: Option<Value>[];
   /** Giá trị được chọn mặc định */
   value: Result<Value>;
   /** Custom class của container */
   className?: SelectProps['className'];
-  /** Trạng thái mặc định khi component mount */
+  /** Trạng thái focus input mặc định khi component mount */
   defaultFocus?: SelectProps['autoFocus'];
-  /** Trạng thái mặc định khi component mount */
+  /** Trạng thái open dropdown mặc định khi component mount */
   defaultOpen?: SelectProps['defaultOpen'];
   /** Nội dung mô tả của tooltip */
   description?: ReactNode;
