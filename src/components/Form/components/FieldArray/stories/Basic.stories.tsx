@@ -1,5 +1,5 @@
 import { ComponentStory, Meta } from '@storybook/react';
-import { Form } from 'antd';
+import { Button, Form } from 'antd';
 import { withDesign } from 'storybook-addon-designs';
 import { FieldArray } from '../FieldArray';
 
@@ -17,7 +17,7 @@ interface Passenger {
 }
 export const Basic: ComponentStory<typeof FieldArray> = () => {
   return (
-    <Form>
+    <Form onFinish={values => alert(`Final values ${JSON.stringify(values, undefined, 2)}`)}>
       <FieldArray<Passenger, keyof Passenger>
         type="Array"
         rules={[]}
@@ -47,6 +47,11 @@ export const Basic: ComponentStory<typeof FieldArray> = () => {
           },
         }}
       />
+      <Form.Item>
+        <Button type="primary" htmlType="submit">
+          Submit
+        </Button>
+      </Form.Item>
     </Form>
   );
 };

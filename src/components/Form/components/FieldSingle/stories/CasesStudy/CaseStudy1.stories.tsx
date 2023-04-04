@@ -1,6 +1,5 @@
 import { ComponentStory, Meta } from '@storybook/react';
 import { Button, Form } from 'antd';
-import { isEmpty } from 'ramda';
 import { withDesign } from 'storybook-addon-designs';
 import { FieldSingle } from '../../FieldSingle';
 
@@ -15,9 +14,8 @@ export default {
 export const CaseStudy1: ComponentStory<typeof FieldSingle> = () => {
   return (
     <Form
-      onFinish={value => console.log('Final values', value)}
-      onFinishFailed={errorInfo => console.log('Error', errorInfo)}
-      initialValues={{ firstName: 'Hello', lastName: 'World' }}
+      onFinish={values => alert(`Final values: ${JSON.stringify(values, undefined, 2)}`)}
+      onFinishFailed={errorInfo => alert(`Errors : ${JSON.stringify(errorInfo, undefined, 2)}`)}
     >
       <FieldSingle
         type="Single"
@@ -27,7 +25,7 @@ export const CaseStudy1: ComponentStory<typeof FieldSingle> = () => {
             message: "First name can't be empty",
             warningOnly: false,
             isError(value) {
-              return isEmpty(value);
+              return !value;
             },
           },
         ]}
@@ -39,10 +37,10 @@ export const CaseStudy1: ComponentStory<typeof FieldSingle> = () => {
         fieldName="lastName"
         rules={[
           {
-            message: "First name can't be empty",
+            message: "Last name can't be empty",
             warningOnly: false,
             isError(value) {
-              return isEmpty(value);
+              return !value;
             },
           },
         ]}

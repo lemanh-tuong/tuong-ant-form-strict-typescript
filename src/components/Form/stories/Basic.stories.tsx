@@ -62,10 +62,8 @@ export const Basic: ComponentStory<typeof Form> = () => {
     <Form
       layout="horizontal"
       initialValues={initialValues}
-      onFieldsChange={(...args) => console.log('onFieldsChange', args)}
-      onFinish={(...args) => console.log('onFinish', args)}
-      onFinishFailed={(...args) => console.log('onFinishFailed', args)}
-      onValuesChange={(...args) => console.log('onValuesChange', args)}
+      onFinish={values => alert(`Final values: ${JSON.stringify(values, undefined, 2)}`)}
+      onFinishFailed={errorInfo => alert(`Errors : ${JSON.stringify(errorInfo, undefined, 2)}`)}
       items={{
         _id: {
           type: 'Single',

@@ -13,7 +13,10 @@ export default {
 
 export const Basic: ComponentStory<typeof FieldSingle> = () => {
   return (
-    <Form onFinish={console.log} initialValues={{ firstName: 'Hello', lastName: 'World' }}>
+    <Form
+      onFinish={values => alert(JSON.stringify(values, undefined, 2))}
+      initialValues={{ firstName: 'Hello', lastName: 'World' }}
+    >
       <FieldSingle
         type="Single"
         fieldName="firstName"

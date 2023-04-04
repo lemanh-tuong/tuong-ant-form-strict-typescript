@@ -51,16 +51,9 @@ export interface FieldArrayBaseProps<Model extends AnyObject, Key extends keyof 
   /** Validators of field */
   rules: FieldArrayRule<Model[]>[];
   /** Skeleton item for add item */
-  itemSkeleton: Model;
+  itemSkeleton: Partial<Model>;
   /** Max items field array can be reach */
   maxItems?: number;
-  /** FIXME: Modal for warning before delete item */
-  modalConfirmDelete?: any;
-  /** FIXME: Button for add items */
-  addButton?: any;
-  /** FIXME: Button for delete item */
-  deleteButton?: any;
-  // ...
 }
 
 type NamePath = string | number;

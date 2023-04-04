@@ -4,7 +4,7 @@ import { withDesign } from 'storybook-addon-designs';
 import { FieldArray } from '../../FieldArray';
 
 export default {
-  title: 'FieldArray/CaseStudy',
+  title: 'FieldArray/Cases Study',
   component: FieldArray,
   argTypes: {},
   args: {},
@@ -16,25 +16,13 @@ interface Passenger {
   lastName: string;
   attachments: Array<{ src: string }>;
 }
+
 export const CaseStudy1: ComponentStory<typeof FieldArray> = () => {
   return (
     <Form
-      onFinish={console.log}
-      onFinishFailed={console.log}
+      onFinish={values => alert(`Final values: ${JSON.stringify(values, undefined, 2)}`)}
+      onFinishFailed={errorInfo => alert(`Errors : ${JSON.stringify(errorInfo, undefined, 2)}`)}
       scrollToFirstError
-      initialValues={{
-        passengers: [
-          {
-            firstName: 'Passenger 1',
-            lastName: 'Passenger 1',
-            attachments: [
-              {
-                src: 'https://images.unsplash.com/photo-1678737174409-bfd79e7b7d6f?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwxfDB8MXxyYW5kb218MHx8fHx8fHx8MTY4MDI0Nzc2Ng&ixlib=rb-4.0.3&q=80&w=1080',
-              },
-            ],
-          },
-        ] as Passenger[],
-      }}
     >
       <FieldArray<Passenger, keyof Passenger>
         type="Array"

@@ -1,5 +1,6 @@
 import { DeleteOutlined } from '@ant-design/icons';
-import { Button, Col, Collapse, Form, Row, Space } from 'antd';
+import { Button, Col, Collapse, Form, Row, Space, Typography } from 'antd';
+import { isEmpty } from 'ramda';
 import { FieldSingle } from '../FieldSingle';
 import { getRulesViaProps } from '../utils/getRulesViaProps';
 import { AnyObject } from './@types/BuildIn';
@@ -28,6 +29,9 @@ export const FieldArray = <Model extends AnyObject, Key extends keyof Model>({
     validateTrigger,
   } = layout;
 
+  const form = Form.useFormInstance<Model>();
+  console.log(fieldName, form.getFieldsError());
+
   return (
     <Col {...containerCol}>
       <Form.Item
@@ -51,19 +55,26 @@ export const FieldArray = <Model extends AnyObject, Key extends keyof Model>({
                   {fields.map((field, index) => {
                     return (
                       <Collapse.Panel
+                        key={field.key}
                         // Nếu không "forceRerender" form antd sẽ không validate những field con chưa ở trạng thái collapsed
                         forceRender
                         header={
-                          <Row justify="space-between">
-                            <Col>
-                              <Space align="center">{collapseTitle(index)}</Space>
-                            </Col>
-                            <Col>
-                              <DeleteOutlined onClick={() => remove(index)} />
-                            </Col>
-                          </Row>
+                          <Space direction="vertical" style={{ width: '100%' }}>
+                            <Row justify="space-between">
+                              <Col>
+                                <Space align="center">{collapseTitle(index)}</Space>
+                              </Col>
+                              <Col>
+                                <DeleteOutlined onClick={() => remove(index)} />
+                              </Col>
+                            </Row>
+                            <Typography.Text
+                              type={!isEmpty(errors) ? 'danger' : !isEmpty(warnings) ? 'warning' : undefined}
+                            >
+                              Hello {JSON.stringify(fieldName)}
+                            </Typography.Text>
+                          </Space>
                         }
-                        key={field.key}
                       >
                         <Row>
                           {Object.keys(controls).map(fieldNameOfControl => {

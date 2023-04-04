@@ -34,7 +34,10 @@ interface LayoutProps {
 export interface FieldSingleBaseProps<Value extends unknown> {
   /** Used to check condition rendering */
   type: 'Single';
-  /** Field control */
+  /**
+   * Field control
+   * NOTE: Omit "id" để chức năng "scroll to first error" hoạt động chính xasc
+   */
   control: ControlProps;
   /** Layout of field */
   layout: LayoutProps;
