@@ -1,12 +1,21 @@
 import { Form as AntForm, Row } from 'antd';
+import { useEffect } from 'react';
 import { AnyObject } from './@types/BuiltIn';
 import { Props } from './@types/Props';
 import { FieldArray } from './components/FieldArray';
 import { FieldSingle } from './components/FieldSingle';
 
+interface Actions {
+  setValues: <Model extends AnyObject>(data: Props<Model>['initialValues']) => void;
+  getValues: <Model extends AnyObject>() => Props<Model>['initialValues'];
+}
+
+const formHandler = new Map<string, Actions>();
+
 export const Form = <Model extends AnyObject>({
-  id,
+  uid,
   items,
+  disabled = false,
   formInstance,
   initialValues,
   layout = 'vertical',
@@ -15,10 +24,23 @@ export const Form = <Model extends AnyObject>({
   onFinishFailed,
   onValuesChange,
 }: Props<Model>) => {
+  const form = AntForm.useFormInstance();
+
+  useEffect(() => {
+    formHandler.set(uid, {
+      setValues: data => form.setFieldsValue(data),
+      getValues: () => form.getFieldsValue(),
+    });
+    return () => {
+      formHandler.delete(uid);
+    };
+  }, [form, uid]);
+
   return (
     <AntForm
+      disabled={disabled}
       form={formInstance}
-      id={id}
+      id={uid}
       layout={layout}
       initialValues={initialValues}
       onFieldsChange={onFieldsChange}
@@ -41,6 +63,10 @@ export const Form = <Model extends AnyObject>({
       </Row>
     </AntForm>
   );
+};
+
+Form.getActions = (uid: string) => {
+  return formHandler.get(uid);
 };
 
 export const useForm = AntForm.useForm;

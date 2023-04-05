@@ -66,7 +66,7 @@ export const CaseStudy1: ComponentStory<typeof Form> = () => {
   return (
     <Card title="Create order">
       <Form<Trip>
-        id="create-order"
+        uid="create-order"
         layout="horizontal"
         initialValues={{
           arrivalPoint: 'HN',

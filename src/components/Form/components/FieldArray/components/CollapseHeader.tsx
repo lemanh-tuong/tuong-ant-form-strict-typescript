@@ -2,13 +2,13 @@ import { CopyOutlined, DeleteOutlined, EyeOutlined } from '@ant-design/icons';
 import { Col, Row, Space, Tooltip } from 'antd';
 import { MouseEventHandler } from 'react';
 import { AnyObject } from '../@types/BuildIn';
-import { Props as FieldArrayProps } from '../@types/Props';
+import { NamePath, Props as FieldArrayProps } from '../@types/Props';
 import { useGetAntFormInstance } from '../hooks/useGetAntFormInstance';
 import { useWatchAntForm } from '../hooks/useWatchAntForm';
 
 export interface CollapseHeaderProps<Model extends AnyObject> {
   collapseTitle: FieldArrayProps<Model, keyof Model>['layout']['collapseTitle'];
-  fieldPathOfItem: any;
+  fieldPathOfItem: NamePath[];
   index: number;
   onDelete: () => void;
   onDuplicate: (data: Model | undefined) => void;
@@ -23,7 +23,9 @@ export const CollapseHeader = <Model extends AnyObject>({
   onDuplicate,
   onView,
 }: CollapseHeaderProps<Model>) => {
+  /** Ant form instance -> Dùng để lắng nghe values của form thay đổi */
   const form = useGetAntFormInstance();
+  /** Lắng nghe values của field thay đổi */
   const data = useWatchAntForm<Model>(fieldPathOfItem, form);
 
   const handleDelete: MouseEventHandler<HTMLElement> = event => {

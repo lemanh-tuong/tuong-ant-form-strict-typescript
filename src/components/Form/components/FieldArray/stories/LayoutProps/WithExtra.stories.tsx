@@ -1,29 +1,33 @@
 import { ComponentStory, Meta } from '@storybook/react';
 import { Button, Form } from 'antd';
 import { withDesign } from 'storybook-addon-designs';
-import { FieldSingle } from '../FieldSingle';
+import { FieldArray } from '../../FieldArray';
 
 export default {
-  title: 'FieldSingle/Basic',
-  component: FieldSingle,
+  title: 'FieldArray/Layout/WithExtra',
+  component: FieldArray,
   argTypes: {},
   args: {
-    type: 'Single',
-    fieldPath: 'firstName',
+    type: 'Array',
+    controls: {},
+    fieldPath: 'items',
+    itemSkeleton: {},
+    layout: { label: 'Items', collapseTitle: () => `Item` },
     rules: [],
-    layout: { label: 'First name' },
-    control: { type: 'Input' },
   },
   decorators: [withDesign],
-} as Meta<typeof FieldSingle>;
+} as Meta<typeof FieldArray>;
 
-export const Basic: ComponentStory<typeof FieldSingle> = args => {
+export const WithExtra: ComponentStory<typeof FieldArray> = args => {
   return (
     <Form
       onFinish={values => alert(`Final values: ${JSON.stringify(values, undefined, 2)}`)}
       onFinishFailed={errorInfo => alert(`Errors : ${JSON.stringify(errorInfo, undefined, 2)}`)}
     >
-      <FieldSingle {...args} />
+      <FieldArray
+        {...args}
+        layout={{ ...args.layout, extra: <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p> }}
+      />
       <Button type="primary" htmlType="submit">
         Submit
       </Button>

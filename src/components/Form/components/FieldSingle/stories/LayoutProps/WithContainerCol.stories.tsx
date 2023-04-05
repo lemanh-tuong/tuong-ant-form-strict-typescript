@@ -1,10 +1,10 @@
 import { ComponentStory, Meta } from '@storybook/react';
 import { Button, Form } from 'antd';
 import { withDesign } from 'storybook-addon-designs';
-import { FieldSingle } from '../FieldSingle';
+import { FieldSingle } from '../../FieldSingle';
 
 export default {
-  title: 'FieldSingle/Basic',
+  title: 'FieldSingle/Layout/WithContainerCol',
   component: FieldSingle,
   argTypes: {},
   args: {
@@ -17,13 +17,13 @@ export default {
   decorators: [withDesign],
 } as Meta<typeof FieldSingle>;
 
-export const Basic: ComponentStory<typeof FieldSingle> = args => {
+export const WithContainerCol: ComponentStory<typeof FieldSingle> = args => {
   return (
     <Form
       onFinish={values => alert(`Final values: ${JSON.stringify(values, undefined, 2)}`)}
       onFinishFailed={errorInfo => alert(`Errors : ${JSON.stringify(errorInfo, undefined, 2)}`)}
     >
-      <FieldSingle {...args} />
+      <FieldSingle {...args} layout={{ ...args.layout, containerCol: { span: 4 } }} />
       <Button type="primary" htmlType="submit">
         Submit
       </Button>

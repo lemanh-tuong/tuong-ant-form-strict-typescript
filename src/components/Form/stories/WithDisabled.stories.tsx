@@ -28,11 +28,11 @@ interface Book {
 
 const isRequiredError = (value: any) => !value;
 export default {
-  title: 'Form/Basic',
+  title: 'Form/WithDisabled',
   component: Form,
   argTypes: {},
   args: {
-    uid: 'Basic',
+    uid: 'WithDisabled',
     items: {
       title: {
         type: 'Single',
@@ -105,11 +105,11 @@ export default {
   decorators: [withDesign],
 } as Meta<typeof Form>;
 
-export const Basic: ComponentStory<typeof Form> = args => {
+export const WithDisabled: ComponentStory<typeof Form> = args => {
   return (
     <div>
-      <Form<Book> {...args} />
-      <Button type="primary" htmlType="submit" form={args.uid}>
+      <Form<Book> {...args} disabled />
+      <Button type="primary" htmlType="submit" form={args.uid} disabled>
         Submit
       </Button>
     </div>

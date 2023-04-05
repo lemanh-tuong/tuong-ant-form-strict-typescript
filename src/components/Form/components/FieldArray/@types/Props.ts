@@ -63,7 +63,7 @@ export interface BaseProps<Model extends AnyObject, Key extends keyof Model> {
   maxItems?: number;
 }
 
-type NamePath = string | number;
+export type NamePath = string | number;
 export interface Props<Model extends AnyObject, Key extends keyof Model> extends BaseProps<Model, Key> {
   /**
    * Giống name của field

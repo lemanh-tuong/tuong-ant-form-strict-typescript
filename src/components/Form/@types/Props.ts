@@ -4,9 +4,11 @@ import { AnyObject } from './BuiltIn';
 
 export interface Props<Model extends AnyObject, Key extends keyof Model = keyof Model> {
   /** Id của form -> Để thực hiện submit form */
-  id: string;
+  uid: string;
   /** Các fields */
   items: FieldArrayBaseProps<Model, Key>['controls'];
+  /** Vô hiệu hoá form */
+  disabled?: boolean;
   /** Form instance - được tạo bởi ant Form.useForm() - để duy trì kho dữ liệu. */
   formInstance?: FormInstance<Partial<Model>>;
   /** Giá trị default */

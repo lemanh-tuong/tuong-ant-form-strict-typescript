@@ -1,6 +1,7 @@
 import {
   Collapse as AntCollapse,
   CollapseProps as AntCollapseProps,
+  Empty,
   FormListFieldData,
   FormListOperation,
   Modal,
@@ -174,6 +175,10 @@ export const Collapse = <Model extends AnyObject, Key extends keyof Model>({
       </Modal>
     );
   };
+
+  if (isEmpty(fieldsOfFormList)) {
+    return <Empty />;
+  }
 
   return (
     <>

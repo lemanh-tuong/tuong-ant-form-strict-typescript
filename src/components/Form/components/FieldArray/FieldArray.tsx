@@ -1,8 +1,9 @@
-import { Button, Col, Form } from 'antd';
+import { Col, Form } from 'antd';
 import { getRulesViaProps } from '../utils/getRulesViaProps';
 import { AnyObject } from './@types/BuildIn';
 import { Props } from './@types/Props';
 import { Collapse } from './components/Collapse';
+import { DuplicateLastItemButton } from './components/DuplicateLastItemButton';
 
 export const FieldArray = <Model extends AnyObject, Key extends keyof Model>({
   controls,
@@ -50,7 +51,7 @@ export const FieldArray = <Model extends AnyObject, Key extends keyof Model>({
           // Khi đó "FieldArray" không được rerender -> getFormErrors() không được update lại -> Collapse không tự mở khi submit form có lỗi
           rules={getRulesViaProps({ rules: [...rules, { message: '', warningOnly: true, isError: () => false }] })}
         >
-          {(fields, { add, ...operation }, { errors, warnings }) => {
+          {(fields, operation, { errors, warnings }) => {
             return (
               <>
                 <Collapse<Model, Key>
@@ -58,14 +59,17 @@ export const FieldArray = <Model extends AnyObject, Key extends keyof Model>({
                   controls={controls}
                   fieldPath={fieldPath}
                   fieldsOfFormList={fields}
-                  operation={{ add, ...operation }}
+                  operation={operation}
                   parentFieldPath={parentFieldPath}
                 />
-                {fields.length < maxItems && (
-                  <Button size="large" style={{ marginTop: 8 }} block type="primary" onClick={() => add(itemSkeleton)}>
-                    Add
-                  </Button>
-                )}
+                <DuplicateLastItemButton
+                  fieldPath={fieldPath}
+                  fieldsOfFormList={fields}
+                  operation={operation}
+                  parentFieldPath={parentFieldPath}
+                  itemSkeleton={itemSkeleton}
+                  maxItems={maxItems}
+                />
                 <Form.ErrorList errors={errors} warnings={warnings} />
               </>
             );

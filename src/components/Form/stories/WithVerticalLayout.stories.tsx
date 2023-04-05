@@ -28,11 +28,11 @@ interface Book {
 
 const isRequiredError = (value: any) => !value;
 export default {
-  title: 'Form/Basic',
+  title: 'Form/WithVerticalLayout',
   component: Form,
   argTypes: {},
   args: {
-    uid: 'Basic',
+    uid: 'WithVerticalLayout',
     items: {
       title: {
         type: 'Single',
@@ -105,10 +105,10 @@ export default {
   decorators: [withDesign],
 } as Meta<typeof Form>;
 
-export const Basic: ComponentStory<typeof Form> = args => {
+export const WithVerticalLayout: ComponentStory<typeof Form> = args => {
   return (
     <div>
-      <Form<Book> {...args} />
+      <Form<Book> {...args} layout="vertical" />
       <Button type="primary" htmlType="submit" form={args.uid}>
         Submit
       </Button>
