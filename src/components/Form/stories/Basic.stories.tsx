@@ -1,6 +1,5 @@
 import { ComponentStory, Meta } from '@storybook/react';
 import { withDesign } from 'storybook-addon-designs';
-import { DeepPartial } from 'utils';
 import { Form } from '../Form';
 
 interface Author {
@@ -8,8 +7,6 @@ interface Author {
   lastName: string;
   country: string;
 }
-
-const initialValues: DeepPartial<Author> = {};
 
 export default {
   title: 'Form/Basic',
@@ -19,11 +16,10 @@ export default {
   decorators: [withDesign],
 } as Meta<typeof Form>;
 
-export const Basic: ComponentStory<typeof Form> = () => {
+export const Basic: ComponentStory<typeof Form> = args => {
   return (
-    <Form
-      layout="horizontal"
-      initialValues={initialValues}
+    <Form<Author>
+      {...args}
       onFinish={values => alert(`Final values: ${JSON.stringify(values, undefined, 2)}`)}
       onFinishFailed={errorInfo => alert(`Errors : ${JSON.stringify(errorInfo, undefined, 2)}`)}
       items={{
