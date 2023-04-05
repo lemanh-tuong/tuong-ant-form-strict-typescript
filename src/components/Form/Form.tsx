@@ -6,8 +6,9 @@ import { FieldSingle } from './components/FieldSingle';
 
 export const Form = <Model extends AnyObject>({
   id,
-  initialValues,
   items,
+  formInstance,
+  initialValues,
   layout = 'vertical',
   onFieldsChange,
   onFinish,
@@ -16,6 +17,7 @@ export const Form = <Model extends AnyObject>({
 }: FormProps<Model>) => {
   return (
     <AntForm
+      form={formInstance}
       id={id}
       layout={layout}
       initialValues={initialValues}
