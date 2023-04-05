@@ -177,7 +177,7 @@ export const Collapse = <Model extends AnyObject, Key extends keyof Model>({
 
   return (
     <>
-      <AntCollapse activeKey={activeKeys} onChange={handleToggleCollapse}>
+      <AntCollapse destroyInactivePanel={false} activeKey={activeKeys} onChange={handleToggleCollapse}>
         {fieldsOfFormList.map(renderCollapsePanel)}
       </AntCollapse>
       {renderModalConfirmDelete()}

@@ -1,10 +1,11 @@
-import { Button, Form as AntForm, Row } from 'antd';
+import { Form as AntForm, Row } from 'antd';
 import { AnyObject } from './@types/BuiltIn';
 import { FormProps } from './@types/Props';
 import { FieldArray } from './components/FieldArray';
 import { FieldSingle } from './components/FieldSingle';
 
 export const Form = <Model extends AnyObject>({
+  id,
   initialValues,
   items,
   layout = 'vertical',
@@ -15,6 +16,7 @@ export const Form = <Model extends AnyObject>({
 }: FormProps<Model>) => {
   return (
     <AntForm
+      id={id}
       layout={layout}
       initialValues={initialValues}
       onFieldsChange={onFieldsChange}
@@ -22,7 +24,7 @@ export const Form = <Model extends AnyObject>({
       onFinishFailed={onFinishFailed}
       onValuesChange={onValuesChange}
     >
-      <Row>
+      <Row gutter={16}>
         {Object.keys(items).map(fieldName => {
           const fieldName_ = fieldName as keyof typeof items;
           const field = items[fieldName_];
@@ -35,9 +37,6 @@ export const Form = <Model extends AnyObject>({
           return null;
         })}
       </Row>
-      <Button htmlType="submit" type="primary">
-        Submit
-      </Button>
     </AntForm>
   );
 };

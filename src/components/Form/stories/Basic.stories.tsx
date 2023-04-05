@@ -1,53 +1,15 @@
 import { ComponentStory, Meta } from '@storybook/react';
 import { withDesign } from 'storybook-addon-designs';
-import { DeepNullable } from 'utils';
+import { DeepPartial } from 'utils';
 import { Form } from '../Form';
 
-interface ImageResource {
-  publicUrl: string;
-  thumbnail: string;
-  thumbnail2x: string;
-  size: number;
-  mimetype: `image/${string}`;
-  uploader: string;
-  encoding: string;
-  bucketName: 'images';
-  state: string;
-  _id: string;
-  createdAt: string;
-  updatedAt: string;
-  __v: 0;
+interface Author {
+  firstName: string;
+  lastName: string;
+  country: string;
 }
 
-interface Merchandise {
-  _id: number;
-  title: string;
-  description: string;
-  attachments: ImageResource[];
-}
-
-interface Trip {
-  _id: number;
-  title: string;
-  description: string;
-  passengers: Array<{
-    firstName: string;
-    lastName: string;
-    type: string;
-    class: string;
-  }>;
-  payment: string;
-  merchandises: Merchandise[];
-}
-
-const initialValues: DeepNullable<Trip> = {
-  _id: 111,
-  description: 'Description default',
-  title: 'Title default',
-  passengers: [{ class: 'ADULT', type: 'VIP', firstName: 'Lê', lastName: 'TUuowngr' }],
-  payment: null,
-  merchandises: [],
-};
+const initialValues: DeepPartial<Author> = {};
 
 export default {
   title: 'Form/Basic',
@@ -65,111 +27,47 @@ export const Basic: ComponentStory<typeof Form> = () => {
       onFinish={values => alert(`Final values: ${JSON.stringify(values, undefined, 2)}`)}
       onFinishFailed={errorInfo => alert(`Errors : ${JSON.stringify(errorInfo, undefined, 2)}`)}
       items={{
-        _id: {
-          type: 'Single',
-          rules: [],
+        firstName: {
           control: { type: 'Input' },
-          layout: { label: 'ID', hidden: true },
-        },
-        description: {
           type: 'Single',
+          layout: {
+            label: 'First name',
+            requiredMark: true,
+            containerCol: { span: 12 },
+          },
           rules: [
             {
-              message: 'Description is required',
               warningOnly: false,
+              message: 'First name is required',
               isError(value) {
                 return !value;
               },
             },
           ],
-          control: { type: 'Input' },
-          layout: {
-            label: 'Description',
-            labelCol: { span: 2 },
-            labelAlign: 'left',
-            requiredMark: true,
-          },
         },
-        title: {
+        lastName: {
+          control: { type: 'Input' },
           type: 'Single',
-          rules: [],
-          control: { type: 'Input' },
           layout: {
-            label: 'Title',
-            labelCol: { span: 2 },
-            labelAlign: 'left',
+            label: 'Last name',
+            requiredMark: true,
+            containerCol: { span: 12 },
           },
-        },
-        passengers: {
-          type: 'Array',
-          itemSkeleton: { class: 'ADULT', type: 'VIP', firstName: 'Hello', lastName: 'World' },
           rules: [
             {
               warningOnly: false,
-              message: 'At least 2 passengers',
-              isError(value) {
-                if (value.length < 2) {
-                  return true;
-                }
-                return false;
-              },
-            },
-          ],
-          controls: {
-            firstName: {
-              type: 'Single',
-              rules: [],
-              control: { type: 'Input' },
-              layout: {
-                label: 'First Name',
-                labelCol: { span: 2 },
-                labelAlign: 'left',
-              },
-            },
-            lastName: {
-              type: 'Single',
-              rules: [],
-              control: { type: 'Input' },
-              layout: {
-                label: 'Last Name',
-                labelCol: { span: 2 },
-                labelAlign: 'left',
-              },
-            },
-          },
-          layout: {
-            label: 'Passengers',
-            collapseTitle(index) {
-              return `Passenger ${index + 1}`;
-            },
-            requiredMark: true,
-            labelCol: { span: 2 },
-            labelAlign: 'left',
-          },
-        },
-        payment: {
-          type: 'Single',
-          rules: [
-            {
-              warningOnly: false,
-              message: 'Payment is required',
+              message: 'Last name is required',
               isError(value) {
                 return !value;
               },
             },
           ],
-          control: {
-            type: 'CheckboxSingle',
-            atLeastOne: true,
-            options: [
-              { id: '1', label: 'Paypal', value: 'PAYPAL' },
-              { id: '2', label: 'Stripe', value: 'STRIPE' },
-              { id: '3', label: 'Credit card', value: 'CREDIT' },
-            ],
-          },
-          layout: {
-            label: 'Payment',
-          },
+        },
+        country: {
+          type: 'Single',
+          control: { type: 'Input' },
+          layout: { label: 'Country' },
+          rules: [],
         },
       }}
     />

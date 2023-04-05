@@ -11,6 +11,7 @@ export const FieldArray = <Model extends AnyObject, Key extends keyof Model>({
   layout,
   rules,
   itemSkeleton,
+  maxItems = Number.MAX_SAFE_INTEGER,
 }: FieldArrayProps<Model, Key>) => {
   const {
     collapseTitle,
@@ -43,7 +44,12 @@ export const FieldArray = <Model extends AnyObject, Key extends keyof Model>({
         tooltip={tooltip}
         validateTrigger={validateTrigger}
       >
-        <Form.List name={fieldPath} rules={getRulesViaProps({ rules })}>
+        <Form.List
+          name={fieldPath}
+          // Thêm 1 rule defaut để vá lỗi khi "rules" truyền vào là 1 array rỗng
+          // Khi đó "FieldArray" không được rerender -> getFormErrors() không được update lại -> Collapse không tự mở khi submit form có lỗi
+          rules={getRulesViaProps({ rules: [...rules, { message: '', warningOnly: true, isError: () => false }] })}
+        >
           {(fields, { add, ...operation }, { errors, warnings }) => {
             return (
               <>
@@ -55,9 +61,11 @@ export const FieldArray = <Model extends AnyObject, Key extends keyof Model>({
                   operation={{ add, ...operation }}
                   parentFieldPath={parentFieldPath}
                 />
-                <Button size="large" style={{ marginTop: 8 }} block type="primary" onClick={() => add(itemSkeleton)}>
-                  Add
-                </Button>
+                {fields.length < maxItems && (
+                  <Button size="large" style={{ marginTop: 8 }} block type="primary" onClick={() => add(itemSkeleton)}>
+                    Add
+                  </Button>
+                )}
                 <Form.ErrorList errors={errors} warnings={warnings} />
               </>
             );
