@@ -7,8 +7,8 @@ export interface FormProps<Model extends AnyObject, Key extends keyof Model = ke
   items: FieldArrayBaseProps<Model, Key>['controls'];
   initialValues?: Partial<Model>;
   layout?: AntFormProps['layout'];
-  onFieldsChange?: Required<AntFormProps<Model>>['onFieldsChange'];
-  onFinish?: Required<AntFormProps<Model>>['onFinish'];
-  onFinishFailed?: Required<AntFormProps<Model>>['onFinishFailed'];
-  onValuesChange?: Required<AntFormProps<Model>>['onValuesChange'];
+  onFieldsChange?: Required<AntFormProps<Partial<Model>>>['onFieldsChange'];
+  onFinish?: Required<AntFormProps<Partial<Model>>>['onFinish'];
+  onFinishFailed?: Required<AntFormProps<Partial<Model>>>['onFinishFailed'];
+  onValuesChange?: Required<AntFormProps<Partial<Model>>>['onValuesChange'];
 }

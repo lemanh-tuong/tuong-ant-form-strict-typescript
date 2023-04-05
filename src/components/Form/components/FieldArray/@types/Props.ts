@@ -17,7 +17,7 @@ interface LayoutProps<Model extends AnyObject> {
   /** Label của field */
   label: AntFormItemProps['label'];
   /** Tên hiển thị của collapse đại diện cho phần tử của mảng */
-  collapseTitle: CollapseTitle<Model>;
+  collapseTitle: CollapseTitle<Partial<Model>>;
   /** Layout của field */
   containerCol?: ColProps;
   /** Bật/Tắt kí tự ":" sau label */

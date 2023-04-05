@@ -77,7 +77,7 @@ export const CaseStudy1: ComponentStory<typeof Form> = () => {
           passengers: [{ firstName: 'Passenger', lastName: 'Passenger', class: 'ADULT', type: 'ECO' }],
         }}
         onValuesChange={(_, values) => {
-          const totalPrice = values.passengers.reduce((result, passenger) => {
+          const totalPrice = (values.passengers ?? []).reduce((result, passenger) => {
             if (passenger.type && passenger.class) {
               const price = prices[passenger.type][passenger.class];
               return result + price;
