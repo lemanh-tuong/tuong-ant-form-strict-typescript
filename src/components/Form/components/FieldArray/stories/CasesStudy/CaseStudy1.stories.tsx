@@ -32,7 +32,7 @@ export const CaseStudy1: ComponentStory<typeof FieldArray> = () => {
             warningOnly: false,
             message: 'At least 2 passengers',
             isError(value) {
-              if (value.length < 2) {
+              if (!value || value.length < 2) {
                 return true;
               }
               return false;
@@ -75,7 +75,7 @@ export const CaseStudy1: ComponentStory<typeof FieldArray> = () => {
                 message: 'At least 2 attachment',
                 warningOnly: false,
                 isError(value) {
-                  if (value.length < 2) {
+                  if (!value || value.length < 2) {
                     return true;
                   }
                   return false;

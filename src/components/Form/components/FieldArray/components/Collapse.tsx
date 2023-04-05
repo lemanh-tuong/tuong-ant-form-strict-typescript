@@ -12,7 +12,7 @@ import { isEmpty, startsWith, uniq } from 'ramda';
 import { useMemo, useState } from 'react';
 import { FieldSingle } from '../../FieldSingle';
 import { AnyObject } from '../@types/BuildIn';
-import { FieldArrayProps } from '../@types/Props';
+import { Props as FieldArrayProps } from '../@types/Props';
 import { FieldArray } from '../FieldArray';
 import { useGetAntFormInstance } from '../hooks/useGetAntFormInstance';
 import { CollapseHeader, CollapseHeaderProps } from './CollapseHeader';

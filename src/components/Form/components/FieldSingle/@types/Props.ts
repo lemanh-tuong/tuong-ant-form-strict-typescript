@@ -31,7 +31,7 @@ interface LayoutProps {
   validateTrigger?: AntFormItemProps['validateTrigger'];
 }
 
-export interface FieldSingleBaseProps<Value extends unknown> {
+export interface BaseProps<Value extends unknown> {
   /** Used to check condition rendering */
   type: 'Single';
   /**
@@ -46,7 +46,8 @@ export interface FieldSingleBaseProps<Value extends unknown> {
 }
 
 type NamePath = string | number;
-export interface FieldSingleProps<Value extends unknown> extends FieldSingleBaseProps<Value> {
+
+export interface Props<Value extends unknown> extends BaseProps<Value> {
   fieldPath: NamePath | NamePath[];
   parentFieldPath?: NamePath[];
 }

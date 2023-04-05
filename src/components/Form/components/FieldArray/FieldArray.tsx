@@ -1,7 +1,7 @@
 import { Button, Col, Form } from 'antd';
 import { getRulesViaProps } from '../utils/getRulesViaProps';
 import { AnyObject } from './@types/BuildIn';
-import { FieldArrayProps } from './@types/Props';
+import { Props } from './@types/Props';
 import { Collapse } from './components/Collapse';
 
 export const FieldArray = <Model extends AnyObject, Key extends keyof Model>({
@@ -12,7 +12,7 @@ export const FieldArray = <Model extends AnyObject, Key extends keyof Model>({
   rules,
   itemSkeleton,
   maxItems = Number.MAX_SAFE_INTEGER,
-}: FieldArrayProps<Model, Key>) => {
+}: Props<Model, Key>) => {
   const {
     collapseTitle,
     label,

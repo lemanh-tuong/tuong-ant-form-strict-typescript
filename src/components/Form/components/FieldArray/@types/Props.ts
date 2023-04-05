@@ -2,7 +2,7 @@ import { ColProps as AntColProps, FormItemProps as AntFormItemProps } from 'antd
 import { ReactNode } from 'react';
 import { FieldSingleBaseProps } from '../../FieldSingle';
 import { AnyObject } from './BuildIn';
-import { FieldArrayRule } from './Rule';
+import { Rule } from './Rule';
 
 type ColProps = Pick<AntColProps, 'span' | 'offset'>;
 
@@ -44,11 +44,11 @@ interface LayoutProps<Model extends AnyObject> {
 
 type RecursiveFieldArray<Model extends AnyObject, Key extends keyof Model> = {
   [K in Key]: Model[K] extends AnyObject[]
-    ? FieldArrayBaseProps<Model[K][number], keyof Model[K][number]>
+    ? BaseProps<Model[K][number], keyof Model[K][number]>
     : FieldSingleBaseProps<Model[K]>;
 };
 
-export interface FieldArrayBaseProps<Model extends AnyObject, Key extends keyof Model> {
+export interface BaseProps<Model extends AnyObject, Key extends keyof Model> {
   /** Used to check condition rendering */
   type: 'Array';
   /** Fields of item in array */
@@ -56,7 +56,7 @@ export interface FieldArrayBaseProps<Model extends AnyObject, Key extends keyof 
   /** Layout of field */
   layout: LayoutProps<Model>;
   /** Validators of field */
-  rules: FieldArrayRule<Model[]>[];
+  rules: Rule<Model[]>[];
   /** Skeleton item for add item */
   itemSkeleton: Partial<Model>;
   /** Max items field array can be reach */
@@ -64,8 +64,7 @@ export interface FieldArrayBaseProps<Model extends AnyObject, Key extends keyof 
 }
 
 type NamePath = string | number;
-export interface FieldArrayProps<Model extends AnyObject, Key extends keyof Model>
-  extends FieldArrayBaseProps<Model, Key> {
+export interface Props<Model extends AnyObject, Key extends keyof Model> extends BaseProps<Model, Key> {
   /**
    * Giống name của field
    * Chỉ truyền string

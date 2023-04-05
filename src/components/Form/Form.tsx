@@ -1,6 +1,6 @@
 import { Form as AntForm, Row } from 'antd';
 import { AnyObject } from './@types/BuiltIn';
-import { FormProps } from './@types/Props';
+import { Props } from './@types/Props';
 import { FieldArray } from './components/FieldArray';
 import { FieldSingle } from './components/FieldSingle';
 
@@ -14,7 +14,7 @@ export const Form = <Model extends AnyObject>({
   onFinish,
   onFinishFailed,
   onValuesChange,
-}: FormProps<Model>) => {
+}: Props<Model>) => {
   return (
     <AntForm
       form={formInstance}
@@ -42,3 +42,5 @@ export const Form = <Model extends AnyObject>({
     </AntForm>
   );
 };
+
+export const useForm = AntForm.useForm;

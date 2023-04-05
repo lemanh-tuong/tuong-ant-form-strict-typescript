@@ -2,7 +2,7 @@ import { CopyOutlined, DeleteOutlined, EyeOutlined } from '@ant-design/icons';
 import { Col, Row, Space, Tooltip } from 'antd';
 import { MouseEventHandler } from 'react';
 import { AnyObject } from '../@types/BuildIn';
-import { FieldArrayProps } from '../@types/Props';
+import { Props as FieldArrayProps } from '../@types/Props';
 import { useGetAntFormInstance } from '../hooks/useGetAntFormInstance';
 import { useWatchAntForm } from '../hooks/useWatchAntForm';
 

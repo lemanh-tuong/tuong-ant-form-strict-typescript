@@ -1,3 +1,3 @@
 export { FieldArray } from './FieldArray';
-export type { FieldArrayBaseProps, FieldArrayProps } from './@types/Props';
-export type { FieldArrayRule } from './@types/Rule';
+export type { BaseProps as FieldArrayBaseProps, Props as FieldArrayProps } from './@types/Props';
+export type { Rule as FieldArrayRule } from './@types/Rule';

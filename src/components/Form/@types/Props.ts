@@ -1,8 +1,8 @@
 import { FormInstance, FormProps as AntFormProps } from 'antd';
-import { FieldArrayBaseProps } from '../components/FieldArray/@types/Props';
+import { FieldArrayBaseProps } from '../components/FieldArray';
 import { AnyObject } from './BuiltIn';
 
-export interface FormProps<Model extends AnyObject, Key extends keyof Model = keyof Model> {
+export interface Props<Model extends AnyObject, Key extends keyof Model = keyof Model> {
   /** Id của form -> Để thực hiện submit form */
   id: string;
   /** Các fields */
