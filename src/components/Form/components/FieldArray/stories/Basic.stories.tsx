@@ -19,8 +19,9 @@ export const Basic: ComponentStory<typeof FieldArray> = () => {
   return (
     <Form onFinish={values => alert(`Final values ${JSON.stringify(values, undefined, 2)}`)}>
       <FieldArray<Passenger, keyof Passenger>
-        type="Array"
         rules={[]}
+        type="Array"
+        fieldPath="passengers"
         itemSkeleton={{
           firstName: 'Hello',
           lastName: 'World',
@@ -39,10 +40,9 @@ export const Basic: ComponentStory<typeof FieldArray> = () => {
             rules: [],
           },
         }}
-        fieldPath="passengers"
         layout={{
           label: 'Passengers',
-          collapseTitle(index) {
+          collapseTitle({ index }) {
             return `Passenger ${index + 1}`;
           },
         }}

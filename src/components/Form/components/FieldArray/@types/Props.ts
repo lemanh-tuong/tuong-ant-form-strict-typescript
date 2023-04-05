@@ -6,11 +6,18 @@ import { FieldArrayRule } from './Rule';
 
 type ColProps = Pick<AntColProps, 'span' | 'offset'>;
 
-interface LayoutProps {
+type CollapseTitle<Model extends AnyObject> = (result: {
+  // Giá trị hiện tại của field
+  data?: Partial<Model>;
+  // Index của field
+  index: number;
+}) => ReactNode;
+
+interface LayoutProps<Model extends AnyObject> {
   /** Label của field */
   label: AntFormItemProps['label'];
   /** Tên hiển thị của collapse đại diện cho phần tử của mảng */
-  collapseTitle: (index: number) => ReactNode;
+  collapseTitle: CollapseTitle<Model>;
   /** Layout của field */
   containerCol?: ColProps;
   /** Bật/Tắt kí tự ":" sau label */
@@ -47,7 +54,7 @@ export interface FieldArrayBaseProps<Model extends AnyObject, Key extends keyof 
   /** Fields of item in array */
   controls: Partial<RecursiveFieldArray<Model, Key>>;
   /** Layout of field */
-  layout: LayoutProps;
+  layout: LayoutProps<Model>;
   /** Validators of field */
   rules: FieldArrayRule<Model[]>[];
   /** Skeleton item for add item */
@@ -59,7 +66,14 @@ export interface FieldArrayBaseProps<Model extends AnyObject, Key extends keyof 
 type NamePath = string | number;
 export interface FieldArrayProps<Model extends AnyObject, Key extends keyof Model>
   extends FieldArrayBaseProps<Model, Key> {
+  /**
+   * Giống name của field
+   * Chỉ truyền string
+   */
   fieldPath: NamePath | NamePath[];
-  /** @private */
+  /** @private
+   * Không sử dụng property này để không có gì lỗi xảy ra.
+   * Property được sử dụng để làm chức năng mở collapse khi các thành phần con có lỗi + Trả về dữ liệu cho render props "collapseTitle"
+   */
   parentFieldPath?: NamePath[];
 }

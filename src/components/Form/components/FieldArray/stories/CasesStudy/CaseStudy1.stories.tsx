@@ -26,11 +26,7 @@ export const CaseStudy1: ComponentStory<typeof FieldArray> = () => {
     >
       <FieldArray<Passenger, keyof Passenger>
         type="Array"
-        itemSkeleton={{
-          firstName: 'Hello',
-          lastName: 'World',
-          attachments: [],
-        }}
+        itemSkeleton={{}}
         rules={[
           {
             warningOnly: false,
@@ -47,14 +43,30 @@ export const CaseStudy1: ComponentStory<typeof FieldArray> = () => {
           firstName: {
             type: 'Single',
             control: { type: 'Input' },
-            layout: { label: 'First name' },
-            rules: [],
+            layout: { label: 'First name', requiredMark: true },
+            rules: [
+              {
+                warningOnly: false,
+                message: 'First name is required',
+                isError(value) {
+                  return !value;
+                },
+              },
+            ],
           },
           lastName: {
             type: 'Single',
             control: { type: 'Input' },
-            layout: { label: 'Last name' },
-            rules: [],
+            layout: { label: 'Last name', requiredMark: true },
+            rules: [
+              {
+                warningOnly: false,
+                message: 'Last name is required',
+                isError(value) {
+                  return !value;
+                },
+              },
+            ],
           },
           attachments: {
             type: 'Array',
@@ -72,15 +84,29 @@ export const CaseStudy1: ComponentStory<typeof FieldArray> = () => {
             ],
             layout: {
               label: 'Attachments',
-              collapseTitle(index) {
-                return <span>Attachment {index}</span>;
+              requiredMark: true,
+              collapseTitle({ index, data }) {
+                return (
+                  <div>
+                    <p>Attachment {index + 1}</p>
+                    <p>{JSON.stringify(data)}</p>
+                  </div>
+                );
               },
             },
             controls: {
               src: {
                 type: 'Single',
-                rules: [],
-                layout: { label: 'Src' },
+                rules: [
+                  {
+                    warningOnly: false,
+                    message: 'Source is required',
+                    isError(value) {
+                      return !value;
+                    },
+                  },
+                ],
+                layout: { label: 'Source', requiredMark: true },
                 control: { type: 'Input' },
               },
             },
@@ -90,8 +116,14 @@ export const CaseStudy1: ComponentStory<typeof FieldArray> = () => {
         fieldPath="passengers"
         layout={{
           label: 'Passengers',
-          collapseTitle(index) {
-            return <span>Passenger {index}</span>;
+          requiredMark: true,
+          collapseTitle({ index, data }) {
+            return (
+              <div>
+                <p>Passenger {index + 1}</p>
+                <p>{JSON.stringify(data)}</p>
+              </div>
+            );
           },
         }}
       />

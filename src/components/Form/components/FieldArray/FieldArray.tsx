@@ -13,6 +13,7 @@ export const FieldArray = <Model extends AnyObject, Key extends keyof Model>({
   itemSkeleton,
 }: FieldArrayProps<Model, Key>) => {
   const {
+    collapseTitle,
     label,
     containerCol = { span: 24, offset: 0 },
     controlCol,
@@ -46,12 +47,13 @@ export const FieldArray = <Model extends AnyObject, Key extends keyof Model>({
           {(fields, { add, ...operation }, { errors, warnings }) => {
             return (
               <>
-                <Collapse
-                  fieldsOfFormList={fields}
-                  fieldPath={fieldPath}
-                  parentFieldPath={parentFieldPath}
+                <Collapse<Model, Key>
+                  collapseTitle={collapseTitle}
                   controls={controls}
+                  fieldPath={fieldPath}
+                  fieldsOfFormList={fields}
                   operation={{ add, ...operation }}
+                  parentFieldPath={parentFieldPath}
                 />
                 <Button size="large" style={{ marginTop: 8 }} block type="primary" onClick={() => add(itemSkeleton)}>
                   Add
