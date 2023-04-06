@@ -22,6 +22,7 @@ export const Textarea = ({
   loading = false,
   maxLength,
   placeholder,
+  readonly = false,
   showCount,
   status,
 }: Props) => {
@@ -30,6 +31,9 @@ export const Textarea = ({
   const [valueState, setValueState] = useState(() => setStateViaProps(value));
 
   const handleChange: AntTextAreaProps['onChange'] = event => {
+    if (readonly) {
+      return;
+    }
     const nextState = getValueOnChange(event);
     setValueState(nextState);
     onChange?.(nextState);
@@ -48,6 +52,7 @@ export const Textarea = ({
         id={id}
         className={classNames({
           Textarea__container: true,
+          Textarea__readonly: readonly,
           [className]: true,
         })}
         style={
@@ -58,15 +63,17 @@ export const Textarea = ({
         }
       >
         <AntTextArea
-          allowClear
+          allowClear={!readonly}
           value={valueState ?? ''}
           onChange={handleChange}
-          autoSize={autoSize}
+          autoSize={readonly ? true : autoSize}
           disabled={disabled || loading}
           maxLength={maxLength}
           placeholder={placeholder}
+          readOnly={readonly}
           showCount={showCount}
           status={status}
+          tabIndex={readonly ? -1 : undefined}
         />
         {loading && <Loading />}
       </div>

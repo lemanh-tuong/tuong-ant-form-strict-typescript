@@ -33,7 +33,7 @@ export const Form = <Model extends AnyObject>({
   useEffect(() => {
     formHandler.set(uid, {
       setValues: data => {
-        if (readonly) {
+        if (!readonly) {
           form.setFieldsValue(data as any);
         }
       },

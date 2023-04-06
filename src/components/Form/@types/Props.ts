@@ -28,4 +28,6 @@ export interface Props<Model extends AnyObject, Key extends keyof Model = keyof 
   className?: string;
   /** Nội dung mô tả của tooltip */
   description?: ReactNode;
+  /** Chế độ readonly */
+  readonly?: boolean;
 }

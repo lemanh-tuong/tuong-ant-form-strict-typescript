@@ -75,7 +75,6 @@ export const SliderRange = ({
 
   // Set tabIndex cho input
   useEffect(() => {
-    console.log(111, containerRef.current);
     if (readonly && containerRef.current) {
       containerRef.current.querySelectorAll('.ant-slider > .ant-slider-handle').forEach(($el, index) => {
         update(index, $el.getAttribute('tabindex'), prevTabIndexes.current);

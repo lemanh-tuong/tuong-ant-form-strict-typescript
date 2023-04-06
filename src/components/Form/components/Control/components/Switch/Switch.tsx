@@ -16,6 +16,7 @@ export const Switch = ({
   disabled = false,
   id = '',
   loading = false,
+  readonly = false,
   size,
   status,
   unChecked,
@@ -25,6 +26,9 @@ export const Switch = ({
   const [valueState, setValueState] = useState(() => setStateViaProps(value));
 
   const handleChange: AntSwitchProps['onChange'] = checked => {
+    if (readonly) {
+      return;
+    }
     const nextState = getValueOnChange(checked);
     setValueState(nextState);
     onChange?.(nextState);
@@ -48,8 +52,10 @@ export const Switch = ({
         size={size}
         unCheckedChildren={unChecked}
         id={id}
+        tabIndex={readonly ? -1 : undefined}
         className={classNames({
           Switch__container: true,
+          Switch__readonly: readonly,
           'Switch__container--error': status === 'error',
           'Switch__container--warning': status === 'warning',
           [className]: true,

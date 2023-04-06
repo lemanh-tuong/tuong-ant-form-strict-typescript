@@ -139,9 +139,10 @@ export const Collapse = <Model extends AnyObject, Key extends keyof Model>({
               return (
                 <FieldSingle
                   {...control}
-                  key={fieldPathOfControl}
                   fieldPath={[name, fieldPathOfControl]}
+                  key={fieldPathOfControl}
                   parentFieldPath={fieldPathOfItem}
+                  readonly={readonly}
                 />
               );
             }
@@ -149,9 +150,10 @@ export const Collapse = <Model extends AnyObject, Key extends keyof Model>({
               return (
                 <FieldArray
                   {...control}
-                  key={fieldPathOfControl}
                   fieldPath={[name, fieldPathOfControl]}
+                  key={fieldPathOfControl}
                   parentFieldPath={fieldPathOfItem}
+                  readonly={readonly}
                 />
               );
             }

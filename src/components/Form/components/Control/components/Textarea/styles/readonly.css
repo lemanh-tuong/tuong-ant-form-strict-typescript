@@ -1,0 +1,3 @@
+.Textarea__readonly {
+  pointer-events: none;
+}

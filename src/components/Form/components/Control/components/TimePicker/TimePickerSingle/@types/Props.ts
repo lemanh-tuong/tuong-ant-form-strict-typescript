@@ -38,6 +38,8 @@ export interface Props {
   minuteStep?: PickerTimeProps<Dayjs>['minuteStep'];
   /** Placeholder của input */
   placeholder?: PickerTimeProps<Dayjs>['placeholder'];
+  /** Chế độ readonly */
+  readonly?: boolean;
   /** Custom footer trong popup lịch */
   renderExtraFooter?: PickerTimeProps<Dayjs>['renderExtraFooter'];
   /** Bước nhảy giữa các "Giây" trong picker */

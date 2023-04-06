@@ -19,6 +19,8 @@ export interface Props {
   id?: AntSwitchProps['id'];
   /** Set trạng thái loading */
   loading?: boolean;
+  /** Chế độ readonly */
+  readonly?: boolean;
   /** Size của input */
   size?: AntSwitchProps['size'];
   /** Status */

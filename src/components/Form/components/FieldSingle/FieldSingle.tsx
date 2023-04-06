@@ -3,7 +3,13 @@ import { Control } from '../Control';
 import { getRulesViaProps } from '../utils/getRulesViaProps';
 import { Props } from './@types/Props';
 
-export const FieldSingle = <Value extends unknown>({ control, fieldPath, layout, rules }: Props<Value>) => {
+export const FieldSingle = <Value extends unknown>({
+  control,
+  fieldPath,
+  layout,
+  rules,
+  readonly = false,
+}: Props<Value>) => {
   const {
     colon,
     containerCol = { span: 24, offset: 0 },
@@ -36,7 +42,8 @@ export const FieldSingle = <Value extends unknown>({ control, fieldPath, layout,
         wrapperCol={controlCol}
         name={fieldPath}
       >
-        <Control {...control} />
+        {/* @ts-ignore */}
+        <Control {...control} readonly={readonly} />
       </Form.Item>
     </Col>
   );

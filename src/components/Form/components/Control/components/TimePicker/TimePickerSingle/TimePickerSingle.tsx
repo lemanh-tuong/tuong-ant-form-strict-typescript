@@ -1,7 +1,7 @@
 import { theme, TimePicker as AntTimePicker, TimePickerProps as AntTimePickerProps, Tooltip } from 'antd';
 import classNames from 'classnames';
-import { equals } from 'ramda';
-import { CSSProperties, useEffect, useState } from 'react';
+import { equals, nth, update } from 'ramda';
+import { CSSProperties, useEffect, useRef, useState } from 'react';
 import { Loading } from '../components/Loading';
 import { Props } from './@types/Props';
 import './styles/main.css';
@@ -24,6 +24,7 @@ export const TimePickerSingle = ({
   loading = false,
   minuteStep,
   placeholder,
+  readonly = false,
   renderExtraFooter,
   secondStep,
   showHour = true,
@@ -39,7 +40,13 @@ export const TimePickerSingle = ({
     return setStateViaProps(value);
   });
 
+  const containerRef = useRef<HTMLDivElement>(null);
+  const prevTabIndexes = useRef<Array<string | undefined>>([]);
+
   const handleChange: AntTimePickerProps['onChange'] = value => {
+    if (readonly) {
+      return;
+    }
     const nextState = getValueOnChange(value);
     setValueState(nextState);
     onChange?.(nextState);
@@ -53,13 +60,33 @@ export const TimePickerSingle = ({
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [value]);
+
+  // Set tabIndex cho input
+  useEffect(() => {
+    if (readonly && containerRef.current) {
+      containerRef.current.querySelectorAll('.ant-picker-input > input').forEach(($el, index) => {
+        update(index, $el.getAttribute('tabindex'), prevTabIndexes.current);
+        $el.setAttribute('tabindex', '-1');
+      });
+    } else if (!readonly) {
+      containerRef.current?.querySelectorAll('.ant-picker-input > input').forEach(($el, index) => {
+        const prevTabIndexValue = nth(index, prevTabIndexes.current);
+        if (prevTabIndexValue) {
+          $el.setAttribute('tabindex', prevTabIndexValue);
+        }
+      });
+    }
+  }, [readonly]);
+
   return (
     <Tooltip title={description}>
       <div
+        ref={containerRef}
         id={id}
         className={classNames({
           [className]: true,
           TimePickerSingle__container: true,
+          TimePickerSingle__readonly: readonly,
         })}
         style={
           {
@@ -81,6 +108,7 @@ export const TimePickerSingle = ({
           hideDisabledOptions={hideDisabledOptions}
           hourStep={hourStep}
           minuteStep={minuteStep}
+          open={readonly ? false : undefined}
           placeholder={placeholder}
           renderExtraFooter={renderExtraFooter}
           secondStep={secondStep}

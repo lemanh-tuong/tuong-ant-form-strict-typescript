@@ -36,13 +36,16 @@ export interface BaseProps<Value extends unknown> {
   type: 'Single';
   /**
    * Field control
-   * NOTE: Omit "id" để chức năng "scroll to first error" hoạt động chính xasc
+   * NOTE: Omit "id" để chức năng "scroll to first error" hoạt động chính xác
+   * NOTE: Omit "readonly" để chức năng "scroll to first error" hoạt động chính xác
    */
-  control: ControlProps;
+  control: Omit<ControlProps, 'readonly' | 'id'>;
   /** Layout of field */
   layout: LayoutProps;
   /** Validators of field */
   rules: FieldSingleRule<Value>[];
+  /** Chế độ readonly */
+  readonly?: boolean;
 }
 
 type NamePath = string | number;

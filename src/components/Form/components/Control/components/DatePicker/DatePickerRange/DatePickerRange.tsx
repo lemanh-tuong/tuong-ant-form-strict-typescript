@@ -38,6 +38,7 @@ export const DatePickerRange = ({
   const [valueState, setValueState] = useState(() => {
     return setStateViaProps(value);
   });
+
   const containerRef = useRef<HTMLDivElement>(null);
   const prevTabIndexes = useRef<Array<string | undefined>>([]);
 

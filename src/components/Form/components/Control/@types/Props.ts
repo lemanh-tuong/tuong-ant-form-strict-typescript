@@ -11,7 +11,7 @@ import { SwitchProps } from '../components/Switch';
 import { TextareaProps } from '../components/Textarea';
 import { TimePickerRangeProps, TimePickerSingleProps } from '../components/TimePicker';
 
-type OmitKeyForControlOfField<T extends any> = Omit<T, 'value' | 'onChange'>;
+type OmitKeyForControlOfField<T extends any> = Omit<T, 'value' | 'onChange' | 'id'>;
 
 interface CheckboxMultiple extends OmitKeyForControlOfField<CheckboxMultipleProps<any>> {
   type: 'CheckboxMultiple';

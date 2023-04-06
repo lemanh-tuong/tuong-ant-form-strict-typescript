@@ -9,8 +9,8 @@ import {
   Tooltip,
 } from 'antd';
 import classNames from 'classnames';
-import { equals } from 'ramda';
-import { CSSProperties, useEffect, useState } from 'react';
+import { equals, nth, update } from 'ramda';
+import { CSSProperties, useEffect, useRef, useState } from 'react';
 import { Props } from './@types/Props';
 import { Loading } from './components/Loading';
 import './styles/main.css';
@@ -31,6 +31,7 @@ export const SliderSingle = ({
   marks,
   max,
   min,
+  readonly = false,
   status,
   step = 1,
   vertical = false,
@@ -40,7 +41,13 @@ export const SliderSingle = ({
 
   const [valueState, setValueState] = useState(() => setStateViaProps(value));
 
+  const containerRef = useRef<HTMLDivElement>(null);
+  const prevTabIndexes = useRef<Array<string | undefined>>([]);
+
   const handleInputChange: InputNumberProps<number>['onChange'] = value => {
+    if (readonly) {
+      return;
+    }
     const nextState = getValueOnInputChange(value);
     setValueState(nextState);
     onChange?.(nextState);
@@ -48,12 +55,18 @@ export const SliderSingle = ({
   };
 
   const handleSliderChange: AntSliderSingleProps['onChange'] = value => {
+    if (readonly) {
+      return;
+    }
     const nextState = getValueOnSliderChange(value);
     setValueState(nextState);
     onChange?.(nextState);
   };
 
   const handleSliderAfterChange: AntSliderSingleProps['onAfterChange'] = value => {
+    if (readonly) {
+      return;
+    }
     const nextState = getValueOnSliderChange(value);
     setValueState(nextState);
     onEnd?.(nextState);
@@ -66,15 +79,34 @@ export const SliderSingle = ({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [value]);
 
+  // Set tabIndex cho input
+  useEffect(() => {
+    if (readonly && containerRef.current) {
+      containerRef.current.querySelectorAll('.ant-slider > .ant-slider-handle').forEach(($el, index) => {
+        update(index, $el.getAttribute('tabindex'), prevTabIndexes.current);
+        $el.setAttribute('tabindex', '-1');
+      });
+    } else if (!readonly) {
+      containerRef.current?.querySelectorAll('.ant-slider > .ant-slider-handle').forEach(($el, index) => {
+        const prevTabIndexValue = nth(index, prevTabIndexes.current);
+        if (prevTabIndexValue) {
+          $el.setAttribute('tabindex', prevTabIndexValue);
+        }
+      });
+    }
+  }, [readonly]);
+
   const renderInputNumber = () => {
     if (withInputNumber) {
       return (
         <Col>
           <InputNumber
-            disabled={disabled || loading}
             value={valueState}
-            step={step ?? undefined}
             onChange={handleInputChange}
+            disabled={disabled || loading}
+            readOnly={readonly}
+            step={step ?? undefined}
+            tabIndex={readonly ? -1 : undefined}
           />
         </Col>
       );
@@ -105,10 +137,12 @@ export const SliderSingle = ({
   return (
     <Tooltip title={description}>
       <Row
+        ref={containerRef}
         gutter={16}
         id={id}
         className={classNames({
           SliderRange__container: true,
+          SliderRange__readonly: readonly,
           'SliderRange__container--error': status === 'error',
           'SliderRange__container--warning': status === 'warning',
           [className]: true,

@@ -23,6 +23,8 @@ export interface Props {
   maxLength?: AntTextAreaProps['maxLength'];
   /** Placeholder của input */
   placeholder?: AntTextAreaProps['placeholder'];
+  /** Chế độ readonly */
+  readonly?: boolean;
   /** Hiển thị đếm số lượng ký tự */
   showCount?: AntTextAreaProps['showCount'];
   /** Status */

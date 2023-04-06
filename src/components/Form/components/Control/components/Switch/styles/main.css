@@ -1,2 +1,3 @@
-@import './status/error.css';
-@import './status/warning.css';
+@import "./status/error.css";
+@import "./status/warning.css";
+@import "./readonly.css";
