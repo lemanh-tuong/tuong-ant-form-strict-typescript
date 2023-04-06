@@ -27,6 +27,7 @@ export const SelectTag = ({
   maxTagTextLength,
   notFoundContent,
   placeholder,
+  readonly = false,
   renderExtraFooter,
   size,
   status,
@@ -39,6 +40,9 @@ export const SelectTag = ({
   const [valueState, setValueState] = useState<Result>(() => setStateViaValueProps(value));
 
   const handleChange: SelectProps<Array<Option['value']>, Option>['onChange'] = (value, options) => {
+    if (readonly) {
+      return;
+    }
     const nextState = getValueOnChange(value, options);
     setValueState(nextState);
     onChange?.(nextState);
@@ -90,7 +94,7 @@ export const SelectTag = ({
         dropdownMatchSelectWidth
         value={valueState}
         onChange={handleChange}
-        autoFocus={defaultFocus}
+        autoFocus={defaultFocus && !readonly}
         defaultOpen={defaultOpen}
         disabled={disabled}
         dropdownRender={renderExtraFooter ? dropdownRender : undefined}
@@ -100,19 +104,24 @@ export const SelectTag = ({
         maxTagPlaceholder={maxTagPlaceholder}
         maxTagTextLength={maxTagTextLength}
         notFoundContent={notFoundContent}
+        open={readonly ? false : undefined}
         placeholder={placeholder}
+        removeIcon={readonly ? <></> : undefined}
+        showArrow={!readonly}
         size={size}
         status={status}
         suffixIcon={suffixIcon}
         tagRender={tagRender}
         tokenSeparators={tokenSeparators}
+        tabIndex={readonly ? -1 : undefined}
+        id={id}
         popupClassName={classNames({
           SelectTag__dropdown: true,
           [dropdownClassName]: true,
         })}
-        id={id}
         className={classNames({
           SelectTag__container: true,
+          SelectTag__readonly: readonly,
           [className]: true,
         })}
         style={

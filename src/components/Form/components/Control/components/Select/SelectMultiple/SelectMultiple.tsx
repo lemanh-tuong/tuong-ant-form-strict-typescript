@@ -23,12 +23,13 @@ export const SelectMultiple = <Value extends unknown>({
   id = '',
   isChecked = defaultIsChecked,
   listHeight,
-  loading,
+  loading = false,
   maxTagCount,
   maxTagPlaceholder,
   maxTagTextLength,
   notFoundContent,
   placeholder,
+  readonly = false,
   renderExtraFooter,
   size,
   status,
@@ -45,6 +46,9 @@ export const SelectMultiple = <Value extends unknown>({
     value,
     option,
   ) => {
+    if (readonly) {
+      return;
+    }
     const nextState = getValueOnChange(value, option);
     setState(nextState);
     onChange?.(nextState ? nextState.map(item => item.rawValue) : null);
@@ -96,9 +100,7 @@ export const SelectMultiple = <Value extends unknown>({
         dropdownMatchSelectWidth
         mode="multiple"
         showSearch
-        value={state?.map(item => item.value) as any}
-        onChange={handleChange}
-        autoFocus={defaultFocus}
+        autoFocus={defaultFocus && !readonly}
         defaultOpen={defaultOpen}
         disabled={disabled}
         dropdownRender={renderExtraFooter ? dropdownRender : undefined}
@@ -108,11 +110,17 @@ export const SelectMultiple = <Value extends unknown>({
         maxTagPlaceholder={maxTagPlaceholder}
         maxTagTextLength={maxTagTextLength}
         notFoundContent={notFoundContent}
+        onChange={handleChange}
+        open={readonly ? false : undefined}
         placeholder={placeholder}
+        removeIcon={readonly ? <></> : undefined}
+        showArrow={!readonly}
         size={size}
         status={status}
         suffixIcon={suffixIcon}
+        tabIndex={readonly ? -1 : undefined}
         tagRender={tagRender}
+        value={state?.map(item => item.value) as any}
         id={id}
         popupClassName={classNames({
           SelectMultiple__dropdown: true,
@@ -120,6 +128,7 @@ export const SelectMultiple = <Value extends unknown>({
         })}
         className={classNames({
           SelectMultiple__container: true,
+          SelectMultiple__readonly: readonly,
           [className]: true,
         })}
         style={

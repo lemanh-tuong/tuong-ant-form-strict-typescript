@@ -45,6 +45,8 @@ export interface Props<Value extends unknown> {
   notFoundContent?: SelectProps['notFoundContent'];
   /** Placeholder của input */
   placeholder?: SelectProps['placeholder'];
+  /** Chế độ readonly */
+  readonly?: boolean;
   /** Custom footer dropdown */
   renderExtraFooter?: () => ReactNode;
   /** Kích thước input */

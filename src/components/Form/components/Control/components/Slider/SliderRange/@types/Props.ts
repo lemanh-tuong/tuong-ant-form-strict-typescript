@@ -27,6 +27,8 @@ export interface Props {
   max?: AntSliderRangeProps['max'];
   /** Giá trị nhỏ nhất có thể đạt được */
   min?: AntSliderRangeProps['min'];
+  /** Chế độ readonly */
+  readonly?: boolean;
   /** Status */
   status?: 'error' | 'warning';
   /** Bước nhảy. Phải lớn hơn 0 và chia hết cho (max - min). Khi "marks" có giá thì "step" có thể là 'null' */

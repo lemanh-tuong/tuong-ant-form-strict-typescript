@@ -1,7 +1,7 @@
 import { Rate as AntRate, RateProps as AntRateProps, theme, Tooltip } from 'antd';
 import classNames from 'classnames';
-import { equals, isNil } from 'ramda';
-import { CSSProperties, useEffect, useState } from 'react';
+import { equals, isNil, nth, update } from 'ramda';
+import { CSSProperties, useEffect, useRef, useState } from 'react';
 import { Props } from './@types/Props';
 import { Loading } from './components/Loading';
 import './styles/main.css';
@@ -28,6 +28,9 @@ export const Rate = ({
   const [valueState, setValueState] = useState(() => setStateViaProps(value));
   const [tooltipVisible, setTooltipVisible] = useState(false);
 
+  const containerRef = useRef<HTMLDivElement>(null);
+  const prevTabIndexes = useRef<Array<string | undefined>>([]);
+
   const handleChange: AntRateProps['onChange'] = value => {
     if (readonly) {
       return;
@@ -52,10 +55,28 @@ export const Rate = ({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [value]);
 
+  // Set tabIndex cho input
+  useEffect(() => {
+    if (readonly && containerRef.current) {
+      containerRef.current.querySelectorAll('.ant-rate-star > div[role="radio"]').forEach(($el, index) => {
+        update(index, $el.getAttribute('tabindex'), prevTabIndexes.current);
+        $el.setAttribute('tabindex', '-1');
+      });
+    } else if (!readonly) {
+      containerRef.current?.querySelectorAll('.ant-rate-star > div[role="radio"]').forEach(($el, index) => {
+        const prevTabIndexValue = nth(index, prevTabIndexes.current);
+        if (prevTabIndexValue) {
+          $el.setAttribute('tabindex', prevTabIndexValue);
+        }
+      });
+    }
+  }, [readonly]);
+
   return (
     <Tooltip title={description} open={tooltipVisible}>
       <div
         id={id}
+        ref={containerRef}
         className={classNames({
           Rate__container: true,
           Rate__readonly: readonly,

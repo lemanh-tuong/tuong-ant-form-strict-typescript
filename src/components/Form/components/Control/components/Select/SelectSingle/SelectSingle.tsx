@@ -23,9 +23,10 @@ export const SelectSingle = <Value extends unknown>({
   id = '',
   isChecked = defaultIsChecked,
   listHeight,
-  loading,
+  loading = false,
   notFoundContent,
   placeholder,
+  readonly = false,
   renderExtraFooter,
   size,
   status,
@@ -41,6 +42,9 @@ export const SelectSingle = <Value extends unknown>({
     value,
     option,
   ) => {
+    if (readonly) {
+      return;
+    }
     const nextState = getValueOnChange(value, option);
     setState(nextState);
     onChange?.(nextState?.rawValue ?? null);
@@ -91,17 +95,21 @@ export const SelectSingle = <Value extends unknown>({
         dropdownMatchSelectWidth
         value={state?.value}
         onChange={handleChange}
-        autoFocus={defaultFocus}
+        autoFocus={defaultFocus && !readonly}
         defaultOpen={defaultOpen}
         disabled={disabled}
         dropdownRender={renderExtraFooter ? dropdownRender : undefined}
         listHeight={listHeight}
         loading={loading}
         notFoundContent={notFoundContent}
+        open={readonly ? false : undefined}
         placeholder={placeholder}
+        removeIcon={readonly ? <></> : undefined}
+        showArrow={!readonly}
         size={size}
         status={status}
         suffixIcon={suffixIcon}
+        tabIndex={readonly ? -1 : undefined}
         id={id}
         popupClassName={classNames({
           SelectSingle__dropdown: true,
@@ -109,6 +117,7 @@ export const SelectSingle = <Value extends unknown>({
         })}
         className={classNames({
           SelectSingle__container: true,
+          SelectSingle__readonly: readonly,
           [className]: true,
         })}
         style={

@@ -1,8 +1,8 @@
 import { Col, InputNumber, InputNumberProps, Row, Slider, theme, Tooltip } from 'antd';
 import { SliderRangeProps as AntSliderRangeProps } from 'antd/es/slider';
 import classNames from 'classnames';
-import { equals } from 'ramda';
-import { CSSProperties, useEffect, useState } from 'react';
+import { equals, nth, update } from 'ramda';
+import { CSSProperties, useEffect, useRef, useState } from 'react';
 import { Props } from './@types/Props';
 import { Loading } from './components/Loading';
 import './styles/main.css';
@@ -23,6 +23,7 @@ export const SliderRange = ({
   marks,
   max,
   min,
+  readonly = false,
   status,
   step = 1,
   vertical = false,
@@ -32,9 +33,15 @@ export const SliderRange = ({
 
   const [valueState, setValueState] = useState(() => setStateViaProps(value));
 
+  const containerRef = useRef<HTMLDivElement>(null);
+  const prevTabIndexes = useRef<Array<string | undefined>>([]);
+
   const handleInputChange =
     (index: number): InputNumberProps<number>['onChange'] =>
     value => {
+      if (readonly) {
+        return;
+      }
       const nextState = getValueOnInputChange({ antResult: value, index, valueState });
       setValueState(nextState);
       onChange?.(nextState);
@@ -42,12 +49,18 @@ export const SliderRange = ({
     };
 
   const handleSliderChange: AntSliderRangeProps['onChange'] = value => {
+    if (readonly) {
+      return;
+    }
     const nextState = getValueOnSliderChange(value);
     setValueState(nextState);
     onChange?.(nextState);
   };
 
   const handleSliderAfterChange: AntSliderRangeProps['onAfterChange'] = value => {
+    if (readonly) {
+      return;
+    }
     const nextState = getValueOnSliderChange(value);
     setValueState(nextState);
     onEnd?.(nextState);
@@ -60,6 +73,24 @@ export const SliderRange = ({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [value]);
 
+  // Set tabIndex cho input
+  useEffect(() => {
+    console.log(111, containerRef.current);
+    if (readonly && containerRef.current) {
+      containerRef.current.querySelectorAll('.ant-slider > .ant-slider-handle').forEach(($el, index) => {
+        update(index, $el.getAttribute('tabindex'), prevTabIndexes.current);
+        $el.setAttribute('tabindex', '-1');
+      });
+    } else if (!readonly) {
+      containerRef.current?.querySelectorAll('.ant-slider > .ant-slider-handle').forEach(($el, index) => {
+        const prevTabIndexValue = nth(index, prevTabIndexes.current);
+        if (prevTabIndexValue) {
+          $el.setAttribute('tabindex', prevTabIndexValue);
+        }
+      });
+    }
+  }, [readonly]);
+
   const renderInputNumberForStart = () => {
     if (withInputNumber) {
       return (
@@ -67,11 +98,13 @@ export const SliderRange = ({
           <InputNumber
             value={valueState?.[0] ?? undefined}
             onChange={handleInputChange(0)}
+            disabled={disabled || loading}
             max={valueState?.[1] ?? undefined}
             min={min}
-            step={step ?? undefined}
-            disabled={disabled || loading}
+            readOnly={readonly}
             status={status}
+            step={step ?? undefined}
+            tabIndex={readonly ? -1 : undefined}
           />
         </Col>
       );
@@ -88,9 +121,11 @@ export const SliderRange = ({
             onChange={handleInputChange(1)}
             max={max}
             min={valueState?.[0] ?? undefined}
-            step={step ?? undefined}
             disabled={disabled || loading}
+            readOnly={readonly}
             status={status}
+            step={step ?? undefined}
+            tabIndex={readonly ? -1 : undefined}
           />
         </Col>
       );
@@ -141,10 +176,12 @@ export const SliderRange = ({
   return (
     <Tooltip title={description}>
       <Row
+        ref={containerRef}
         gutter={16}
         id={id}
         className={classNames({
           SliderRange__container: true,
+          SliderRange__readonly: readonly,
           'SliderRange__container--error': status === 'error',
           'SliderRange__container--warning': status === 'warning',
           [className]: true,
