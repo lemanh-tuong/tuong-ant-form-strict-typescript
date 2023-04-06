@@ -22,6 +22,7 @@ export const Input = ({
   maxLength,
   placeholder,
   prefixIcon,
+  readonly = false,
   showCount,
   size,
   status,
@@ -32,6 +33,9 @@ export const Input = ({
   const [valueState, setValueState] = useState(() => setStateViaProps(value));
 
   const handleChange: AntInputProps['onChange'] = event => {
+    if (readonly) {
+      return;
+    }
     const nextState = getValueOnChange(event);
     setValueState(nextState);
     onChange?.(nextState);
@@ -50,6 +54,7 @@ export const Input = ({
         id={id}
         className={classNames({
           Input__container: true,
+          Input__readonly: readonly,
           [className]: true,
         })}
         style={
@@ -65,15 +70,17 @@ export const Input = ({
           onChange={handleChange}
           addonAfter={after}
           addonBefore={before}
-          autoFocus={defaultFocus}
+          autoFocus={defaultFocus && !readonly}
           disabled={disabled || loading}
           maxLength={maxLength}
           placeholder={placeholder}
           prefix={prefixIcon}
+          readOnly={readonly}
           showCount={showCount}
           size={size}
           status={status}
           suffix={suffixIcon}
+          tabIndex={readonly ? -1 : undefined}
         />
         {loading && <Loading />}
       </div>

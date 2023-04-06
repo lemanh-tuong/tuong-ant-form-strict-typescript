@@ -24,6 +24,7 @@ export const CheckboxMultiple = <Value extends unknown>({
   isChecked = defaultIsChecked,
   id = '',
   loading = false,
+  readonly = false,
   space = 'small',
   status,
 }: Props<Value>) => {
@@ -38,6 +39,9 @@ export const CheckboxMultiple = <Value extends unknown>({
   const handleChange =
     (option: Option<Value>): AntCheckboxProps['onChange'] =>
     event => {
+      if (readonly) {
+        return;
+      }
       const checked = event.target.checked;
       const nextState = getValueOnChange({ option, listOptions, checked, valueState, isChecked });
       setValueState(nextState);
@@ -82,6 +86,7 @@ export const CheckboxMultiple = <Value extends unknown>({
             disabled={isDisabled}
             indeterminate={indeterminate}
             onChange={handleChange(option)}
+            tabIndex={readonly ? -1 : undefined}
           >
             {label}
           </AntCheckbox>
@@ -104,6 +109,7 @@ export const CheckboxMultiple = <Value extends unknown>({
         }
         className={classNames({
           CheckboxMultiple__container: true,
+          CheckboxMultiple__readonly: readonly,
           'CheckboxMultiple__container--error': status === 'error',
           'CheckboxMultiple__container--warning': status === 'warning',
           [className]: true,

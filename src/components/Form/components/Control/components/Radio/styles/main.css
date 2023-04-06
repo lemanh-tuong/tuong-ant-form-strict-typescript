@@ -1,5 +1,6 @@
 @import './status/error.css';
 @import './status/warning.css';
+@import './readonly.css';
 
 .Radio__container,
 .Radio__option {

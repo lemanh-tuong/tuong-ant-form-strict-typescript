@@ -26,6 +26,7 @@ export const Number = ({
   min,
   parser,
   prefix,
+  readonly = false,
   size = 'large',
   status,
   step,
@@ -35,6 +36,9 @@ export const Number = ({
   const [valueState, setValueState] = useState<Result>(() => setStateViaProps(value));
 
   const handleChange: InputNumberProps<number>['onChange'] = event => {
+    if (readonly) {
+      return;
+    }
     const nextState = getValueOnChange(event);
     setValueState(nextState);
     onChange?.(nextState);
@@ -53,6 +57,7 @@ export const Number = ({
         id={id}
         className={classNames({
           Number__container: true,
+          Number__readonly: readonly,
           [className]: true,
         })}
         style={
@@ -66,9 +71,9 @@ export const Number = ({
           keyboard
           value={valueState}
           onChange={handleChange}
-          autoFocus={defaultFocus}
           addonAfter={after}
           addonBefore={before}
+          autoFocus={defaultFocus && !readonly}
           controls={controls}
           disabled={disabled || loading}
           formatter={formatter}
@@ -76,9 +81,11 @@ export const Number = ({
           min={min}
           parser={parser}
           prefix={prefix}
+          readOnly={readonly}
           size={size}
           status={status}
           step={step}
+          tabIndex={readonly ? -1 : undefined}
         />
         {loading && <Loading />}
       </div>

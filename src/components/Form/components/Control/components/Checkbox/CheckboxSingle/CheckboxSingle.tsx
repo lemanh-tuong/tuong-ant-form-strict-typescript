@@ -23,6 +23,7 @@ export const CheckboxSingle = <Value extends unknown>({
   isChecked = defaultIsChecked,
   id = '',
   loading = false,
+  readonly = false,
   space = 'small',
   status,
 }: Props<Value>) => {
@@ -35,6 +36,9 @@ export const CheckboxSingle = <Value extends unknown>({
   const handleChange =
     (option: Option<Value>): AntCheckboxProps['onChange'] =>
     event => {
+      if (readonly) {
+        return;
+      }
       const { checked } = event.target;
       const newValue = getValueOnChange({ atLeastOne, checked, option });
       setValueState(newValue);
@@ -68,7 +72,13 @@ export const CheckboxSingle = <Value extends unknown>({
             [className]: true,
           })}
         >
-          <AntCheckbox value={value} checked={checked} disabled={isDisabled} onChange={handleChange(option)}>
+          <AntCheckbox
+            value={value}
+            checked={checked}
+            disabled={isDisabled}
+            onChange={handleChange(option)}
+            tabIndex={readonly ? -1 : undefined}
+          >
             {label}
           </AntCheckbox>
           {optionLoading && <Loading />}
@@ -90,6 +100,7 @@ export const CheckboxSingle = <Value extends unknown>({
         }
         className={classNames({
           CheckboxSingle__container: true,
+          CheckboxSingle__readonly: readonly,
           'CheckboxSingle__container--error': status === 'error',
           'CheckboxSingle__container--warning': status === 'warning',
           [className]: true,

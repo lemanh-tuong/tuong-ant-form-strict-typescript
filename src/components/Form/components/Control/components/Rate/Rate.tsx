@@ -11,16 +11,17 @@ import { setStateViaProps } from './utils/setStateViaProps';
 export const Rate = ({
   onChange,
   value,
-  allowHalf,
+  allowHalf = false,
   character,
   className = '',
   count,
   description,
-  disabled,
+  disabled = false,
+  id = '',
+  loading = false,
+  readonly = false,
   status,
   tooltips,
-  id,
-  loading,
 }: Props) => {
   const { token } = theme.useToken();
 
@@ -28,6 +29,9 @@ export const Rate = ({
   const [tooltipVisible, setTooltipVisible] = useState(false);
 
   const handleChange: AntRateProps['onChange'] = value => {
+    if (readonly) {
+      return;
+    }
     const nextState = getValueOnChange(value);
     setValueState(nextState);
     onChange?.(nextState);
@@ -54,6 +58,7 @@ export const Rate = ({
         id={id}
         className={classNames({
           Rate__container: true,
+          Rate__readonly: readonly,
           'Rate__container--error': status === 'error',
           'Rate__container--warning': status === 'warning',
           [className]: true,
@@ -75,6 +80,7 @@ export const Rate = ({
           count={count}
           disabled={disabled}
           tooltips={tooltips}
+          tabIndex={readonly ? -1 : undefined}
         />
         {loading && <Loading />}
       </div>

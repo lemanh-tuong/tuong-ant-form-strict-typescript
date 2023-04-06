@@ -25,6 +25,7 @@ export const DatePickerSingle = ({
   loading = false,
   placeholder,
   presets = [],
+  readonly = false,
   renderExtraFooter,
   showTime,
   size = 'middle',
@@ -37,6 +38,9 @@ export const DatePickerSingle = ({
   });
 
   const handleChange: AntDatePickerProps['onChange'] = datePickerResult => {
+    if (readonly) {
+      return;
+    }
     const nextState = getValueOnChange(datePickerResult);
     setValueState(nextState);
     onChange?.(nextState);
@@ -58,6 +62,7 @@ export const DatePickerSingle = ({
         className={classNames({
           [className]: true,
           DatePickerSingle__container: true,
+          DatePickerSingle__readonly: readonly,
         })}
         style={
           {
@@ -78,12 +83,14 @@ export const DatePickerSingle = ({
           disabledTime={disabledTime}
           format={format}
           hideDisabledOptions={hideDisabledOptions}
+          open={readonly ? false : undefined}
           placeholder={placeholder}
           presets={presets}
           renderExtraFooter={renderExtraFooter}
           showTime={showTime}
           size={size}
           status={status}
+          tabIndex={readonly ? -1 : undefined}
           popupClassName={classNames({
             [dropdownClassName]: true,
             DatePickerSingle__dropdown: true,

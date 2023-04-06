@@ -32,6 +32,8 @@ export interface Props {
   placeholder?: AntMentionProps['placeholder'];
   /** Tiền tố để nhận đó hành động chuẩn bị chọn option */
   prefix?: AntMentionProps['prefix'];
+  /** Chế độ readonly */
+  readonly?: boolean;
   /** Chuỗi phân tách trước và sau option đã chọn */
   split?: AntMentionProps['split'];
   /** Status */

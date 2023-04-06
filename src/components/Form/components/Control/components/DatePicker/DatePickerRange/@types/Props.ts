@@ -46,6 +46,8 @@ export interface Props {
   placeholder?: RangePickerProps<Dayjs>['placeholder'];
   /** Các mẫu để chọn nhanh. Ví dụ: 3 ngày trước, ... */
   presets?: RangePickerProps<Dayjs>['presets'];
+  /** Chế độ readonly */
+  readonly?: boolean;
   /** Custom footer trong popup lịch */
   renderExtraFooter?: RangePickerProps<Dayjs>['renderExtraFooter'];
   /** Kết hợp time picker */

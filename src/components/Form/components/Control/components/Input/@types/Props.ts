@@ -29,6 +29,8 @@ export interface Props {
   placeholder?: AntInputProps['placeholder'];
   /** Biểu tượng tiền tố của ô input */
   prefixIcon?: AntInputProps['prefix'];
+  /** Chế độ readonly */
+  readonly?: boolean;
   /** Hiển thị đếm số lượng ký tự */
   showCount?: AntInputProps['showCount'];
   /** Size của input */

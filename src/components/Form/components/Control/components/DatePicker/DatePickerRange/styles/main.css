@@ -1,3 +1,5 @@
+@import './readonly.css';
+
 .DatePickerRange__container {
   position: relative;
 }

@@ -22,6 +22,7 @@ export const Radio = <Value extends unknown>({
   id,
   isChecked = defaultIsChecked,
   loading,
+  readonly = false,
   space = 'small',
   status,
 }: Props<Value>) => {
@@ -30,9 +31,13 @@ export const Radio = <Value extends unknown>({
   const [valueState, setValueState] = useState<Result<Value>>(() => {
     return setStateViaValueProps({ options, valueProps: value, isChecked });
   });
+
   const handleChange =
     (option: Option<Value>): AntRadioProps['onChange'] =>
     () => {
+      if (readonly) {
+        return;
+      }
       const newValue = getValueOnChange({ option });
       onChange?.(newValue);
       setValueState(newValue);
@@ -65,7 +70,13 @@ export const Radio = <Value extends unknown>({
             [className]: true,
           })}
         >
-          <AntRadio disabled={isDisabled} checked={checked} value={value} onChange={handleChange(option)}>
+          <AntRadio
+            value={value}
+            checked={checked}
+            disabled={isDisabled}
+            onChange={handleChange(option)}
+            tabIndex={readonly ? -1 : undefined}
+          >
             {label}
           </AntRadio>
           {optionLoading && <Loading />}
@@ -82,6 +93,7 @@ export const Radio = <Value extends unknown>({
         id={id}
         className={classNames({
           Radio__container: true,
+          Radio__readonly: readonly,
           'Radio__container--error': status === 'error',
           'Radio__container--warning': status === 'warning',
           [className]: true,

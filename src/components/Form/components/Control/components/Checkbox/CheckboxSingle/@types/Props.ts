@@ -31,6 +31,8 @@ export interface Props<Value extends unknown> {
   id?: SpaceProps['id'];
   /** Set trạng thái loading */
   loading?: boolean;
+  /** Chế độ readonly */
+  readonly?: boolean;
   /** Khoảng cách giữa các option */
   space?: SpaceProps['size'];
   /** Status */

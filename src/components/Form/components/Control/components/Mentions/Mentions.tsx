@@ -22,6 +22,7 @@ export const Mentions = ({
   notFoundContent,
   placeholder,
   prefix,
+  readonly = false,
   split,
   status,
 }: Props) => {
@@ -30,6 +31,9 @@ export const Mentions = ({
   const [valueState, setValueState] = useState(() => setStateViaProps(value));
 
   const handleChange: AntMentionProps['onChange'] = event => {
+    if (readonly) {
+      return;
+    }
     const nextState = getValueOnChange(event);
     setValueState(nextState);
     onChange?.(nextState);
@@ -47,7 +51,7 @@ export const Mentions = ({
       <AntMentions
         value={valueState ?? ''}
         onChange={handleChange}
-        autoFocus={defaultFocus}
+        autoFocus={defaultFocus && !readonly}
         autoSize={autoSize}
         disabled={disabled}
         id={id}
@@ -57,10 +61,13 @@ export const Mentions = ({
         options={options}
         placeholder={placeholder}
         prefix={prefix}
+        readOnly={readonly}
         split={split}
         status={status}
+        tabIndex={readonly ? -1 : undefined}
         className={classNames({
           Mentions__container: true,
+          Mentions__readonly: readonly,
           [className]: true,
         })}
         style={

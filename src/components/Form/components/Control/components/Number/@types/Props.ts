@@ -35,6 +35,8 @@ export interface Props {
   parser?: (value: string | undefined) => number;
   /** Biểu tượng tiền tố của ô input */
   prefix?: InputNumberProps<number>['prefix'];
+  /** Chế độ readonly */
+  readonly?: boolean;
   /** Size của input */
   size?: InputNumberProps<number>['size'];
   /** Status */

@@ -2,7 +2,7 @@
   .CheckboxMultiple__container
   .CheckboxMultiple__option
   .ant-checkbox-wrapper,
-.CheckboxMultiple__container.CheckboxMultiple__container--error
+.CheckboxMultiple__container--error
   .CheckboxMultiple__option
   .ant-checkbox-wrapper {
   color: var(--color-error) !important;
@@ -11,7 +11,7 @@
   .CheckboxMultiple__container
   .CheckboxMultiple__option
   .ant-checkbox::after,
-.CheckboxMultiple__container.CheckboxMultiple__container--error
+.CheckboxMultiple__container--error
   .CheckboxMultiple__option
   .ant-checkbox::after {
   border-color: var(--color-error) !important;
@@ -22,7 +22,7 @@
   .CheckboxMultiple__option
   .ant-checkbox
   .ant-checkbox-inner,
-.CheckboxMultiple__container.CheckboxMultiple__container--error
+.CheckboxMultiple__container--error
   .CheckboxMultiple__option
   .ant-checkbox
   .ant-checkbox-inner {
@@ -33,7 +33,7 @@
   .CheckboxMultiple__option
   .ant-checkbox.ant-checkbox-checked
   .ant-checkbox-inner,
-.CheckboxMultiple__container.CheckboxMultiple__container--error
+.CheckboxMultiple__container--error
   .CheckboxMultiple__option
   .ant-checkbox.ant-checkbox-checked
   .ant-checkbox-inner {

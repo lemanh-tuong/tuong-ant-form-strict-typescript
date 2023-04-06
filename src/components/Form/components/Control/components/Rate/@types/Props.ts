@@ -23,6 +23,8 @@ export interface Props {
   id?: string;
   /** Set trạng thái loading */
   loading?: boolean;
+  /** Chế độ readonly */
+  readonly?: boolean;
   /** Nội dung tooltip của từng phần tử */
   tooltips?: AntRateProps['tooltips'];
   /** Status */

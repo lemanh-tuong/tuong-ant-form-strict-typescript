@@ -46,6 +46,8 @@ export interface Props {
   placeholder?: PickerDateProps<Dayjs>['placeholder'];
   /** Các mẫu để chọn nhanh. Ví dụ: Chủ nhật tuần sau, ... */
   presets?: PickerDateProps<Dayjs>['presets'];
+  /** Chế độ readonly */
+  readonly?: boolean;
   /** Custom footer trong popup lịch */
   renderExtraFooter?: PickerDateProps<Dayjs>['renderExtraFooter'];
   /** Kết hợp time picker */
