@@ -1,2 +1,2 @@
 export { Control } from './Control';
-export type { ControlProps } from './@types/Props';
+export type { Props as ControlProps } from './@types/Props';

@@ -1,4 +1,5 @@
-import { Form as AntForm, Row } from 'antd';
+import { Form as AntForm, Row, Tooltip } from 'antd';
+import classNames from 'classnames';
 import { useEffect } from 'react';
 import { AnyObject } from './@types/BuiltIn';
 import { Props } from './@types/Props';
@@ -6,8 +7,8 @@ import { FieldArray } from './components/FieldArray';
 import { FieldSingle } from './components/FieldSingle';
 
 interface Actions {
-  setValues: <Model extends AnyObject>(data: Props<Model>['initialValues']) => void;
-  getValues: <Model extends AnyObject>() => Props<Model>['initialValues'];
+  setValues: <Model extends AnyObject>(data: Partial<Model>) => void;
+  getValues: <Model extends AnyObject>() => Partial<Model>;
 }
 
 const formHandler = new Map<string, Actions>();
@@ -15,53 +16,81 @@ const formHandler = new Map<string, Actions>();
 export const Form = <Model extends AnyObject>({
   uid,
   items,
+  className = '',
+  description,
   disabled = false,
   formInstance,
   initialValues,
-  layout = 'vertical',
+  layout = 'horizontal',
   onFieldsChange,
   onFinish,
   onFinishFailed,
   onValuesChange,
+  readonly = false,
 }: Props<Model>) => {
-  const form = AntForm.useFormInstance();
+  const [form] = AntForm.useForm<Partial<Model>>(formInstance);
 
   useEffect(() => {
     formHandler.set(uid, {
-      setValues: data => form.setFieldsValue(data),
-      getValues: () => form.getFieldsValue(),
+      setValues: data => {
+        if (readonly) {
+          form.setFieldsValue(data as any);
+        }
+      },
+      getValues: () => form.getFieldsValue() as any,
     });
     return () => {
       formHandler.delete(uid);
     };
-  }, [form, uid]);
+  }, [form, uid, readonly]);
 
   return (
-    <AntForm
-      disabled={disabled}
-      form={formInstance}
-      id={uid}
-      layout={layout}
-      initialValues={initialValues}
-      onFieldsChange={onFieldsChange}
-      onFinish={onFinish}
-      onFinishFailed={onFinishFailed}
-      onValuesChange={onValuesChange}
-    >
-      <Row gutter={16}>
-        {Object.keys(items).map(fieldName => {
-          const fieldName_ = fieldName as keyof typeof items;
-          const field = items[fieldName_];
-          if (field?.type === 'Single') {
-            return <FieldSingle key={fieldName_.toString()} fieldPath={fieldName_.toString()} {...field} />;
-          }
-          if (field?.type === 'Array') {
-            return <FieldArray key={fieldName_.toString()} fieldPath={fieldName_.toString()} {...field} />;
-          }
-          return null;
+    <Tooltip title={description}>
+      <AntForm
+        disabled={disabled}
+        form={form}
+        id={uid}
+        layout={layout}
+        initialValues={initialValues}
+        onFieldsChange={onFieldsChange}
+        onFinish={onFinish}
+        onFinishFailed={onFinishFailed}
+        onValuesChange={onValuesChange}
+        className={classNames({
+          Form__readonly: readonly,
+          Form__container: true,
+          [className]: true,
         })}
-      </Row>
-    </AntForm>
+      >
+        <Row gutter={16}>
+          {Object.keys(items).map(fieldPath => {
+            const fieldPath_ = fieldPath as keyof typeof items;
+            const field = items[fieldPath_];
+            if (field?.type === 'Single') {
+              return (
+                <FieldSingle
+                  {...field}
+                  key={fieldPath_.toString()}
+                  readonly={readonly}
+                  fieldPath={fieldPath_.toString()}
+                />
+              );
+            }
+            if (field?.type === 'Array') {
+              return (
+                <FieldArray
+                  {...field}
+                  key={fieldPath_.toString()}
+                  readonly={readonly}
+                  fieldPath={fieldPath_.toString()}
+                />
+              );
+            }
+            return null;
+          })}
+        </Row>
+      </AntForm>
+    </Tooltip>
   );
 };
 

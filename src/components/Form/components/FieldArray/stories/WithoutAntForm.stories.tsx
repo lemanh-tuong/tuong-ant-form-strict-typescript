@@ -3,7 +3,7 @@ import { withDesign } from 'storybook-addon-designs';
 import { FieldArray } from '../FieldArray';
 
 export default {
-  title: 'FieldArray/WithoutFormAntd',
+  title: 'FieldArray/WithoutAntForm',
   component: FieldArray,
   argTypes: {},
   args: {},
@@ -14,7 +14,7 @@ interface Passenger {
   firstName: string;
   lastName: string;
 }
-export const WithoutFormAntd: ComponentStory<typeof FieldArray> = () => {
+export const WithoutAntForm: ComponentStory<typeof FieldArray> = () => {
   return (
     <FieldArray<Passenger, keyof Passenger>
       rules={[]}

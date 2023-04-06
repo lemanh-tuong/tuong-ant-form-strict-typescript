@@ -79,7 +79,7 @@ interface TimePickerSingle extends OmitKeyForControlOfField<TimePickerSingleProp
   type: 'TimePickerSingle';
 }
 
-export type ControlProps =
+export type Props =
   | CheckboxSingle
   | CheckboxMultiple
   | DatePickerRange

@@ -25,6 +25,7 @@ interface CollapseProps<Model extends AnyObject, Key extends keyof Model> {
   fieldsOfFormList: FormListFieldData[];
   operation: FormListOperation;
   parentFieldPath: Exclude<FieldArrayProps<Model, Key>['parentFieldPath'], undefined>;
+  readonly: Exclude<FieldArrayProps<Model, Key>['readonly'], undefined>;
 }
 
 export const Collapse = <Model extends AnyObject, Key extends keyof Model>({
@@ -34,6 +35,7 @@ export const Collapse = <Model extends AnyObject, Key extends keyof Model>({
   fieldsOfFormList,
   operation,
   parentFieldPath,
+  readonly,
 }: CollapseProps<Model, Key>) => {
   // Control ant collapse -> Key của các panel đang được active
   const [activeKeys, setActiveKeys] = useState<undefined | string[]>(undefined);
@@ -118,14 +120,15 @@ export const Collapse = <Model extends AnyObject, Key extends keyof Model>({
         forceRender
         header={
           <CollapseHeader<Model>
-            fieldPathOfItem={fieldPathOfItem}
             collapseTitle={collapseTitle}
+            fieldPathOfItem={fieldPathOfItem}
             index={index}
             onDelete={() => handleOpenModalConfirmRemoveItem({ keyOfCollapse, index })}
             onDuplicate={handleDuplicateItem(index)}
             onView={() => {
               console.log('View');
             }}
+            readonly={readonly}
           />
         }
       >

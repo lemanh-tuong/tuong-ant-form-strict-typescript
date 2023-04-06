@@ -13,6 +13,7 @@ export interface CollapseHeaderProps<Model extends AnyObject> {
   onDelete: () => void;
   onDuplicate: (data: Model | undefined) => void;
   onView: () => void;
+  readonly: FieldArrayProps<Model, keyof Model>['readonly'];
 }
 
 export const CollapseHeader = <Model extends AnyObject>({
@@ -22,6 +23,7 @@ export const CollapseHeader = <Model extends AnyObject>({
   onDelete,
   onDuplicate,
   onView,
+  readonly,
 }: CollapseHeaderProps<Model>) => {
   /** Ant form instance -> Dùng để lắng nghe values của form thay đổi */
   const form = useGetAntFormInstance();
@@ -41,11 +43,11 @@ export const CollapseHeader = <Model extends AnyObject>({
     onView();
   };
 
-  return (
-    <Row justify="center">
-      <Col flex="auto">
-        <Space align="center">{collapseTitle({ index, data })}</Space>
-      </Col>
+  const renderActions = () => {
+    if (readonly) {
+      return null;
+    }
+    return (
       <Col>
         <Space align="center" style={{ height: '100%' }}>
           <Tooltip title="View">
@@ -59,6 +61,15 @@ export const CollapseHeader = <Model extends AnyObject>({
           </Tooltip>
         </Space>
       </Col>
+    );
+  };
+
+  return (
+    <Row justify="center">
+      <Col flex="auto">
+        <Space align="center">{collapseTitle({ index, data })}</Space>
+      </Col>
+      {renderActions()}
     </Row>
   );
 };

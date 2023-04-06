@@ -1,4 +1,5 @@
 import { FormInstance, FormProps as AntFormProps } from 'antd';
+import { ReactNode } from 'react';
 import { FieldArrayBaseProps } from '../components/FieldArray';
 import { AnyObject } from './BuiltIn';
 
@@ -23,4 +24,8 @@ export interface Props<Model extends AnyObject, Key extends keyof Model = keyof 
   onFinishFailed?: Required<AntFormProps<Partial<Model>>>['onFinishFailed'];
   /** Callback được gọi khi value của form được update */
   onValuesChange?: Required<AntFormProps<Partial<Model>>>['onValuesChange'];
+  /** Custom class của container */
+  className?: string;
+  /** Nội dung mô tả của tooltip */
+  description?: ReactNode;
 }

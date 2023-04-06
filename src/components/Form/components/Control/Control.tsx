@@ -1,4 +1,4 @@
-import { ControlProps } from './@types/Props';
+import { Props } from './@types/Props';
 import { CheckboxMultiple, CheckboxSingle } from './components/Checkbox';
 import { DatePickerRange, DatePickerSingle } from './components/DatePicker';
 import { Input } from './components/Input';
@@ -12,7 +12,7 @@ import { Switch } from './components/Switch';
 import { Textarea } from './components/Textarea';
 import { TimePickerRange, TimePickerSingle } from './components/TimePicker';
 
-const Mapping: Record<ControlProps['type'], (...args: any) => JSX.Element> = {
+const Mapping: Record<Props['type'], (...args: any) => JSX.Element> = {
   CheckboxMultiple: CheckboxMultiple,
   CheckboxSingle: CheckboxSingle,
   DatePickerRange: DatePickerRange,
@@ -33,6 +33,6 @@ const Mapping: Record<ControlProps['type'], (...args: any) => JSX.Element> = {
   TimePickerSingle: TimePickerSingle,
 };
 
-export const Control = ({ type, ...props }: ControlProps) => {
+export const Control = ({ type, ...props }: Props) => {
   return Mapping[type](props);
 };

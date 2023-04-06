@@ -75,4 +75,6 @@ export interface Props<Model extends AnyObject, Key extends keyof Model> extends
    * Property được sử dụng để làm chức năng mở collapse khi các thành phần con có lỗi + Trả về dữ liệu cho render props "collapseTitle"
    */
   parentFieldPath?: NamePath[];
+  /** Chế độ readonly */
+  readonly?: boolean;
 }

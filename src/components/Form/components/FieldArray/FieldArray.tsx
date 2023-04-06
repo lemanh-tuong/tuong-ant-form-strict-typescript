@@ -13,6 +13,7 @@ export const FieldArray = <Model extends AnyObject, Key extends keyof Model>({
   rules,
   itemSkeleton,
   maxItems = Number.MAX_SAFE_INTEGER,
+  readonly = false,
 }: Props<Model, Key>) => {
   const {
     collapseTitle,
@@ -61,14 +62,16 @@ export const FieldArray = <Model extends AnyObject, Key extends keyof Model>({
                   fieldsOfFormList={fields}
                   operation={operation}
                   parentFieldPath={parentFieldPath}
+                  readonly={readonly}
                 />
                 <DuplicateLastItemButton
                   fieldPath={fieldPath}
                   fieldsOfFormList={fields}
-                  operation={operation}
-                  parentFieldPath={parentFieldPath}
                   itemSkeleton={itemSkeleton}
                   maxItems={maxItems}
+                  operation={operation}
+                  parentFieldPath={parentFieldPath}
+                  readonly={readonly}
                 />
                 <Form.ErrorList errors={errors} warnings={warnings} />
               </>

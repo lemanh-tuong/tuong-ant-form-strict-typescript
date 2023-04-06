@@ -48,6 +48,14 @@ export interface BaseProps<Value extends unknown> {
 type NamePath = string | number;
 
 export interface Props<Value extends unknown> extends BaseProps<Value> {
+  /**
+   * Giống name của field
+   * Chỉ truyền string
+   */
   fieldPath: NamePath | NamePath[];
+  /** @private
+   * Không sử dụng property này để không có gì lỗi xảy ra.
+   * Property được sử dụng để làm chức năng mở collapse khi các thành phần con có lỗi + Trả về dữ liệu cho render props "collapseTitle"
+   */
   parentFieldPath?: NamePath[];
 }

@@ -3,7 +3,7 @@ import { Control } from '../Control';
 import { getRulesViaProps } from '../utils/getRulesViaProps';
 import { Props } from './@types/Props';
 
-export const FieldSingle = <Value extends unknown>({ control, fieldPath: fieldName, layout, rules }: Props<Value>) => {
+export const FieldSingle = <Value extends unknown>({ control, fieldPath, layout, rules }: Props<Value>) => {
   const {
     colon,
     containerCol = { span: 24, offset: 0 },
@@ -34,7 +34,7 @@ export const FieldSingle = <Value extends unknown>({ control, fieldPath: fieldNa
         tooltip={tooltip}
         validateTrigger={validateTrigger}
         wrapperCol={controlCol}
-        name={fieldName}
+        name={fieldPath}
       >
         <Control {...control} />
       </Form.Item>

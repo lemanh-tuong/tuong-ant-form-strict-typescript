@@ -12,15 +12,17 @@ interface DuplicateLastItemButtonProps<Model extends AnyObject, Key extends keyo
   maxItems: Exclude<FieldArrayProps<Model, Key>['maxItems'], undefined>;
   operation: FormListOperation;
   parentFieldPath: Exclude<FieldArrayProps<Model, Key>['parentFieldPath'], undefined>;
+  readonly: Exclude<FieldArrayProps<Model, Key>['readonly'], undefined>;
 }
 
 export const DuplicateLastItemButton = <Model extends AnyObject, Key extends keyof Model>({
-  operation,
+  fieldPath,
+  fieldsOfFormList,
   itemSkeleton,
   maxItems,
-  fieldsOfFormList,
-  fieldPath,
+  operation,
   parentFieldPath,
+  readonly,
 }: DuplicateLastItemButtonProps<Model, Key>) => {
   // Với nested form list "fieldPath" truyền vào sẽ bao gồm cả "index" của thằng cha => Lấy phần tử cuối cùng là fieldPath bỏ qua nested của field
   const fieldPathWithoutIndex = useMemo(() => {
@@ -43,7 +45,7 @@ export const DuplicateLastItemButton = <Model extends AnyObject, Key extends key
     }
   };
 
-  if (maxItems < fieldsOfFormList.length) {
+  if (readonly || maxItems < fieldsOfFormList.length) {
     return null;
   }
 
